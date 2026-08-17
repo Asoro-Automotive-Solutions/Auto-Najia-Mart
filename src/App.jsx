@@ -11,6 +11,7 @@ import ResetPage from "./pages/auth/ResetPage";
 import PasswordResetSuccessPage from "./pages/auth/PasswordResetSuccessPage";
 
 import ChatPage from "./pages/chats/Chatpage";
+import OrderHistoryPage from "./pages/orders/OrderHistoryPage";
 
 // Each *Route component below is the "parent" for its page — it owns
 // navigation (via useNavigate) and hands the right callback props down
@@ -128,12 +129,79 @@ function ChatRoute() {
   return (
     <ChatPage
       onNavigate={(key) => {
-        // Wire these up to real routes once those pages exist.
-        console.log("navbar navigate:", key);
+        if (key === "order") navigate("/orders");
+        else if (key === "chat") navigate("/chat");
+        else if (key === "home") navigate("/");
+        else console.log("navbar navigate:", key);
       }}
-      onPayEscrow={() => console.log("pay via escrow")}
+      onPayEscrow={() => {
+        console.log("pay via escrow");
+        navigate("/orders");
+      }}
       onSendMessage={(text) => console.log("send message", text)}
     />
+  );
+}
+
+function OrderHistoryRoute() {
+  const navigate = useNavigate();
+  return (
+    <OrderHistoryPage
+      onBack={() => navigate(-1)}
+      onNavigate={(key) => {
+        if (key === "chat") navigate("/chat");
+        else if (key === "order") navigate("/orders");
+        else if (key === "home") navigate("/");
+        else if (key === "search") navigate("/search");
+        else if (key === "profile") navigate("/profile");
+        else console.log("bottom nav navigate:", key);
+      }}
+      onOrderClick={(order) => {
+        console.log("Order clicked:", order);
+      }}
+    />
+  );
+}
+
+function SearchRoute() {
+  const navigate = useNavigate();
+  const handleNav = (key) => {
+    if (key === "order") navigate("/orders");
+    else if (key === "chat") navigate("/chat");
+    else if (key === "profile") navigate("/profile");
+    else if (key === "search") navigate("/search");
+    else navigate("/");
+  };
+  return (
+    <div className="min-h-screen bg-slate-50 flex flex-col">
+      <Navbar activeKey="search" onNavigate={handleNav} />
+      <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
+        <h2 className="text-xl font-bold text-slate-800">Search Auto Parts & Vehicles</h2>
+        <p className="text-sm text-slate-500 mt-2">Search catalogue coming soon.</p>
+      </div>
+      <BottomNav activeKey="search" onNavigate={handleNav} />
+    </div>
+  );
+}
+
+function ProfileRoute() {
+  const navigate = useNavigate();
+  const handleNav = (key) => {
+    if (key === "order") navigate("/orders");
+    else if (key === "chat") navigate("/chat");
+    else if (key === "profile") navigate("/profile");
+    else if (key === "search") navigate("/search");
+    else navigate("/");
+  };
+  return (
+    <div className="min-h-screen bg-slate-50 flex flex-col">
+      <Navbar activeKey="profile" onNavigate={handleNav} />
+      <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
+        <h2 className="text-xl font-bold text-slate-800">User Profile</h2>
+        <p className="text-sm text-slate-500 mt-2">Manage your account and buyer settings.</p>
+      </div>
+      <BottomNav activeKey="profile" onNavigate={handleNav} />
+    </div>
   );
 }
 
@@ -156,9 +224,13 @@ function App() {
         />
 
         <Route path="/chat" element={<ChatRoute />} />
+        <Route path="/orders" element={<OrderHistoryRoute />} />
+        <Route path="/order-history" element={<OrderHistoryRoute />} />
+        <Route path="/search" element={<SearchRoute />} />
+        <Route path="/profile" element={<ProfileRoute />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-export default App;
+export default App;
