@@ -12,6 +12,7 @@ import PasswordResetSuccessPage from "./pages/auth/PasswordResetSuccessPage";
 
 import ChatPage from "./pages/chats/Chatpage";
 import OrderHistoryPage from "./pages/orders/OrderHistoryPage";
+import ProfilePage from "./pages/profile/ProfilePage";
 
 // Each *Route component below is the "parent" for its page — it owns
 // navigation (via useNavigate) and hands the right callback props down
@@ -194,14 +195,10 @@ function ProfileRoute() {
     else navigate("/");
   };
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      <Navbar activeKey="profile" onNavigate={handleNav} />
-      <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
-        <h2 className="text-xl font-bold text-slate-800">User Profile</h2>
-        <p className="text-sm text-slate-500 mt-2">Manage your account and buyer settings.</p>
-      </div>
-      <BottomNav activeKey="profile" onNavigate={handleNav} />
-    </div>
+    <ProfilePage
+      onNavigate={handleNav}
+      onLogOut={() => navigate("/login")}
+    />
   );
 }
 
