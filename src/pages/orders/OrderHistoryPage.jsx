@@ -25,132 +25,101 @@ import OrderCard from "../../components/OrderCard";
 import DisputeModal from "../../components/DisputeModal";
 
 /**
- * Mobile dataset aligned with Mobile Prototype
+ * Unified orders dataset shared across Desktop and Mobile views
  */
-const MOBILE_ORDERS = [
+const UNIFIED_ORDERS = [
   {
-    id: "ord-m1",
+    id: "ord-1",
     orderNumber: "ANM-8821",
     title: "OEM Brake Pad Set",
+    extraItems: "+2 more items",
+    image: "/images/brake_pads.jpg",
     price: 37000,
     status: "in_transit",
     expectedDate: "Dec 12 by 5:00pm",
+    date: "Dec 19, 2026",
     orderDate: "Dec 19, 2026",
     isFundReleased: false,
     isDisputed: false,
   },
   {
-    id: "ord-m2",
+    id: "ord-2",
     orderNumber: "ANM-8821",
-    title: "OEM Brake Pad Premium",
-    price: 52500,
-    status: "confirmed",
-    expectedDate: null,
-    orderDate: "Dec 19, 2026",
-    isFundReleased: true,
-    isDisputed: false,
-  },
-  {
-    id: "ord-m3",
-    orderNumber: "ANM-8821",
-    title: "Engine Part",
-    price: 37000,
-    status: "shipped",
-    expectedDate: "April 10-12",
-    orderDate: "Dec 19, 2026",
-    isFundReleased: false,
-    isDisputed: false,
-  },
-  {
-    id: "ord-m4",
-    orderNumber: "ANM-8821",
-    title: "OEM Brake Pad Premium",
-    price: 52500,
-    status: "delivered",
-    expectedDate: null,
-    orderDate: "Dec 19, 2026",
-    isFundReleased: false,
-    isDisputed: false,
-  },
-];
-
-/**
- * Desktop dataset aligned with Desktop Prototype
- */
-const DESKTOP_ORDERS = [
-  {
-    id: "ord-d1",
-    orderNumber: "ORD-0921",
-    title: "Premium Ceramic Brake Pads",
-    extraItems: "+2 more items",
-    image: "/images/brake_pads.jpg",
-    price: 450.0,
-    status: "in_transit",
-    date: "Oct 24, 2024",
-    orderDate: "Oct 24, 2024",
-    isFundReleased: false,
-    isDisputed: false,
-  },
-  {
-    id: "ord-d2",
-    orderNumber: "ORD-0918",
     title: "High-Output Alternator Assembly",
     extraItems: null,
     image: "/images/alternator.jpg",
-    price: 210.5,
-    status: "delivered",
-    date: "Oct 15, 2024",
-    orderDate: "Oct 15, 2024",
+    price: 52500,
+    status: "confirmed",
+    expectedDate: null,
+    date: "Dec 19, 2026",
+    orderDate: "Dec 19, 2026",
     isFundReleased: true,
     isDisputed: false,
   },
   {
-    id: "ord-d3",
-    orderNumber: "ORD-0872",
-    title: "OEM Spark Plugs (Set of 4)",
+    id: "ord-3",
+    orderNumber: "ANM-8821",
+    title: "Engine Part",
     extraItems: "+1 more item",
     image: "/images/brake_pads.jpg",
-    price: 320.0,
-    status: "in_transit",
-    date: "Oct 10, 2024",
-    orderDate: "Oct 10, 2024",
+    price: 37000,
+    status: "shipped",
+    expectedDate: "April 10-12",
+    date: "Dec 19, 2026",
+    orderDate: "Dec 19, 2026",
     isFundReleased: false,
     isDisputed: false,
   },
   {
-    id: "ord-d4",
-    orderNumber: "ORD-0845",
+    id: "ord-4",
+    orderNumber: "ANM-8821",
+    title: "OEM Brake Pad Premium",
+    extraItems: null,
+    image: "/images/brake_pads.jpg",
+    price: 52500,
+    status: "delivered",
+    expectedDate: null,
+    date: "Dec 19, 2026",
+    orderDate: "Dec 19, 2026",
+    isFundReleased: false,
+    isDisputed: false,
+  },
+  {
+    id: "ord-5",
+    orderNumber: "ANM-8820",
     title: "Synthetic Motor Oil 5W-30 (5L)",
     extraItems: null,
     image: "/images/alternator.jpg",
-    price: 185.0,
+    price: 18500,
     status: "delivered",
-    date: "Sep 28, 2024",
-    orderDate: "Sep 28, 2024",
+    expectedDate: null,
+    date: "Dec 15, 2026",
+    orderDate: "Dec 15, 2026",
     isFundReleased: true,
     isDisputed: false,
   },
   {
-    id: "ord-d5",
-    orderNumber: "ORD-0810",
+    id: "ord-6",
+    orderNumber: "ANM-8819",
     title: "Front Suspension Strut Assembly",
     extraItems: "+3 more items",
     image: "/images/brake_pads.jpg",
-    price: 890.0,
+    price: 89000,
     status: "in_transit",
-    date: "Sep 14, 2024",
-    orderDate: "Sep 14, 2024",
+    expectedDate: "Dec 24 by 2:00pm",
+    date: "Dec 10, 2026",
+    orderDate: "Dec 10, 2026",
     isFundReleased: false,
     isDisputed: false,
   },
 ];
 
 export default function OrderHistoryPage({
+  initialOrders = UNIFIED_ORDERS,
   onNavigate = () => {},
   onOrderClick,
 }) {
-  const [mobileOrders, setMobileOrders] = useState(MOBILE_ORDERS);
-  const [desktopOrders, setDesktopOrders] = useState(DESKTOP_ORDERS);
+  const [orders, setOrders] = useState(initialOrders);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [dateRangeFilter, setDateRangeFilter] = useState("30_days");
@@ -165,24 +134,9 @@ export default function OrderHistoryPage({
     }, 2500);
   };
 
-  // Toggle Fund Release (Mobile & Desktop)
+  // Toggle Fund Release state for an order (synchronously updates dataset)
   const handleToggleFund = (orderId) => {
-    setMobileOrders((prev) =>
-      prev.map((ord) => {
-        if (ord.id === orderId) {
-          const next = !ord.isFundReleased;
-          triggerToast(
-            next
-              ? `Escrow fund released for Order #${ord.orderNumber}`
-              : `Fund release revoked for Order #${ord.orderNumber}`
-          );
-          return { ...ord, isFundReleased: next };
-        }
-        return ord;
-      })
-    );
-
-    setDesktopOrders((prev) =>
+    setOrders((prev) =>
       prev.map((ord) => {
         if (ord.id === orderId) {
           const next = !ord.isFundReleased;
@@ -200,14 +154,7 @@ export default function OrderHistoryPage({
 
   // Handle Dispute
   const handleSubmitDispute = (disputeData) => {
-    setMobileOrders((prev) =>
-      prev.map((ord) =>
-        ord.id === disputeData.orderId
-          ? { ...ord, isDisputed: true, isFundReleased: false }
-          : ord
-      )
-    );
-    setDesktopOrders((prev) =>
+    setOrders((prev) =>
       prev.map((ord) =>
         ord.id === disputeData.orderId
           ? { ...ord, isDisputed: true, isFundReleased: false }
@@ -217,22 +164,10 @@ export default function OrderHistoryPage({
     triggerToast(`Dispute initiated for Order #${disputeData.orderNumber}`);
   };
 
-  // Filtered lists
-  const filteredMobileOrders = useMemo(() => {
+  // Filtered orders list (used by both Desktop & Mobile views)
+  const filteredOrders = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
-    return mobileOrders.filter((order) => {
-      return (
-        !query ||
-        order.orderNumber.toLowerCase().includes(query) ||
-        order.title.toLowerCase().includes(query) ||
-        order.status.toLowerCase().includes(query)
-      );
-    });
-  }, [mobileOrders, searchQuery]);
-
-  const filteredDesktopOrders = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase();
-    return desktopOrders.filter((order) => {
+    return orders.filter((order) => {
       const matchesSearch =
         !query ||
         order.orderNumber.toLowerCase().includes(query) ||
@@ -244,7 +179,16 @@ export default function OrderHistoryPage({
 
       return matchesSearch && matchesStatus;
     });
-  }, [desktopOrders, searchQuery, statusFilter]);
+  }, [orders, searchQuery, statusFilter]);
+
+  // Synchronized computed totals
+  const totalOrdersCount = orders.length;
+  const totalSpentAmount = useMemo(() => {
+    return orders.reduce((sum, ord) => sum + (Number(ord.price) || 0), 0);
+  }, [orders]);
+  const inTransitCount = useMemo(() => {
+    return orders.filter((o) => o.status === "in_transit").length;
+  }, [orders]);
 
   const getStatusDot = (status, isDisputed) => {
     if (isDisputed) {
@@ -290,7 +234,7 @@ export default function OrderHistoryPage({
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col">
       {/* ========================================================================= */}
-      {/* 📱 MOBILE TOP HEADER APP BAR (< md screens matching Mobile Prototype)     */}
+      {/* 📱 MOBILE TOP HEADER APP BAR (< md screens)                               */}
       {/* ========================================================================= */}
       <header className="md:hidden sticky top-0 z-30 bg-[#0F2C52] text-white px-4 py-3.5 flex items-center justify-between shadow-xs">
         <button
@@ -328,12 +272,13 @@ export default function OrderHistoryPage({
                   type="button"
                   onClick={() => {
                     setSearchQuery("");
+                    setStatusFilter("all");
                     setMenuOpen(false);
                   }}
                   className="w-full px-4 py-2 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 flex items-center gap-2"
                 >
                   <RefreshCw className="h-3.5 w-3.5 text-slate-400" />
-                  <span>Reset Search</span>
+                  <span>Reset Filters</span>
                 </button>
                 <button
                   type="button"
@@ -365,7 +310,7 @@ export default function OrderHistoryPage({
       )}
 
       {/* ========================================================================= */}
-      {/* 📱 MOBILE VIEW (< md screens matching Screen 1 Figma prototype)           */}
+      {/* 📱 MOBILE VIEW (< md screens)                                             */}
       {/* ========================================================================= */}
       <div className="md:hidden flex-1 px-4 py-4 pb-24 max-w-md mx-auto w-full flex flex-col gap-4">
         {/* Search Bar */}
@@ -391,7 +336,6 @@ export default function OrderHistoryPage({
 
         {/* 2 Metric Summary Cards */}
         <section className="grid grid-cols-2 gap-3" aria-label="Order Metrics">
-          {/* Total Orders Card */}
           <div className="relative overflow-hidden rounded-2xl bg-[#EEEDFA] border border-[#DDD8F8] p-3.5 flex flex-col justify-between">
             <div className="absolute -right-2 -top-2 w-16 h-16 bg-[#DFDCF8] rounded-full opacity-60 pointer-events-none" />
             <div className="flex items-center gap-1.5 relative z-10">
@@ -404,12 +348,11 @@ export default function OrderHistoryPage({
             </div>
             <div className="mt-2.5 relative z-10">
               <span className="text-2xl font-black text-slate-900 tracking-tight">
-                6
+                {totalOrdersCount}
               </span>
             </div>
           </div>
 
-          {/* Total Spent Card */}
           <div className="relative overflow-hidden rounded-2xl bg-[#FBF1EA] border border-[#F4E0D2] p-3.5 flex flex-col justify-between">
             <div className="absolute -right-2 -top-2 w-16 h-16 bg-[#F5E2D4] rounded-full opacity-60 pointer-events-none" />
             <div className="flex items-center gap-1.5 relative z-10">
@@ -422,7 +365,7 @@ export default function OrderHistoryPage({
             </div>
             <div className="mt-2.5 relative z-10">
               <span className="text-lg font-black text-slate-900 tracking-tight">
-                ₦81,000
+                ₦{totalSpentAmount.toLocaleString()}
               </span>
             </div>
           </div>
@@ -432,9 +375,9 @@ export default function OrderHistoryPage({
         <section className="flex flex-col gap-2.5">
           <h2 className="text-sm font-bold text-slate-900">Recent Orders</h2>
 
-          {filteredMobileOrders.length > 0 ? (
+          {filteredOrders.length > 0 ? (
             <div className="flex flex-col gap-3">
-              {filteredMobileOrders.map((order) => (
+              {filteredOrders.map((order) => (
                 <OrderCard
                   key={order.id}
                   order={order}
@@ -453,7 +396,7 @@ export default function OrderHistoryPage({
       </div>
 
       {/* ========================================================================= */}
-      {/* 🖥️ DESKTOP VIEW (>= md screens matching Desktop Figma Canvas)              */}
+      {/* 🖥️ DESKTOP VIEW (>= md screens)                                           */}
       {/* ========================================================================= */}
       <main className="hidden md:block flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
         <div className="flex flex-col gap-6">
@@ -487,7 +430,7 @@ export default function OrderHistoryPage({
               </div>
               <div className="mt-4">
                 <span className="text-4xl font-extrabold text-slate-900 tracking-tight">
-                  124
+                  {totalOrdersCount}
                 </span>
               </div>
             </div>
@@ -499,7 +442,7 @@ export default function OrderHistoryPage({
               </div>
               <div className="mt-4">
                 <span className="text-3xl font-extrabold text-[#0F2C52] tracking-tight">
-                  ₦14,520.00
+                  ₦{totalSpentAmount.toLocaleString()}
                 </span>
               </div>
             </div>
@@ -511,7 +454,7 @@ export default function OrderHistoryPage({
               </div>
               <div className="mt-4">
                 <span className="text-4xl font-extrabold text-[#EA580C] tracking-tight">
-                  3
+                  {inTransitCount}
                 </span>
               </div>
             </div>
@@ -584,8 +527,8 @@ export default function OrderHistoryPage({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {filteredDesktopOrders.length > 0 ? (
-                    filteredDesktopOrders.map((order) => (
+                  {filteredOrders.length > 0 ? (
+                    filteredOrders.map((order) => (
                       <tr
                         key={order.id}
                         onClick={() => onOrderClick && onOrderClick(order)}
@@ -672,7 +615,7 @@ export default function OrderHistoryPage({
                         <td className="py-4 px-6 text-right whitespace-nowrap">
                           <div className="flex flex-col items-end">
                             <span className="text-base font-bold text-slate-900">
-                              ₦{Number(order.price).toFixed(2)}
+                              ₦{Number(order.price).toLocaleString()}
                             </span>
                             {!order.isFundReleased && !order.isDisputed && (
                               <button
