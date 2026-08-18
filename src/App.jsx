@@ -10,9 +10,13 @@ import VerifyPage from "./pages/auth/VerifyPage";
 import ResetPage from "./pages/auth/ResetPage";
 import PasswordResetSuccessPage from "./pages/auth/PasswordResetSuccessPage";
 
+import Navbar from "./components/Navbar";
+import BottomNav from "./components/BottomNav";
+
 import ChatPage from "./pages/chats/Chatpage";
 import OrderHistoryPage from "./pages/orders/OrderHistoryPage";
 import ProfilePage from "./pages/profile/ProfilePage";
+import NotificationSettingsPage from "./pages/settings/NotificationSettingsPage";
 
 // Each *Route component below is the "parent" for its page — it owns
 // navigation (via useNavigate) and hands the right callback props down
@@ -192,12 +196,29 @@ function ProfileRoute() {
     else if (key === "chat") navigate("/chat");
     else if (key === "profile") navigate("/profile");
     else if (key === "search") navigate("/search");
+    else if (key === "notifications") navigate("/notifications");
     else navigate("/");
   };
   return (
     <ProfilePage
       onNavigate={handleNav}
       onLogOut={() => navigate("/login")}
+    />
+  );
+}
+
+function NotificationSettingsRoute() {
+  const navigate = useNavigate();
+  const handleNav = (key) => {
+    if (key === "order") navigate("/orders");
+    else if (key === "chat") navigate("/chat");
+    else if (key === "profile") navigate("/profile");
+    else if (key === "search") navigate("/search");
+    else navigate("/");
+  };
+  return (
+    <NotificationSettingsPage
+      onNavigate={handleNav}
     />
   );
 }
@@ -225,6 +246,8 @@ function App() {
         <Route path="/order-history" element={<OrderHistoryRoute />} />
         <Route path="/search" element={<SearchRoute />} />
         <Route path="/profile" element={<ProfileRoute />} />
+        <Route path="/notifications" element={<NotificationSettingsRoute />} />
+        <Route path="/settings/notifications" element={<NotificationSettingsRoute />} />
       </Routes>
     </BrowserRouter>
   );
