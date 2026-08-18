@@ -13,31 +13,86 @@ import {
   Calendar,
   AlertCircle,
   ShieldCheck,
-  Car,
+  ArrowLeft,
+  MoreVertical,
+  RefreshCw,
+  FileText,
+  HelpCircle,
 } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import BottomNav from "../../components/BottomNav";
+import OrderCard from "../../components/OrderCard";
 import DisputeModal from "../../components/DisputeModal";
 
 /**
- * Initial dataset aligned with the Figma Desktop specification
+ * Mobile dataset aligned with Mobile Prototype
  */
-const DEFAULT_DESKTOP_ORDERS = [
+const MOBILE_ORDERS = [
   {
-    id: "ord-1",
+    id: "ord-m1",
+    orderNumber: "ANM-8821",
+    title: "OEM Brake Pad Set",
+    price: 37000,
+    status: "in_transit",
+    expectedDate: "Dec 12 by 5:00pm",
+    orderDate: "Dec 19, 2026",
+    isFundReleased: false,
+    isDisputed: false,
+  },
+  {
+    id: "ord-m2",
+    orderNumber: "ANM-8821",
+    title: "OEM Brake Pad Premium",
+    price: 52500,
+    status: "confirmed",
+    expectedDate: null,
+    orderDate: "Dec 19, 2026",
+    isFundReleased: true,
+    isDisputed: false,
+  },
+  {
+    id: "ord-m3",
+    orderNumber: "ANM-8821",
+    title: "Engine Part",
+    price: 37000,
+    status: "shipped",
+    expectedDate: "April 10-12",
+    orderDate: "Dec 19, 2026",
+    isFundReleased: false,
+    isDisputed: false,
+  },
+  {
+    id: "ord-m4",
+    orderNumber: "ANM-8821",
+    title: "OEM Brake Pad Premium",
+    price: 52500,
+    status: "delivered",
+    expectedDate: null,
+    orderDate: "Dec 19, 2026",
+    isFundReleased: false,
+    isDisputed: false,
+  },
+];
+
+/**
+ * Desktop dataset aligned with Desktop Prototype
+ */
+const DESKTOP_ORDERS = [
+  {
+    id: "ord-d1",
     orderNumber: "ORD-0921",
     title: "Premium Ceramic Brake Pads",
     extraItems: "+2 more items",
     image: "/images/brake_pads.jpg",
     price: 450.0,
-    status: "in_transit", // 'in_transit' | 'delivered' | 'shipped' | 'confirmed'
+    status: "in_transit",
     date: "Oct 24, 2024",
     orderDate: "Oct 24, 2024",
     isFundReleased: false,
     isDisputed: false,
   },
   {
-    id: "ord-2",
+    id: "ord-d2",
     orderNumber: "ORD-0918",
     title: "High-Output Alternator Assembly",
     extraItems: null,
@@ -50,7 +105,7 @@ const DEFAULT_DESKTOP_ORDERS = [
     isDisputed: false,
   },
   {
-    id: "ord-3",
+    id: "ord-d3",
     orderNumber: "ORD-0872",
     title: "OEM Spark Plugs (Set of 4)",
     extraItems: "+1 more item",
@@ -63,7 +118,7 @@ const DEFAULT_DESKTOP_ORDERS = [
     isDisputed: false,
   },
   {
-    id: "ord-4",
+    id: "ord-d4",
     orderNumber: "ORD-0845",
     title: "Synthetic Motor Oil 5W-30 (5L)",
     extraItems: null,
@@ -76,7 +131,7 @@ const DEFAULT_DESKTOP_ORDERS = [
     isDisputed: false,
   },
   {
-    id: "ord-5",
+    id: "ord-d5",
     orderNumber: "ORD-0810",
     title: "Front Suspension Strut Assembly",
     extraItems: "+3 more items",
@@ -91,14 +146,15 @@ const DEFAULT_DESKTOP_ORDERS = [
 ];
 
 export default function OrderHistoryPage({
-  initialOrders = DEFAULT_DESKTOP_ORDERS,
   onNavigate = () => {},
   onOrderClick,
 }) {
-  const [orders, setOrders] = useState(initialOrders);
+  const [mobileOrders, setMobileOrders] = useState(MOBILE_ORDERS);
+  const [desktopOrders, setDesktopOrders] = useState(DESKTOP_ORDERS);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [dateRangeFilter, setDateRangeFilter] = useState("30_days");
+  const [menuOpen, setMenuOpen] = useState(false);
   const [activeDisputeOrder, setActiveDisputeOrder] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
 
@@ -106,44 +162,77 @@ export default function OrderHistoryPage({
     setToastMessage(msg);
     setTimeout(() => {
       setToastMessage((prev) => (prev === msg ? null : prev));
-    }, 3000);
+    }, 2500);
   };
 
-  // Toggle Escrow Fund Release
+  // Toggle Fund Release (Mobile & Desktop)
   const handleToggleFund = (orderId) => {
-    setOrders((prev) =>
+    setMobileOrders((prev) =>
       prev.map((ord) => {
         if (ord.id === orderId) {
-          const nextState = !ord.isFundReleased;
+          const next = !ord.isFundReleased;
           triggerToast(
-            nextState
+            next
               ? `Escrow fund released for Order #${ord.orderNumber}`
               : `Fund release revoked for Order #${ord.orderNumber}`
           );
-          return { ...ord, isFundReleased: nextState };
+          return { ...ord, isFundReleased: next };
+        }
+        return ord;
+      })
+    );
+
+    setDesktopOrders((prev) =>
+      prev.map((ord) => {
+        if (ord.id === orderId) {
+          const next = !ord.isFundReleased;
+          triggerToast(
+            next
+              ? `Escrow fund released for Order #${ord.orderNumber}`
+              : `Fund release revoked for Order #${ord.orderNumber}`
+          );
+          return { ...ord, isFundReleased: next };
         }
         return ord;
       })
     );
   };
 
-  // Submit dispute handler
+  // Handle Dispute
   const handleSubmitDispute = (disputeData) => {
-    setOrders((prev) =>
-      prev.map((ord) => {
-        if (ord.id === disputeData.orderId) {
-          return { ...ord, isDisputed: true, isFundReleased: false };
-        }
-        return ord;
-      })
+    setMobileOrders((prev) =>
+      prev.map((ord) =>
+        ord.id === disputeData.orderId
+          ? { ...ord, isDisputed: true, isFundReleased: false }
+          : ord
+      )
+    );
+    setDesktopOrders((prev) =>
+      prev.map((ord) =>
+        ord.id === disputeData.orderId
+          ? { ...ord, isDisputed: true, isFundReleased: false }
+          : ord
+      )
     );
     triggerToast(`Dispute initiated for Order #${disputeData.orderNumber}`);
   };
 
-  // Filtered orders
-  const filteredOrders = useMemo(() => {
+  // Filtered lists
+  const filteredMobileOrders = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
-    return orders.filter((order) => {
+    return mobileOrders.filter((order) => {
+      return (
+        !query ||
+        order.orderNumber.toLowerCase().includes(query) ||
+        order.title.toLowerCase().includes(query) ||
+        order.status.toLowerCase().includes(query)
+      );
+    });
+  }, [mobileOrders, searchQuery]);
+
+  const filteredDesktopOrders = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    return desktopOrders.filter((order) => {
       const matchesSearch =
         !query ||
         order.orderNumber.toLowerCase().includes(query) ||
@@ -155,15 +244,7 @@ export default function OrderHistoryPage({
 
       return matchesSearch && matchesStatus;
     });
-  }, [orders, searchQuery, statusFilter]);
-
-  // Metrics computation
-  // Default values matching Figma design or computed
-  const totalOrdersCount = 124 || orders.length;
-  const totalSpentFormatted = "14,520.00";
-  const inTransitCount = useMemo(() => {
-    return orders.filter((o) => o.status === "in_transit").length || 3;
-  }, [orders]);
+  }, [desktopOrders, searchQuery, statusFilter]);
 
   const getStatusDot = (status, isDisputed) => {
     if (isDisputed) {
@@ -208,12 +289,73 @@ export default function OrderHistoryPage({
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col">
-      {/* Desktop Top Navbar */}
-      <Navbar
-        brand="Auto-Naija Mart"
-        activeKey="order"
-        onNavigate={onNavigate}
-      />
+      {/* ========================================================================= */}
+      {/* 📱 MOBILE TOP HEADER APP BAR (< md screens matching Mobile Prototype)     */}
+      {/* ========================================================================= */}
+      <header className="md:hidden sticky top-0 z-30 bg-[#0F2C52] text-white px-4 py-3.5 flex items-center justify-between shadow-xs">
+        <button
+          type="button"
+          onClick={() => onNavigate("home")}
+          aria-label="Go back"
+          className="p-1.5 -ml-1 text-white hover:text-slate-200 hover:bg-white/10 rounded-full transition-colors"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </button>
+
+        <h1 className="text-base font-bold tracking-tight text-white">
+          Order History
+        </h1>
+
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Order options menu"
+            aria-expanded={menuOpen}
+            className="p-1.5 -mr-1 text-white hover:text-slate-200 hover:bg-white/10 rounded-full transition-colors"
+          >
+            <MoreVertical className="h-5 w-5" />
+          </button>
+
+          {menuOpen && (
+            <>
+              <div
+                className="fixed inset-0 z-40"
+                onClick={() => setMenuOpen(false)}
+              />
+              <div className="absolute right-0 mt-2 w-48 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-100 py-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setMenuOpen(false);
+                  }}
+                  className="w-full px-4 py-2 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                >
+                  <RefreshCw className="h-3.5 w-3.5 text-slate-400" />
+                  <span>Reset Search</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    triggerToast("Downloading order invoice summary...");
+                    setMenuOpen(false);
+                  }}
+                  className="w-full px-4 py-2 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                >
+                  <FileText className="h-3.5 w-3.5 text-slate-400" />
+                  <span>Export Invoices</span>
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </header>
+
+      {/* Desktop Top Navbar (hidden on mobile) */}
+      <div className="hidden md:block">
+        <Navbar brand="Auto-Naija Mart" activeKey="order" onNavigate={onNavigate} />
+      </div>
 
       {/* Floating Toast Notification */}
       {toastMessage && (
@@ -222,385 +364,352 @@ export default function OrderHistoryPage({
         </div>
       )}
 
-      {/* Main Container (1280px Desktop Canvas) */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 flex flex-col gap-6">
-        {/* Page Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Order History
-            </h1>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              Track and manage your recent purchases.
-            </p>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => triggerToast("Exporting order records to CSV / PDF...")}
-            className="self-start sm:self-auto inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-xs sm:text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:border-slate-300 shadow-xs transition-colors"
-          >
-            <Download className="h-4 w-4 text-slate-500" />
-            <span>Export</span>
-          </button>
+      {/* ========================================================================= */}
+      {/* 📱 MOBILE VIEW (< md screens matching Screen 1 Figma prototype)           */}
+      {/* ========================================================================= */}
+      <div className="md:hidden flex-1 px-4 py-4 pb-24 max-w-md mx-auto w-full flex flex-col gap-4">
+        {/* Search Bar */}
+        <div className="relative">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search order or items"
+            className="w-full h-10 pl-9 pr-9 rounded-2xl bg-[#F6F5FC] border border-[#E3DEFA] text-xs text-slate-800 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0F2C52] transition-all"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+          )}
         </div>
 
-        {/* 3 Metric Summary Cards */}
-        <section
-          className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6"
-          aria-label="Order Statistics"
-        >
-          {/* Card 1: Total Orders */}
-          <div className="bg-white rounded-2xl p-5 lg:p-6 border border-slate-200 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-2 text-slate-600">
-              <Receipt className="h-4.5 w-4.5 text-slate-500" />
-              <span className="text-xs sm:text-sm font-semibold">
+        {/* 2 Metric Summary Cards */}
+        <section className="grid grid-cols-2 gap-3" aria-label="Order Metrics">
+          {/* Total Orders Card */}
+          <div className="relative overflow-hidden rounded-2xl bg-[#EEEDFA] border border-[#DDD8F8] p-3.5 flex flex-col justify-between">
+            <div className="absolute -right-2 -top-2 w-16 h-16 bg-[#DFDCF8] rounded-full opacity-60 pointer-events-none" />
+            <div className="flex items-center gap-1.5 relative z-10">
+              <div className="w-5 h-5 rounded-md bg-[#0F2C52] flex items-center justify-center text-white shrink-0">
+                <Package className="h-3 w-3" />
+              </div>
+              <span className="text-xs font-semibold text-[#1A2E56]">
                 Total Orders
               </span>
             </div>
-            <div className="mt-4">
-              <span className="text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
-                {totalOrdersCount}
+            <div className="mt-2.5 relative z-10">
+              <span className="text-2xl font-black text-slate-900 tracking-tight">
+                6
               </span>
             </div>
           </div>
 
-          {/* Card 2: Total Spent */}
-          <div className="bg-white rounded-2xl p-5 lg:p-6 border border-slate-200 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-2 text-slate-600">
-              <Banknote className="h-4.5 w-4.5 text-slate-500" />
-              <span className="text-xs sm:text-sm font-semibold">
+          {/* Total Spent Card */}
+          <div className="relative overflow-hidden rounded-2xl bg-[#FBF1EA] border border-[#F4E0D2] p-3.5 flex flex-col justify-between">
+            <div className="absolute -right-2 -top-2 w-16 h-16 bg-[#F5E2D4] rounded-full opacity-60 pointer-events-none" />
+            <div className="flex items-center gap-1.5 relative z-10">
+              <div className="w-5 h-5 rounded-md bg-[#E8732A] flex items-center justify-center text-white shrink-0">
+                <Banknote className="h-3 w-3" />
+              </div>
+              <span className="text-xs font-semibold text-[#8C3F0C]">
                 Total Spent
               </span>
             </div>
-            <div className="mt-4">
-              <span className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0F2C52] tracking-tight">
-                ₦{totalSpentFormatted}
-              </span>
-            </div>
-          </div>
-
-          {/* Card 3: In Transit */}
-          <div className="bg-white rounded-2xl p-5 lg:p-6 border border-slate-200 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-2 text-slate-600">
-              <Truck className="h-4.5 w-4.5 text-slate-500" />
-              <span className="text-xs sm:text-sm font-semibold">
-                In Transit
-              </span>
-            </div>
-            <div className="mt-4">
-              <span className="text-3xl lg:text-4xl font-extrabold text-[#EA580C] tracking-tight">
-                {inTransitCount}
+            <div className="mt-2.5 relative z-10">
+              <span className="text-lg font-black text-slate-900 tracking-tight">
+                ₦81,000
               </span>
             </div>
           </div>
         </section>
 
-        {/* Search, Status & Date Filters */}
-        <section className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-          <div className="p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-100">
-            {/* Search Input */}
-            <div className="relative w-full sm:max-w-md">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-slate-400" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search orders or items..."
-                className="w-full h-10 pl-10 pr-9 rounded-xl border border-slate-200 bg-slate-50/50 text-sm text-slate-800 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0F2C52] focus:border-[#0F2C52] transition-colors"
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery("")}
-                  aria-label="Clear search"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded-full"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              )}
+        {/* Recent Orders Section */}
+        <section className="flex flex-col gap-2.5">
+          <h2 className="text-sm font-bold text-slate-900">Recent Orders</h2>
+
+          {filteredMobileOrders.length > 0 ? (
+            <div className="flex flex-col gap-3">
+              {filteredMobileOrders.map((order) => (
+                <OrderCard
+                  key={order.id}
+                  order={order}
+                  onToggleFund={handleToggleFund}
+                  onRaiseDispute={(ord) => setActiveDisputeOrder(ord)}
+                  onClick={onOrderClick}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="p-8 text-center text-slate-400 text-xs bg-white rounded-2xl border border-slate-200">
+              No orders found matching your search.
+            </div>
+          )}
+        </section>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 🖥️ DESKTOP VIEW (>= md screens matching Desktop Figma Canvas)              */}
+      {/* ========================================================================= */}
+      <main className="hidden md:block flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+        <div className="flex flex-col gap-6">
+          {/* Header */}
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                Order History
+              </h1>
+              <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                Track and manage your recent purchases.
+              </p>
             </div>
 
-            {/* Filter Dropdowns */}
-            <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
-              {/* Status Select */}
-              <div className="relative">
-                <select
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                  className="appearance-none bg-white border border-slate-200 rounded-xl px-3.5 py-2 pr-8 text-xs sm:text-sm font-medium text-slate-700 hover:border-slate-300 focus:outline-none focus:ring-1 focus:ring-[#0F2C52] cursor-pointer"
-                >
-                  <option value="all">All Statuses</option>
-                  <option value="in_transit">In Transit</option>
-                  <option value="delivered">Delivered</option>
-                  <option value="shipped">Shipped</option>
-                  <option value="confirmed">Confirmed</option>
-                </select>
-                <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-              </div>
-
-              {/* Date Range Select */}
-              <div className="relative">
-                <select
-                  value={dateRangeFilter}
-                  onChange={(e) => setDateRangeFilter(e.target.value)}
-                  className="appearance-none bg-white border border-slate-200 rounded-xl px-3.5 py-2 pr-8 text-xs sm:text-sm font-medium text-slate-700 hover:border-slate-300 focus:outline-none focus:ring-1 focus:ring-[#0F2C52] cursor-pointer"
-                >
-                  <option value="30_days">Last 30 Days</option>
-                  <option value="90_days">Last 3 Months</option>
-                  <option value="6_months">Last 6 Months</option>
-                  <option value="all">All Time</option>
-                </select>
-                <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-              </div>
-            </div>
+            <button
+              type="button"
+              onClick={() => triggerToast("Exporting order records to CSV / PDF...")}
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-xs sm:text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:border-slate-300 shadow-xs transition-colors"
+            >
+              <Download className="h-4 w-4 text-slate-500" />
+              <span>Export</span>
+            </button>
           </div>
 
-          {/* Desktop Table View */}
-          <div className="hidden md:block overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-slate-100 text-[11px] font-bold text-slate-400 tracking-wider uppercase">
-                  <th className="py-3.5 px-6">ORDER #</th>
-                  <th className="py-3.5 px-6">DATE</th>
-                  <th className="py-3.5 px-6">ITEMS</th>
-                  <th className="py-3.5 px-6">STATUS</th>
-                  <th className="py-3.5 px-6 text-right">TOTAL</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {filteredOrders.length > 0 ? (
-                  filteredOrders.map((order) => (
-                    <tr
-                      key={order.id}
-                      onClick={() => onOrderClick && onOrderClick(order)}
-                      className="hover:bg-slate-50/70 transition-colors group"
-                    >
-                      {/* ORDER # */}
-                      <td className="py-4 px-6 whitespace-nowrap">
-                        <span className="text-sm font-bold text-[#0F2C52] hover:underline cursor-pointer">
-                          #{order.orderNumber}
-                        </span>
-                      </td>
+          {/* 3 Summary Cards */}
+          <section className="grid grid-cols-3 gap-6" aria-label="Order Statistics">
+            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
+              <div className="flex items-center gap-2 text-slate-600">
+                <Receipt className="h-4.5 w-4.5 text-slate-500" />
+                <span className="text-sm font-semibold">Total Orders</span>
+              </div>
+              <div className="mt-4">
+                <span className="text-4xl font-extrabold text-slate-900 tracking-tight">
+                  124
+                </span>
+              </div>
+            </div>
 
-                      {/* DATE */}
-                      <td className="py-4 px-6 whitespace-nowrap text-sm text-slate-500">
-                        {order.date}
-                      </td>
+            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
+              <div className="flex items-center gap-2 text-slate-600">
+                <Banknote className="h-4.5 w-4.5 text-slate-500" />
+                <span className="text-sm font-semibold">Total Spent</span>
+              </div>
+              <div className="mt-4">
+                <span className="text-3xl font-extrabold text-[#0F2C52] tracking-tight">
+                  ₦14,520.00
+                </span>
+              </div>
+            </div>
 
-                      {/* ITEMS */}
-                      <td className="py-4 px-6">
-                        <div className="flex items-center gap-3.5">
-                          <img
-                            src={order.image}
-                            alt={order.title}
-                            onError={(e) => {
-                              e.currentTarget.onerror = null;
-                              e.currentTarget.src = "/images/brake_pads.jpg";
-                            }}
-                            className="h-11 w-11 rounded-lg object-cover bg-slate-100 shrink-0 border border-slate-200/80"
-                          />
-                          <div className="min-w-0">
-                            <p className="text-sm font-semibold text-slate-800 truncate max-w-xs lg:max-w-md">
-                              {order.title}
-                            </p>
-                            {order.extraItems && (
-                              <p className="text-xs text-slate-400 mt-0.5">
-                                {order.extraItems}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      </td>
+            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
+              <div className="flex items-center gap-2 text-slate-600">
+                <Truck className="h-4.5 w-4.5 text-slate-500" />
+                <span className="text-sm font-semibold">In Transit</span>
+              </div>
+              <div className="mt-4">
+                <span className="text-4xl font-extrabold text-[#EA580C] tracking-tight">
+                  3
+                </span>
+              </div>
+            </div>
+          </section>
 
-                      {/* STATUS & RELEASE FUND */}
-                      <td className="py-4 px-6">
-                        <div className="flex items-center gap-6">
-                          {/* Status Dot / Label */}
-                          <div className="w-28 shrink-0">
-                            {getStatusDot(order.status, order.isDisputed)}
-                          </div>
+          {/* Desktop Table Container */}
+          <section className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+            <div className="p-5 flex items-center justify-between gap-4 border-b border-slate-100">
+              <div className="relative w-full max-w-md">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-slate-400" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search orders or items..."
+                  className="w-full h-10 pl-10 pr-9 rounded-xl border border-slate-200 bg-slate-50/50 text-sm text-slate-800 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0F2C52] transition-colors"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded-full"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
 
-                          {/* Escrow Release Fund Switch */}
-                          <div className="flex flex-col items-center">
-                            <span className="text-[10px] font-medium text-slate-500 mb-1 whitespace-nowrap">
-                              {order.isFundReleased
-                                ? "Fund Released"
-                                : "Release Fund"}
-                            </span>
-                            <button
-                              type="button"
-                              role="switch"
-                              aria-checked={order.isFundReleased}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleToggleFund(order.id);
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                    className="appearance-none bg-white border border-slate-200 rounded-xl px-3.5 py-2 pr-8 text-sm font-medium text-slate-700 hover:border-slate-300 focus:outline-none focus:ring-1 focus:ring-[#0F2C52] cursor-pointer"
+                  >
+                    <option value="all">All Statuses</option>
+                    <option value="in_transit">In Transit</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="shipped">Shipped</option>
+                    <option value="confirmed">Confirmed</option>
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                </div>
+
+                <div className="relative">
+                  <select
+                    value={dateRangeFilter}
+                    onChange={(e) => setDateRangeFilter(e.target.value)}
+                    className="appearance-none bg-white border border-slate-200 rounded-xl px-3.5 py-2 pr-8 text-sm font-medium text-slate-700 hover:border-slate-300 focus:outline-none focus:ring-1 focus:ring-[#0F2C52] cursor-pointer"
+                  >
+                    <option value="30_days">Last 30 Days</option>
+                    <option value="90_days">Last 3 Months</option>
+                    <option value="6_months">Last 6 Months</option>
+                    <option value="all">All Time</option>
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                </div>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-slate-100 text-[11px] font-bold text-slate-400 tracking-wider uppercase">
+                    <th className="py-3.5 px-6">ORDER #</th>
+                    <th className="py-3.5 px-6">DATE</th>
+                    <th className="py-3.5 px-6">ITEMS</th>
+                    <th className="py-3.5 px-6">STATUS</th>
+                    <th className="py-3.5 px-6 text-right">TOTAL</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {filteredDesktopOrders.length > 0 ? (
+                    filteredDesktopOrders.map((order) => (
+                      <tr
+                        key={order.id}
+                        onClick={() => onOrderClick && onOrderClick(order)}
+                        className="hover:bg-slate-50/70 transition-colors group"
+                      >
+                        <td className="py-4 px-6 whitespace-nowrap">
+                          <span className="text-sm font-bold text-[#0F2C52] hover:underline cursor-pointer">
+                            #{order.orderNumber}
+                          </span>
+                        </td>
+
+                        <td className="py-4 px-6 whitespace-nowrap text-sm text-slate-500">
+                          {order.date}
+                        </td>
+
+                        <td className="py-4 px-6">
+                          <div className="flex items-center gap-3.5">
+                            <img
+                              src={order.image}
+                              alt={order.title}
+                              onError={(e) => {
+                                e.currentTarget.onerror = null;
+                                e.currentTarget.src = "/images/brake_pads.jpg";
                               }}
-                              aria-label={
-                                order.isFundReleased
-                                  ? "Fund is released"
-                                  : "Release escrow funds to seller"
-                              }
-                              className={`w-11 h-6 rounded-full transition-colors duration-200 relative focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-[#0F2C52] p-0.5 ${
-                                order.isFundReleased
-                                  ? "bg-[#1E56A0]"
-                                  : "bg-slate-300 hover:bg-slate-400"
-                              }`}
-                            >
-                              <span
-                                className={`w-5 h-5 rounded-full bg-white shadow-xs flex items-center justify-center transition-transform duration-200 ${
+                              className="h-11 w-11 rounded-lg object-cover bg-slate-100 shrink-0 border border-slate-200/80"
+                            />
+                            <div className="min-w-0">
+                              <p className="text-sm font-semibold text-slate-800 truncate max-w-xs lg:max-w-md">
+                                {order.title}
+                              </p>
+                              {order.extraItems && (
+                                <p className="text-xs text-slate-400 mt-0.5">
+                                  {order.extraItems}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </td>
+
+                        <td className="py-4 px-6">
+                          <div className="flex items-center gap-6">
+                            <div className="w-28 shrink-0">
+                              {getStatusDot(order.status, order.isDisputed)}
+                            </div>
+
+                            <div className="flex flex-col items-center">
+                              <span className="text-[10px] font-medium text-slate-500 mb-1 whitespace-nowrap">
+                                {order.isFundReleased
+                                  ? "Fund Released"
+                                  : "Release Fund"}
+                              </span>
+                              <button
+                                type="button"
+                                role="switch"
+                                aria-checked={order.isFundReleased}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleToggleFund(order.id);
+                                }}
+                                className={`w-11 h-6 rounded-full transition-colors duration-200 relative focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-[#0F2C52] p-0.5 ${
                                   order.isFundReleased
-                                    ? "translate-x-5"
-                                    : "translate-x-0"
+                                    ? "bg-[#1E56A0]"
+                                    : "bg-slate-300 hover:bg-slate-400"
                                 }`}
                               >
-                                {order.isFundReleased ? (
-                                  <Check className="w-3.5 h-3.5 text-[#1E56A0] stroke-[3]" />
-                                ) : (
-                                  <Check className="w-3.5 h-3.5 text-slate-400 stroke-[2.5]" />
-                                )}
-                              </span>
-                            </button>
+                                <span
+                                  className={`w-5 h-5 rounded-full bg-white shadow-xs flex items-center justify-center transition-transform duration-200 ${
+                                    order.isFundReleased
+                                      ? "translate-x-5"
+                                      : "translate-x-0"
+                                  }`}
+                                >
+                                  {order.isFundReleased ? (
+                                    <Check className="w-3.5 h-3.5 text-[#1E56A0] stroke-[3]" />
+                                  ) : (
+                                    <Check className="w-3.5 h-3.5 text-slate-400 stroke-[2.5]" />
+                                  )}
+                                </span>
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      </td>
+                        </td>
 
-                      {/* TOTAL & RAISE DISPUTE */}
-                      <td className="py-4 px-6 text-right whitespace-nowrap">
-                        <div className="flex flex-col items-end">
-                          <span className="text-sm sm:text-base font-bold text-slate-900">
-                            ₦{Number(order.price).toFixed(2)}
-                          </span>
-                          {!order.isFundReleased && !order.isDisputed && (
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setActiveDisputeOrder(order);
-                              }}
-                              className="text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline transition-colors mt-0.5"
-                            >
-                              Raise Dispute
-                            </button>
-                          )}
-                          {order.isDisputed && (
-                            <span className="text-[11px] font-semibold text-rose-600 mt-0.5">
-                              Under Dispute
+                        <td className="py-4 px-6 text-right whitespace-nowrap">
+                          <div className="flex flex-col items-end">
+                            <span className="text-base font-bold text-slate-900">
+                              ₦{Number(order.price).toFixed(2)}
                             </span>
-                          )}
-                        </div>
+                            {!order.isFundReleased && !order.isDisputed && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveDisputeOrder(order);
+                                }}
+                                className="text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline transition-colors mt-0.5"
+                              >
+                                Raise Dispute
+                              </button>
+                            )}
+                            {order.isDisputed && (
+                              <span className="text-[11px] font-semibold text-rose-600 mt-0.5">
+                                Under Dispute
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={5} className="py-12 text-center text-slate-400">
+                        <Package className="h-8 w-8 mx-auto mb-2 text-slate-300" />
+                        <p className="text-sm font-semibold text-slate-600">
+                          No orders match your filter
+                        </p>
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={5} className="py-12 text-center text-slate-400">
-                      <Package className="h-8 w-8 mx-auto mb-2 text-slate-300" />
-                      <p className="text-sm font-semibold text-slate-600">
-                        No orders match your filter
-                      </p>
-                      <button
-                        onClick={() => {
-                          setSearchQuery("");
-                          setStatusFilter("all");
-                        }}
-                        className="mt-2 text-xs font-semibold text-[#0F2C52] hover:underline"
-                      >
-                        Reset filters
-                      </button>
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Mobile Card View (< md screens) */}
-          <div className="md:hidden divide-y divide-slate-100">
-            {filteredOrders.length > 0 ? (
-              filteredOrders.map((order) => (
-                <div key={order.id} className="p-4 flex flex-col gap-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-[#0F2C52]">
-                      #{order.orderNumber}
-                    </span>
-                    <span className="text-xs text-slate-400">{order.date}</span>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={order.image}
-                      alt={order.title}
-                      onError={(e) => {
-                        e.currentTarget.onerror = null;
-                        e.currentTarget.src = "/images/brake_pads.jpg";
-                      }}
-                      className="h-12 w-12 rounded-lg object-cover bg-slate-100 shrink-0 border border-slate-200"
-                    />
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-semibold text-slate-800 truncate">
-                        {order.title}
-                      </p>
-                      {order.extraItems && (
-                        <p className="text-xs text-slate-400">{order.extraItems}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-2 border-t border-slate-100">
-                    <div>{getStatusDot(order.status, order.isDisputed)}</div>
-
-                    <div className="flex items-center gap-4">
-                      {/* Fund toggle */}
-                      <button
-                        type="button"
-                        onClick={() => handleToggleFund(order.id)}
-                        className={`w-9 h-5 rounded-full relative p-0.5 transition-colors ${
-                          order.isFundReleased ? "bg-[#1E56A0]" : "bg-slate-300"
-                        }`}
-                      >
-                        <span
-                          className={`w-4 h-4 rounded-full bg-white flex items-center justify-center transition-transform ${
-                            order.isFundReleased
-                              ? "translate-x-4"
-                              : "translate-x-0"
-                          }`}
-                        >
-                          <Check
-                            className={`w-3 h-3 ${
-                              order.isFundReleased
-                                ? "text-[#1E56A0]"
-                                : "text-slate-400"
-                            }`}
-                          />
-                        </span>
-                      </button>
-
-                      {/* Total */}
-                      <div className="text-right">
-                        <span className="text-sm font-bold text-slate-900 block">
-                          ₦{Number(order.price).toFixed(2)}
-                        </span>
-                        {!order.isFundReleased && !order.isDisputed && (
-                          <button
-                            onClick={() => setActiveDisputeOrder(order)}
-                            className="text-[10px] font-semibold text-blue-600 hover:underline"
-                          >
-                            Raise Dispute
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="p-8 text-center text-slate-400 text-sm">
-                No orders found.
-              </div>
-            )}
-          </div>
-        </section>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
       </main>
 
       {/* Dispute Modal */}
@@ -612,7 +721,7 @@ export default function OrderHistoryPage({
       />
 
       {/* Mobile Bottom Navigation (< md breakpoint) */}
-      <div className="md:hidden pb-16">
+      <div className="md:hidden">
         <BottomNav activeKey="order" onNavigate={onNavigate} />
       </div>
     </div>
