@@ -164,8 +164,22 @@ export default function ProfilePage({
         {/* User Card (Dark Navy Gradient) */}
         <div className="rounded-2xl bg-gradient-to-br from-[#183661] to-[#0D213F] text-white p-5 shadow-sm flex flex-col gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white shrink-0 overflow-hidden border border-white/30">
-              <User className="h-6 w-6" />
+            <div className="relative">
+              {user.avatar ? (
+                <img
+                  src={user.avatar}
+                  alt={`${user.firstName} ${user.lastName}`}
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop";
+                  }}
+                  className="h-12 w-12 rounded-full object-cover shadow-sm border border-white/40"
+                />
+              ) : (
+                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white shrink-0 overflow-hidden border border-white/30">
+                  <User className="h-6 w-6" />
+                </div>
+              )}
             </div>
             <div>
               <h2 className="text-base font-bold text-white tracking-tight">
