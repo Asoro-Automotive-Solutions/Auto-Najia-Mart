@@ -2,21 +2,10 @@ import React from "react";
 import { Home, Search, MessageSquare, Package, User } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-/**
- * BottomNav Component
- *
- * Persistent bottom navigation bar for mobile / app view.
- * Displays tabs: Home, Search, Chat, Order, and Profile.
- *
- * Props:
- * - activeKey: string (e.g. "order", "chat", "home")
- * - onNavigate: optional callback function(tabKey)
- */
 export default function BottomNav({ activeKey, onNavigate }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Determine current active key based on pathname if not explicitly passed
   const currentKey =
     activeKey ||
     (location.pathname.startsWith("/orders") || location.pathname.startsWith("/order-history")
@@ -25,7 +14,7 @@ export default function BottomNav({ activeKey, onNavigate }) {
       ? "chat"
       : location.pathname.startsWith("/search")
       ? "search"
-      : location.pathname.startsWith("/profile")
+      : location.pathname.startsWith("/profile") || location.pathname.startsWith("/notifications")
       ? "profile"
       : "home");
 
@@ -49,9 +38,9 @@ export default function BottomNav({ activeKey, onNavigate }) {
   return (
     <nav
       aria-label="Mobile Navigation"
-      className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 shadow-lg md:max-w-md md:mx-auto"
+      className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 shadow-lg"
     >
-      <div className="flex items-center justify-around px-2 py-2">
+      <div className="max-w-md mx-auto flex items-center justify-around px-3 py-2">
         {tabs.map((tab) => {
           const isActive = currentKey === tab.key;
           const Icon = tab.icon;
@@ -61,24 +50,22 @@ export default function BottomNav({ activeKey, onNavigate }) {
               key={tab.key}
               type="button"
               onClick={() => handleTabClick(tab)}
-              className={`flex flex-col items-center justify-center flex-1 py-1 px-1 transition-all duration-150 relative ${
+              className={`flex flex-col items-center justify-center py-1 px-3 rounded-2xl transition-all duration-150 relative ${
                 isActive
-                  ? "text-[#0F2C52] font-semibold"
+                  ? "bg-[#183661] text-white shadow-xs"
                   : "text-slate-500 hover:text-slate-800"
               }`}
             >
-              {/* Active Dot Indicator */}
-              {isActive && (
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0F2C52] mb-1 transition-all" />
-              )}
-              {!isActive && <span className="w-1.5 h-1.5 mb-1 opacity-0" />}
-
               <Icon
-                className={`h-5 w-5 transition-transform ${
-                  isActive ? "scale-110 stroke-[2.2]" : "stroke-[1.8]"
+                className={`h-5 w-5 ${
+                  isActive ? "stroke-[2.4]" : "stroke-[1.8]"
                 }`}
               />
-              <span className="text-[11px] mt-1 capitalize leading-none tracking-tight">
+              <span
+                className={`text-[10px] mt-0.5 capitalize leading-none tracking-tight ${
+                  isActive ? "font-bold text-white" : "font-medium"
+                }`}
+              >
                 {tab.label}
               </span>
             </button>

@@ -13,16 +13,21 @@ import {
   Users,
   Settings,
   ChevronRight,
+  ArrowLeft,
+  Tag,
 } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import BottomNav from "../../components/BottomNav";
 
 const INITIAL_SETTINGS = {
-  orderUpdates: true,
+  orderUpdates: false,
   messagesChat: true,
-  weeklySummary: false,
+  shippingUpdates: true,
+  dealsPromotions: false,
+  securityAlerts: true,
   enableSound: true,
   enableVibration: true,
+  weeklySummary: false,
 };
 
 export default function NotificationSettingsPage({
@@ -73,8 +78,30 @@ export default function NotificationSettingsPage({
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col">
-      {/* Top Navbar */}
-      <Navbar brand="Auto-Naija Mart" activeKey="profile" onNavigate={onNavigate} />
+      {/* Desktop Top Navbar (hidden on mobile) */}
+      <div className="hidden md:block">
+        <Navbar brand="Auto-Naija Mart" activeKey="profile" onNavigate={onNavigate} />
+      </div>
+
+      {/* Mobile Top Header App Bar (< md screens) */}
+      <header className="md:hidden sticky top-0 z-30 bg-[#0F2C52] text-white px-4 py-3.5 flex items-center gap-3 shadow-xs">
+        <button
+          type="button"
+          onClick={() => onNavigate("profile")}
+          aria-label="Go back"
+          className="p-1.5 -ml-1 text-white hover:text-slate-200 hover:bg-white/10 rounded-full transition-colors"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </button>
+        <div>
+          <h1 className="text-base font-bold tracking-tight text-white leading-tight">
+            Notification
+          </h1>
+          <p className="text-[11px] text-white/70">
+            Manage your notification preferences
+          </p>
+        </div>
+      </header>
 
       {/* Floating Toast Notification */}
       {toastMessage && (
@@ -83,17 +110,160 @@ export default function NotificationSettingsPage({
         </div>
       )}
 
-      {/* Main Container with Full-Height Sidebar Column */}
-      <div className="flex-1 flex flex-col md:flex-row min-h-[calc(100vh-56px)]">
+      {/* ========================================================================= */}
+      {/* 📱 MOBILE VIEW (< md screens matching Screen 3 Figma prototype)           */}
+      {/* ========================================================================= */}
+      <div className="md:hidden flex-1 px-4 py-4 pb-24 max-w-md mx-auto w-full flex flex-col gap-5">
+        {/* Group 1: Notification Channels Card */}
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-xs divide-y divide-slate-100 overflow-hidden">
+          {/* Order Updates */}
+          <div className="p-4 flex items-center justify-between gap-3">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#F4F2FA] flex items-center justify-center text-[#0F2C52] shrink-0 mt-0.5">
+                <Truck className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-800">Order Updates</p>
+                <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
+                  Get notified about order status, delivery, and confirmations
+                </p>
+              </div>
+            </div>
+            <ToggleSwitch
+              checked={settings.orderUpdates}
+              onChange={() => toggleSetting("orderUpdates", "Order Updates")}
+              label="Order Updates"
+            />
+          </div>
+
+          {/* Messages & Chat */}
+          <div className="p-4 flex items-center justify-between gap-3">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#F4F2FA] flex items-center justify-center text-[#0F2C52] shrink-0 mt-0.5">
+                <MessageSquare className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-800">Messages & Chat</p>
+                <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
+                  New messages from sellers and customer support
+                </p>
+              </div>
+            </div>
+            <ToggleSwitch
+              checked={settings.messagesChat}
+              onChange={() => toggleSetting("messagesChat", "Messages & Chat")}
+              label="Messages & Chat"
+            />
+          </div>
+
+          {/* Shipping Updates */}
+          <div className="p-4 flex items-center justify-between gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#F4F2FA] flex items-center justify-center text-[#0F2C52] shrink-0 mt-0.5">
+              <Package className="h-5 w-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-bold text-slate-800">Shipping Updates</p>
+              <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
+                Track your deliveries with real-time updates
+              </p>
+            </div>
+            <ToggleSwitch
+              checked={settings.shippingUpdates}
+              onChange={() => toggleSetting("shippingUpdates", "Shipping Updates")}
+              label="Shipping Updates"
+            />
+          </div>
+
+          {/* Deals & Promotions */}
+          <div className="p-4 flex items-center justify-between gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#F4F2FA] flex items-center justify-center text-[#0F2C52] shrink-0 mt-0.5">
+              <Tag className="h-5 w-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-bold text-slate-800">Deals & Promotions</p>
+              <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
+                Exclusive offers, discounts, and special deals
+              </p>
+            </div>
+            <ToggleSwitch
+              checked={settings.dealsPromotions}
+              onChange={() => toggleSetting("dealsPromotions", "Deals & Promotions")}
+              label="Deals & Promotions"
+            />
+          </div>
+
+          {/* Security Alerts */}
+          <div className="p-4 flex items-center justify-between gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#F4F2FA] flex items-center justify-center text-[#0F2C52] shrink-0 mt-0.5">
+              <Shield className="h-5 w-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-bold text-slate-800">Security Alerts</p>
+              <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
+                Account activity and security notifications
+              </p>
+            </div>
+            <ToggleSwitch
+              checked={settings.securityAlerts}
+              onChange={() => toggleSetting("securityAlerts", "Security Alerts")}
+              label="Security Alerts"
+            />
+          </div>
+        </div>
+
+        {/* Group 2: Push Notification Sound */}
+        <div className="flex flex-col gap-2.5">
+          <h3 className="text-xs font-bold text-slate-800">Push Notification Sound</h3>
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-xs divide-y divide-slate-100 overflow-hidden">
+            <div className="p-4 flex items-center justify-between">
+              <span className="text-xs font-semibold text-slate-800">Enable Sound</span>
+              <ToggleSwitch
+                checked={settings.enableSound}
+                onChange={() => toggleSetting("enableSound", "Sound")}
+                label="Enable Sound"
+              />
+            </div>
+            <div className="p-4 flex items-center justify-between">
+              <span className="text-xs font-semibold text-slate-800">Enable Vibration</span>
+              <ToggleSwitch
+                checked={settings.enableVibration}
+                onChange={() => toggleSetting("enableVibration", "Vibration")}
+                label="Enable Vibration"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Group 3: Email Notifications */}
+        <div className="flex flex-col gap-2.5">
+          <h3 className="text-xs font-bold text-slate-800">Email Notifications</h3>
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-4 flex items-center justify-between gap-3">
+            <div>
+              <p className="text-xs font-bold text-slate-800">Weekly Summary</p>
+              <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
+                Receive a weekly email with your order summary and recommendations
+              </p>
+            </div>
+            <ToggleSwitch
+              checked={settings.weeklySummary}
+              onChange={() => toggleSetting("weeklySummary", "Weekly Summary")}
+              label="Weekly Summary"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 🖥️ DESKTOP VIEW (>= md screens matching Desktop Figma specifications)      */}
+      {/* ========================================================================= */}
+      <div className="hidden md:flex flex-1 flex-row min-h-[calc(100vh-56px)]">
         {/* LEFT SIDEBAR: Full-Height Lavender Column */}
-        <aside className="w-full md:w-64 bg-[#EFEBF9] border-r border-[#E0D9F2] p-6 flex flex-col gap-6 shrink-0">
-          {/* Header */}
+        <aside className="w-64 bg-[#EFEBF9] border-r border-[#E0D9F2] p-6 flex flex-col gap-6 shrink-0">
           <div>
             <h2 className="text-sm font-bold text-slate-900">Admin Portal</h2>
             <p className="text-xs text-slate-500 mt-0.5">Automotive Marketplace</p>
           </div>
 
-          {/* Navigation Links */}
           <nav className="flex flex-col gap-1.5" aria-label="Admin Navigation">
             <button
               type="button"
@@ -160,7 +330,6 @@ export default function NotificationSettingsPage({
 
         {/* RIGHT CONTENT: Notification Settings */}
         <main className="flex-1 max-w-5xl px-4 sm:px-8 lg:px-10 py-6 md:py-8 flex flex-col gap-6 overflow-y-auto">
-          {/* Header & Breadcrumbs */}
           <div>
             <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-1">
               <span>Settings</span>
@@ -175,11 +344,8 @@ export default function NotificationSettingsPage({
             </p>
           </div>
 
-          {/* 2-Column Content Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            {/* Left Column: App & Email Notifications */}
             <div className="lg:col-span-7 flex flex-col gap-6">
-              {/* 1. App Notifications Card */}
               <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col gap-5">
                 <div className="flex items-center gap-2 text-slate-900 font-bold text-sm sm:text-base">
                   <Smartphone className="h-4.5 w-4.5 text-[#0F2C52]" />
@@ -187,16 +353,13 @@ export default function NotificationSettingsPage({
                 </div>
 
                 <div className="flex flex-col gap-5 divide-y divide-slate-100">
-                  {/* Order Updates */}
                   <div className="flex items-center justify-between gap-4 pt-1">
                     <div className="flex items-start gap-3.5">
                       <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 shrink-0 mt-0.5">
                         <Truck className="h-5 w-5 text-[#0F2C52]" />
                       </div>
                       <div>
-                        <p className="text-sm font-semibold text-slate-800">
-                          Order Updates
-                        </p>
+                        <p className="text-sm font-semibold text-slate-800">Order Updates</p>
                         <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
                           Get notified about order status, delivery, and confirmations.
                         </p>
@@ -209,16 +372,13 @@ export default function NotificationSettingsPage({
                     />
                   </div>
 
-                  {/* Messages & Chat */}
                   <div className="flex items-center justify-between gap-4 pt-5">
                     <div className="flex items-start gap-3.5">
                       <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 shrink-0 mt-0.5">
                         <MessageSquare className="h-5 w-5 text-[#0F2C52]" />
                       </div>
                       <div>
-                        <p className="text-sm font-semibold text-slate-800">
-                          Messages & Chat
-                        </p>
+                        <p className="text-sm font-semibold text-slate-800">Messages & Chat</p>
                         <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
                           New messages from sellers and customer support.
                         </p>
@@ -233,23 +393,19 @@ export default function NotificationSettingsPage({
                 </div>
               </div>
 
-              {/* 2. Email Notifications Card */}
               <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col gap-5">
                 <div className="flex items-center gap-2 text-slate-900 font-bold text-sm sm:text-base">
                   <Mail className="h-4.5 w-4.5 text-[#0F2C52]" />
                   <span>Email Notifications</span>
                 </div>
 
-                {/* Weekly Summary */}
                 <div className="flex items-center justify-between gap-4 pt-1">
                   <div className="flex items-start gap-3.5">
                     <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 shrink-0 mt-0.5">
                       <FileText className="h-5 w-5 text-[#0F2C52]" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-slate-800">
-                        Weekly Summary
-                      </p>
+                      <p className="text-sm font-semibold text-slate-800">Weekly Summary</p>
                       <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
                         Receive a weekly email with your order summary and personalized recommendations.
                       </p>
@@ -264,20 +420,15 @@ export default function NotificationSettingsPage({
               </div>
             </div>
 
-            {/* Right Column: Device Preferences & Security Alerts */}
             <div className="lg:col-span-5 flex flex-col gap-6">
-              {/* 3. Device Preferences Card */}
               <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col gap-5">
                 <h3 className="text-sm sm:text-base font-bold text-slate-900">
                   Device Preferences
                 </h3>
 
                 <div className="flex flex-col gap-5 divide-y divide-slate-100">
-                  {/* Enable Sound */}
                   <div className="flex items-center justify-between gap-4 pt-1">
-                    <span className="text-sm font-medium text-slate-800">
-                      Enable Sound
-                    </span>
+                    <span className="text-sm font-medium text-slate-800">Enable Sound</span>
                     <ToggleSwitch
                       checked={settings.enableSound}
                       onChange={() => toggleSetting("enableSound", "Sound")}
@@ -285,11 +436,8 @@ export default function NotificationSettingsPage({
                     />
                   </div>
 
-                  {/* Enable Vibration */}
                   <div className="flex items-center justify-between gap-4 pt-5">
-                    <span className="text-sm font-medium text-slate-800">
-                      Enable Vibration
-                    </span>
+                    <span className="text-sm font-medium text-slate-800">Enable Vibration</span>
                     <ToggleSwitch
                       checked={settings.enableVibration}
                       onChange={() => toggleSetting("enableVibration", "Vibration")}
@@ -299,7 +447,6 @@ export default function NotificationSettingsPage({
                 </div>
               </div>
 
-              {/* 4. Security Alerts Card */}
               <div className="bg-[#F6F4FE] rounded-2xl p-6 border border-[#E7E2FA] shadow-xs flex flex-col gap-3.5">
                 <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
                   <Shield className="h-4.5 w-4.5 text-[#0F2C52]" />
@@ -324,8 +471,8 @@ export default function NotificationSettingsPage({
         </main>
       </div>
 
-      {/* Mobile Bottom Navigation */}
-      <div className="md:hidden pb-16">
+      {/* Mobile Bottom Navigation (< md breakpoint) */}
+      <div className="md:hidden">
         <BottomNav activeKey="profile" onNavigate={onNavigate} />
       </div>
     </div>
