@@ -12,6 +12,7 @@ import PasswordResetSuccessPage from "./pages/auth/PasswordResetSuccessPage";
 
 import Navbar from "./components/Navbar";
 import BottomNav from "./components/BottomNav";
+import { NotificationProvider } from "./context/NotificationContext";
 
 import ChatPage from "./pages/chats/Chatpage";
 import OrderHistoryPage from "./pages/orders/OrderHistoryPage";
@@ -226,29 +227,31 @@ function NotificationSettingsRoute() {
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<OnboardingRoute />} />
-        <Route path="/onboarding" element={<OnboardingRoute />} />
-        <Route path="/verify-code" element={<VerificationCodeRoute />} />
+      <NotificationProvider>
+        <Routes>
+          <Route path="/" element={<OnboardingRoute />} />
+          <Route path="/onboarding" element={<OnboardingRoute />} />
+          <Route path="/verify-code" element={<VerificationCodeRoute />} />
 
-        <Route path="/login" element={<LoginRoute />} />
-        <Route path="/register" element={<RegisterRoute />} />
-        <Route path="/reset-password" element={<ResetPasswordRoute />} />
-        <Route path="/verify" element={<VerifyRoute />} />
-        <Route path="/reset" element={<ResetRoute />} />
-        <Route
-          path="/reset-success"
-          element={<PasswordResetSuccessRoute />}
-        />
+          <Route path="/login" element={<LoginRoute />} />
+          <Route path="/register" element={<RegisterRoute />} />
+          <Route path="/reset-password" element={<ResetPasswordRoute />} />
+          <Route path="/verify" element={<VerifyRoute />} />
+          <Route path="/reset" element={<ResetRoute />} />
+          <Route
+            path="/reset-success"
+            element={<PasswordResetSuccessRoute />}
+          />
 
-        <Route path="/chat" element={<ChatRoute />} />
-        <Route path="/orders" element={<OrderHistoryRoute />} />
-        <Route path="/order-history" element={<OrderHistoryRoute />} />
-        <Route path="/search" element={<SearchRoute />} />
-        <Route path="/profile" element={<ProfileRoute />} />
-        <Route path="/notifications" element={<NotificationSettingsRoute />} />
-        <Route path="/settings/notifications" element={<NotificationSettingsRoute />} />
-      </Routes>
+          <Route path="/chat" element={<ChatRoute />} />
+          <Route path="/orders" element={<OrderHistoryRoute />} />
+          <Route path="/order-history" element={<OrderHistoryRoute />} />
+          <Route path="/search" element={<SearchRoute />} />
+          <Route path="/profile" element={<ProfileRoute />} />
+          <Route path="/notifications" element={<NotificationSettingsRoute />} />
+          <Route path="/settings/notifications" element={<NotificationSettingsRoute />} />
+        </Routes>
+      </NotificationProvider>
     </BrowserRouter>
   );
 }

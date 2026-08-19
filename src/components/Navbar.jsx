@@ -1,42 +1,47 @@
 import React, { useState } from "react";
 import { Store, Menu, X } from "lucide-react";
+import { useNotifications } from "../context/NotificationContext";
 
 const DEFAULT_LINKS = [
   { key: "home", label: "Home" },
   { key: "search", label: "Search" },
-  { key: "chat", label: "Chat", hasBadge: true },
-  { key: "order", label: "Order", hasBadge: true },
+  { key: "chat", label: "Chat" },
+  { key: "order", label: "Order" },
   { key: "profile", label: "Profile" },
 ];
 
 /**
  * Navbar
  *
- * Shared top navigation bar with notification badges.
+ * Shared top navigation bar with auto-clearing notification badges.
  *
  * Props:
  * - brand: string shown next to the logo mark (default: "Auto-Naija Mart")
- * - links: [{ key, label, hasBadge }]
+ * - links: [{ key, label }]
  * - activeKey: key of the currently active link
- * - notifications: { chat: boolean, order: boolean, ... }
+ * - notifications: optional override { chat: boolean, order: boolean }
  * - onNavigate: (key) => void called when a link is clicked
  */
 export default function Navbar({
   brand = "Auto-Naija Mart",
   links = DEFAULT_LINKS,
   activeKey = "home",
-  notifications = { chat: true, order: true },
+  notifications: propNotifications,
   onNavigate = () => {},
 }) {
   const [open, setOpen] = useState(false);
+  const { notifications: contextNotifications, clearNotification } = useNotifications();
+
+  const activeNotifications = propNotifications || contextNotifications;
 
   const handleClick = (key) => {
+    clearNotification(key);
     onNavigate(key);
     setOpen(false);
   };
 
   const hasNotification = (key) => {
-    return notifications[key] ?? links.find((l) => l.key === key)?.hasBadge ?? false;
+    return activeNotifications?.[key] ?? false;
   };
 
   return (

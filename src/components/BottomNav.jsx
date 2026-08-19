@@ -1,24 +1,28 @@
 import React from "react";
 import { Home, Search, MessageSquare, Package, User } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useNotifications } from "../context/NotificationContext";
 
 /**
  * BottomNav Component
  *
- * Mobile navigation bar with notification badges.
+ * Mobile navigation bar with auto-clearing notification badges.
  *
  * Props:
  * - activeKey: string (e.g. "order", "chat", "home")
- * - notifications: { chat: boolean, order: boolean, ... }
+ * - notifications: optional override { chat: boolean, order: boolean }
  * - onNavigate: (key) => void
  */
 export default function BottomNav({
   activeKey,
-  notifications = { chat: true, order: true },
+  notifications: propNotifications,
   onNavigate,
 }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { notifications: contextNotifications, clearNotification } = useNotifications();
+
+  const activeNotifications = propNotifications || contextNotifications;
 
   const currentKey =
     activeKey ||
@@ -41,6 +45,7 @@ export default function BottomNav({
   ];
 
   const handleTabClick = (tab) => {
+    clearNotification(tab.key);
     if (onNavigate) {
       onNavigate(tab.key);
     }
@@ -57,7 +62,7 @@ export default function BottomNav({
       <div className="max-w-md mx-auto flex items-center justify-around px-3 py-2">
         {tabs.map((tab) => {
           const isActive = currentKey === tab.key;
-          const hasDot = notifications[tab.key] ?? false;
+          const hasDot = activeNotifications?.[tab.key] ?? false;
           const Icon = tab.icon;
 
           return (
