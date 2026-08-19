@@ -2,7 +2,21 @@ import React from "react";
 import { Home, Search, MessageSquare, Package, User } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-export default function BottomNav({ activeKey, onNavigate }) {
+/**
+ * BottomNav Component
+ *
+ * Mobile navigation bar with notification badges.
+ *
+ * Props:
+ * - activeKey: string (e.g. "order", "chat", "home")
+ * - notifications: { chat: boolean, order: boolean, ... }
+ * - onNavigate: (key) => void
+ */
+export default function BottomNav({
+  activeKey,
+  notifications = { chat: true, order: true },
+  onNavigate,
+}) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -43,6 +57,7 @@ export default function BottomNav({ activeKey, onNavigate }) {
       <div className="max-w-md mx-auto flex items-center justify-around px-3 py-2">
         {tabs.map((tab) => {
           const isActive = currentKey === tab.key;
+          const hasDot = notifications[tab.key] ?? false;
           const Icon = tab.icon;
 
           return (
@@ -56,11 +71,19 @@ export default function BottomNav({ activeKey, onNavigate }) {
                   : "text-slate-500 hover:text-slate-800"
               }`}
             >
-              <Icon
-                className={`h-5 w-5 ${
-                  isActive ? "stroke-[2.4]" : "stroke-[1.8]"
-                }`}
-              />
+              <div className="relative">
+                <Icon
+                  className={`h-5 w-5 ${
+                    isActive ? "stroke-[2.4]" : "stroke-[1.8]"
+                  }`}
+                />
+                {hasDot && (
+                  <span
+                    aria-label={`${tab.label} has new notifications`}
+                    className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-rose-500 ring-2 ring-white"
+                  />
+                )}
+              </div>
               <span
                 className={`text-[10px] mt-0.5 capitalize leading-none tracking-tight ${
                   isActive ? "font-bold text-white" : "font-medium"
