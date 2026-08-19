@@ -24,3 +24,33 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@media (max-width: 640px) {
+  .card404 {
+    min-height: auto !important;
+    padding: 24px 16px !important;
+    gap: 10px !important;
+  }
+
+  .image404 {
+    width: 100% !important;
+    max-width: 448px !important;
+  }
+
+  .title404 {
+    font-weight: 600 !important;
+  }
+
+  .headline404 {
+    font-size: 22px !important;
+  }
+
+  .body404 {
+    font-size: 15px !important;
+  }
+
+  .homeButton404 {
+    width: 100%;
+    justify-content: center;
+  }
+}
