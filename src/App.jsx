@@ -228,28 +228,21 @@ function App() {
   return (
     <BrowserRouter>
       <NotificationProvider>
-        <Routes>
-          <Route path="/" element={<OnboardingRoute />} />
-          <Route path="/onboarding" element={<OnboardingRoute />} />
-          <Route path="/verify-code" element={<VerificationCodeRoute />} />
-
-          <Route path="/login" element={<LoginRoute />} />
-          <Route path="/register" element={<RegisterRoute />} />
-          <Route path="/reset-password" element={<ResetPasswordRoute />} />
-          <Route path="/verify" element={<VerifyRoute />} />
-          <Route path="/reset" element={<ResetRoute />} />
-          <Route
-            path="/reset-success"
-            element={<PasswordResetSuccessRoute />}
-          />
-
-          <Route path="/chat" element={<ChatRoute />} />
+          {/* Primary screens built */}
+          <Route path="/" element={<OrderHistoryRoute />} />
           <Route path="/orders" element={<OrderHistoryRoute />} />
           <Route path="/order-history" element={<OrderHistoryRoute />} />
-          <Route path="/search" element={<SearchRoute />} />
           <Route path="/profile" element={<ProfileRoute />} />
           <Route path="/notifications" element={<NotificationSettingsRoute />} />
           <Route path="/settings/notifications" element={<NotificationSettingsRoute />} />
+
+          {/* Fallback routes */}
+          <Route path="/onboarding" element={<OnboardingRoute />} />
+          <Route path="/login" element={<LoginRoute />} />
+          <Route path="/register" element={<RegisterRoute />} />
+          <Route path="/chat" element={<ChatRoute />} />
+          <Route path="/search" element={<SearchRoute />} />
+          <Route path="*" element={<OrderHistoryRoute />} />
         </Routes>
       </NotificationProvider>
     </BrowserRouter>
