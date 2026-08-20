@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   User,
   Bell,
@@ -19,6 +19,7 @@ import {
   Mail,
   ChevronRight,
   HelpCircle,
+  Camera,
 } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import BottomNav from "../../components/BottomNav";
@@ -65,6 +66,7 @@ export default function ProfilePage({
   const [user, setUser] = useState(initialUser);
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [profileForm, setProfileForm] = useState(initialUser);
+  const fileInputRef = useRef(null);
 
   const [addresses, setAddresses] = useState(initialAddresses);
   const [editingAddress, setEditingAddress] = useState(null);
@@ -84,6 +86,16 @@ export default function ProfilePage({
     setTimeout(() => {
       setToastMessage((prev) => (prev === msg ? null : prev));
     }, 3000);
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setUser((prev) => ({ ...prev, avatar: imageUrl }));
+      setProfileForm((prev) => ({ ...prev, avatar: imageUrl }));
+      triggerToast("Profile photo updated successfully");
+    }
   };
 
   const handleSaveProfile = (e) => {
@@ -131,6 +143,15 @@ export default function ProfilePage({
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col">
+      {/* Hidden File Input for Device Photo Selection */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        accept="image/*"
+        onChange={handleImageUpload}
+        className="hidden"
+        aria-hidden="true"
+      />
       {/* Desktop Top Navbar (hidden on small mobile screens) */}
       <div className="hidden md:block">
         <Navbar brand="Auto-Naija Mart" activeKey="profile" onNavigate={onNavigate} />
@@ -164,7 +185,11 @@ export default function ProfilePage({
         {/* User Card (Dark Navy Gradient) */}
         <div className="rounded-2xl bg-gradient-to-br from-[#183661] to-[#0D213F] text-white p-5 shadow-sm flex flex-col gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="relative">
+            <div
+              className="relative group cursor-pointer shrink-0"
+              onClick={() => fileInputRef.current?.click()}
+              title="Change profile picture"
+            >
               {user.avatar ? (
                 <img
                   src={user.avatar}
@@ -173,13 +198,16 @@ export default function ProfilePage({
                     e.currentTarget.onerror = null;
                     e.currentTarget.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop";
                   }}
-                  className="h-12 w-12 rounded-full object-cover shadow-sm border border-white/40"
+                  className="h-12 w-12 rounded-full object-cover shadow-sm border border-white/40 group-hover:opacity-90 transition-opacity"
                 />
               ) : (
                 <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white shrink-0 overflow-hidden border border-white/30">
                   <User className="h-6 w-6" />
                 </div>
               )}
+              <div className="absolute -bottom-1 -right-1 bg-white text-[#0F2C52] p-1 rounded-full shadow-xs border border-white/60">
+                <Camera className="h-2.5 w-2.5" />
+              </div>
             </div>
             <div>
               <h2 className="text-base font-bold text-white tracking-tight">
@@ -331,7 +359,11 @@ export default function ProfilePage({
           {/* LEFT COLUMN: Profile Card & Navigation Sidebar */}
           <aside className="lg:col-span-4 flex flex-col gap-6">
             <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col items-center text-center">
-              <div className="relative">
+              <div
+                className="relative group cursor-pointer"
+                onClick={() => fileInputRef.current?.click()}
+                title="Click to select new photo from device"
+              >
                 <img
                   src={user.avatar}
                   alt={`${user.firstName} ${user.lastName}`}
@@ -339,8 +371,11 @@ export default function ProfilePage({
                     e.currentTarget.onerror = null;
                     e.currentTarget.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop";
                   }}
-                  className="h-24 w-24 rounded-full object-cover shadow-sm border-2 border-white ring-2 ring-slate-100"
+                  className="h-24 w-24 rounded-full object-cover shadow-sm border-2 border-white ring-2 ring-slate-100 group-hover:opacity-90 transition-opacity"
                 />
+                <div className="absolute bottom-0 right-0 bg-[#0F2C52] text-white p-1.5 rounded-full shadow-md hover:bg-[#1E56A0] transition-colors border-2 border-white">
+                  <Camera className="h-3.5 w-3.5" />
+                </div>
               </div>
 
               <h2 className="text-lg font-bold text-slate-900 mt-3.5">
