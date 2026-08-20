@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import PropTypes from 'prop-types'
 import { IoMdHome } from "react-icons/io"
 import image404 from '../../assets/images/404error.png'
@@ -82,7 +83,7 @@ const page = props => {
             whiteSpace: 'pre-line',
           }}
         >
-          It looks like we couldn't find the page or
+          It looks like we couldn&apost find the page or
           {'\n'}
           component you were looking for. It might
           {'\n'}
@@ -90,11 +91,12 @@ const page = props => {
           {'\n'}
           temporarily out of stock in our digital garage.
         </div>
-        <button
-          type="button"
+        <Link
+          href="/"
           className="homeButton404"
           style={{
             marginTop: '12px',
+            textDecoration: 'none',
             backgroundColor: '#1A3C6E',
             paddingTop: '12px',
             paddingRight: '16px',
@@ -114,7 +116,7 @@ const page = props => {
         >
           <IoMdHome />
           <span>Return to Home</span>
-        </button>
+        </Link>
       </div>
     </div>
   )
