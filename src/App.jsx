@@ -228,6 +228,7 @@ function App() {
   return (
     <BrowserRouter>
       <NotificationProvider>
+        <Routes>
           {/* Primary screens built */}
           <Route path="/" element={<OrderHistoryRoute />} />
           <Route path="/orders" element={<OrderHistoryRoute />} />
