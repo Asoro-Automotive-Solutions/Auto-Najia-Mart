@@ -459,8 +459,8 @@ export default function NotificationSettingsPage({
 
                 <button
                   type="button"
-                  onClick={() => triggerToast("Navigating to Security Settings...")}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0F2C52] hover:text-[#0C2340] hover:underline mt-1 self-start"
+                  onClick={() => onNavigate("security")}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0F2C52] hover:text-[#0C2340] hover:underline mt-1 self-start cursor-pointer"
                 >
                   <span>Review Security Settings</span>
                   <ArrowRight className="h-3.5 w-3.5" />

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   User,
   Bell,
@@ -59,14 +59,21 @@ const INITIAL_ADDRESSES = [
 export default function ProfilePage({
   initialUser = INITIAL_USER,
   initialAddresses = INITIAL_ADDRESSES,
+  initialTab = "personal_info",
   onNavigate = () => {},
   onLogOut = () => {},
 }) {
-  const [activeTab, setActiveTab] = useState("personal_info");
+  const [activeTab, setActiveTab] = useState(initialTab);
   const [user, setUser] = useState(initialUser);
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [profileForm, setProfileForm] = useState(initialUser);
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    if (initialTab) {
+      setActiveTab(initialTab);
+    }
+  }, [initialTab]);
 
   const [addresses, setAddresses] = useState(initialAddresses);
   const [editingAddress, setEditingAddress] = useState(null);

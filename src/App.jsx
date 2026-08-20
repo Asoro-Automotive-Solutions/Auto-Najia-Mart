@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate, useSearchParams } from "react-router-dom";
 
 import OrderHistoryPage from "./pages/orders/OrderHistoryPage";
 import ProfilePage from "./pages/profile/ProfilePage";
@@ -15,6 +15,7 @@ function OrderHistoryRoute() {
         if (key === "order" || key === "home") navigate("/orders");
         else if (key === "profile") navigate("/profile");
         else if (key === "notifications") navigate("/notifications");
+        else if (key === "security") navigate("/profile?tab=security");
       }}
       onOrderClick={(order) => {
         console.log("Order selected:", order);
@@ -25,12 +26,17 @@ function OrderHistoryRoute() {
 
 function ProfileRoute() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const currentTab = searchParams.get("tab") || "personal_info";
+
   return (
     <ProfilePage
+      initialTab={currentTab}
       onNavigate={(key) => {
         if (key === "order" || key === "home") navigate("/orders");
         else if (key === "profile") navigate("/profile");
         else if (key === "notifications") navigate("/notifications");
+        else if (key === "security") navigate("/profile?tab=security");
       }}
       onLogOut={() => {
         alert("Logged out");
@@ -47,6 +53,7 @@ function NotificationSettingsRoute() {
         if (key === "order" || key === "home") navigate("/orders");
         else if (key === "profile") navigate("/profile");
         else if (key === "notifications") navigate("/notifications");
+        else if (key === "security") navigate("/profile?tab=security");
       }}
     />
   );
