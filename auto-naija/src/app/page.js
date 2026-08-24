@@ -1,6 +1,6 @@
-import Soon from "../components/ComingSoon/page";
+import SellerDetails from "../containers/SellerDetails/page";
 export default function Home() {
   return (
-    <Soon/>
+    <SellerDetails/>
   );
 }
