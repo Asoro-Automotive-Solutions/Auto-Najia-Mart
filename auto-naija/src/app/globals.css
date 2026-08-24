@@ -53,4 +53,71 @@ body {
     width: 100%;
     justify-content: center;
   }
+
+  .comingSoonContent {
+    padding: 20px 16px !important;
+    gap: 12px !important;
+    justify-content: flex-start !important;
+    padding-top: 56px !important;
+    padding-bottom: 40px !important;
+  }
+
+  .comingSoonIcon {
+    width: 56px !important;
+    height: 56px !important;
+  }
+
+  .comingSoonTitle {
+    font-size: 26px !important;
+  }
+
+  .comingSoonBadge {
+    font-size: 12px !important;
+    padding: 5px 14px !important;
+  }
+
+  .comingSoonCopy {
+    font-size: 14px !important;
+    max-width: 100% !important;
+  }
+
+  .comingSoonCard {
+    width: 100% !important;
+    max-width: 448px !important;
+    height: auto !important;
+    padding: 20px 16px !important;
+    gap: 8px !important;
+  }
+
+  .comingSoonCardTitle {
+    font-size: 22px !important;
+  }
+
+  .comingSoonCardText {
+    font-size: 13px !important;
+  }
+
+  .comingSoonFieldWrap,
+  .comingSoonInput,
+  .comingSoonButton {
+    width: 100% !important;
+  }
+
+  .comingSoonFieldLabel {
+    font-size: 10px !important;
+  }
+
+  .comingSoonInput {
+    height: 46px !important;
+    font-size: 14px !important;
+  }
+
+  .comingSoonButton {
+    height: 42px !important;
+    font-size: 14px !important;
+  }
+
+  .comingSoonLink {
+    font-size: 13px !important;
+  }
 }

@@ -1,8 +1,6 @@
-// import Error from "../components/404/page";
+import Soon from "../components/ComingSoon/page";
 export default function Home() {
   return (
-    <div>
-      Auto Naija Mart
-    </div>
+    <Soon/>
   );
 }
