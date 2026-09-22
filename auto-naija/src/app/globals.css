@@ -76,6 +76,883 @@ body {
   gap: 8px;
 }
 
+.chatScreen {
+  display: flex;
+  position: relative;
+  padding-top: 64px;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background-color: #FCF8FF;
+}
+
+.chatTopNav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 50;
+  display: flex;
+  height: 64px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-sizing: border-box;
+  background-color: #FCF8FF;
+  border-bottom: 1px solid #C8C4D9;
+}
+
+.chatTopNavBrand,
+.chatTopNavLinks a {
+  text-decoration: none;
+}
+
+.chatTopNavBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #1A3C6E;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.chatTopNavLinks {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.chatTopNavLinks a {
+  color: #474556;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.chatSidebar {
+  width: 383px;
+  min-height: calc(100vh - 64px);
+  flex-shrink: 0;
+  padding: 28px 16px;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  border: 1px solid #C8C4D9;
+}
+
+.chatSidebarTitle {
+  margin: 0 0 24px;
+  color: #1B1A25;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.chatSearch {
+  display: flex;
+  width: 351px;
+  max-width: 100%;
+  height: 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+}
+
+.chatSearch svg {
+  flex-shrink: 0;
+  color: #61646B;
+}
+
+.chatSearch input {
+  width: 100%;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #61646B;
+  font: inherit;
+  font-size: 12px;
+}
+
+.chatSearch input::placeholder {
+  color: #61646B;
+  opacity: 1;
+}
+
+.chatSectionTitle {
+  margin: 28px 0 16px;
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.chatActiveSellers {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.chatSellerStatus {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.chatSellerAvatar {
+  position: relative;
+  display: flex;
+  width: 64px;
+  height: 64px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #F0ECFB;
+  color: #1A3C6E;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.chatSellerAvatar.has-ring {
+  border: 2px solid #1A3C6E;
+}
+
+.chatSellerAvatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chatSellerAvatar > img {
+  z-index: 0;
+}
+
+.chatOnlineDot {
+  position: absolute;
+  right: 0;
+  bottom: 1px;
+  z-index: 1;
+  width: 13px;
+  height: 13px;
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
+  background-color: #22C55E;
+  box-sizing: border-box;
+}
+
+.chatSellerName {
+  width: 100%;
+  overflow: hidden;
+  color: #61646B;
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chatRecentTitle {
+  margin-top: 30px;
+}
+
+.chatRecentMessages {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.chatRecentMessage {
+  display: flex;
+  width: 100%;
+  min-height: 82px;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 12px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.chatRecentMessage.is-selected {
+  border: 1px solid #1A3C6E;
+}
+
+.chatRecentAvatar {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chatRecentMessageBody {
+  min-width: 0;
+  flex: 1;
+}
+
+.chatRecentMessageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.chatRecentMessageName {
+  overflow: hidden;
+  color: #1B1A25;
+  font-size: 14px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chatRecentMessageTime {
+  flex-shrink: 0;
+  color: #61646B;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.chatRecentMessagePreview {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  margin-top: 6px;
+  color: #61646B;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.chatSentTicks {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #1A3C6E;
+}
+
+.chatConversationArea {
+  flex: 1;
+  min-width: 0;
+}
+
+.chatScreen.is-payment-open .chatConversationArea {
+  margin-right: 400px;
+}
+
+.chatConversationHeader {
+  display: flex;
+  min-height: 82px;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #C8C4D9;
+}
+
+.chatConversationBack,
+.chatConversationActions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #474556;
+  cursor: pointer;
+}
+
+.chatConversationAvatar {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chatConversationSeller {
+  min-width: 0;
+}
+
+.chatConversationName {
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.chatConversationStatus {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  color: #61646B;
+  font-size: 12px;
+}
+
+.chatConversationStatusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #AFB1B6;
+}
+
+.chatConversationStatusDot.is-online {
+  background-color: #22C55E;
+}
+
+.chatConversationActions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-left: auto;
+}
+
+.chatConversationMessages {
+  padding: 28px 24px 270px;
+}
+
+.chatComposer {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  left: 399px;
+  right: 16px;
+  bottom: 164px;
+  z-index: 40;
+  width: auto;
+}
+
+.chatScreen.is-payment-open .chatComposer {
+  right: 416px;
+  bottom: 16px;
+}
+
+.chatComposer input {
+  flex: 1;
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  border: 1px solid #C5C0FF;
+  border-radius: 8px;
+  outline: none;
+  background-color: #FFFFFF;
+  color: #1B1A25;
+  font: inherit;
+  font-size: 14px;
+}
+
+.chatSendButton {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background-color: #C5C0FF;
+  color: #FFFFFF;
+  cursor: not-allowed;
+}
+
+.chatSendButton.has-message {
+  background-color: #1A3C6E;
+  cursor: pointer;
+}
+
+.chatComposer input::placeholder {
+  color: #61646B;
+  opacity: 1;
+}
+
+.chatPaymentPanel {
+  position: fixed;
+  right: 0;
+  left: 383px;
+  bottom: 0;
+  z-index: 39;
+  width: auto;
+  height: 148px;
+  padding: 14px 16px 10px;
+  box-sizing: border-box;
+  border: 1px solid #E4DFFF;
+  background-color: #FFFFFF;
+}
+
+.chatScreen.is-payment-open .chatPaymentPanel {
+  right: 400px;
+}
+
+.chatPaymentHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chatAgreedPriceLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1B1A25;
+  font-size: 14px;
+}
+
+.chatAgreedPriceLabel svg {
+  color: #FE7A32;
+}
+
+.chatAgreedPrice {
+  color: #1A3C6E;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.chatEscrowButton {
+  display: flex;
+  width: 100%;
+  height: 49px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1A3C6E;
+  color: #FFFFFF;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.chatPaymentNote {
+  margin-top: 5px;
+  color: #61646B;
+  font-size: 11px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.chatNegotiationPanel {
+  position: fixed;
+  top: 64px;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  width: 400px;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #FCF8FF;
+  border-left: 1px solid #C8C4D9;
+}
+
+.chatNegotiationMobileHeader {
+  display: none;
+}
+
+.chatNegotiationPayment {
+  width: 367px;
+  max-width: 100%;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.chatNegotiationPayment .chatEscrowButton {
+  margin-top: 0;
+}
+
+.chatNegotiationSeller {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.chatNegotiationSeller img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chatNegotiationSellerName {
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.chatNegotiationSellerStatus {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  color: #61646B;
+  font-size: 12px;
+}
+
+.chatNegotiationHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #C8C4D9;
+}
+
+.chatPendingBadge {
+  padding: 4px 8px;
+  border-radius: 8px;
+  background-color: #FFF0E6;
+  color: #FE7A32;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.chatOrderSummaryCard {
+  width: 367px;
+  max-width: 100%;
+  height: 275px;
+  margin-top: 18px;
+  padding: 18px 16px;
+  box-sizing: border-box;
+  border: 1px solid #C8C4D9;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+}
+
+.chatOrderSummaryTitle {
+  margin-bottom: 16px;
+  color: #61646B;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.chatOrderSummaryRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #474556;
+  font-size: 14px;
+}
+
+.chatOriginalPrice {
+  color: #AFB1B6;
+  text-decoration: line-through;
+}
+
+.chatAgreedPriceBox {
+  margin: 14px 0;
+  padding: 10px 8px;
+  border: 1px solid rgba(200, 196, 217, 0.5);
+  background-color: #F5F5F7;
+}
+
+.chatAgreedSummaryLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #1B1A25;
+  font-weight: 700;
+}
+
+.chatAgreedSummaryLabel svg {
+  color: #FE7A32;
+}
+
+.chatAgreedSummaryPrice {
+  color: #1A3C6E;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.chatSmallSummaryRow {
+  margin-top: 10px;
+  color: #61646B;
+  font-size: 12px;
+}
+
+.chatSmallSummaryRow > span:last-child {
+  color: #1B1A25;
+}
+
+.chatFeeLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chatOrderSummaryDivider {
+  height: 1px;
+  margin: 14px 0 12px;
+  background-color: #C8C4D9;
+}
+
+.chatTotalRow {
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.chatTotalRow > span:last-child {
+  color: #1A3C6E;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.chatSecureEscrowCard {
+  display: flex;
+  width: 367px;
+  max-width: 100%;
+  min-height: 92px;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 16px;
+  box-sizing: border-box;
+  border: 1px solid #C8C4D9;
+  border-radius: 12px;
+  background-color: #F6F1FF;
+  color: #FE7A32;
+}
+
+.chatSecureEscrowTitle {
+  color: #1B1A25;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.chatSecureEscrowCopy {
+  margin-top: 6px;
+  color: #474556;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.chatRequestedPartCard {
+  display: flex;
+  width: min(784px, calc(100% - 48px));
+  height: 90px;
+  align-items: center;
+  gap: 14px;
+  margin: 20px 24px 0;
+  padding: 12px 16px;
+  box-sizing: border-box;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+}
+
+.chatRequestedPartImage {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.chatRequestedPartDetails {
+  min-width: 0;
+  flex: 1;
+}
+
+.chatRequestedPartName {
+  overflow: hidden;
+  color: #1B1A25;
+  font-size: 14px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chatRequestedPartMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  color: #61646B;
+  font-size: 11px;
+}
+
+.chatEscrowLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #FE7A32;
+}
+
+.chatRequestedPartPrice {
+  flex-shrink: 0;
+  color: #1A3C6E;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.chatFullMessage {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 5px;
+  max-width: 520px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  color: #474556;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.chatFullMessage > span:first-child {
+  max-width: 100%;
+}
+
+.chatFullMessage.is-received {
+  background-color: #EAE6F5;
+}
+
+.chatSentMessage {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+}
+
+.chatFullMessage.is-sent {
+  background-color: #1A3C6E;
+  color: #FFFFFF;
+}
+
+.chatFullMessage.is-sent .chatSentTicks {
+  color: #C5C0FF;
+}
+
+.chatFullMessage.is-sent::after {
+  position: absolute;
+  right: -8px;
+  bottom: 0;
+  width: 10px;
+  height: 12px;
+  background-color: #1A3C6E;
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  content: '';
+}
+
+.chatFullMessage.is-received::before {
+  position: absolute;
+  bottom: 0;
+  left: -8px;
+  width: 10px;
+  height: 12px;
+  background-color: #EAE6F5;
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  content: '';
+}
+
+.chatReceivedMessage {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.chatMessageSellerIcon {
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chatMessageMeta {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 3px;
+}
+
+.chatMessageTime {
+  color: inherit;
+  font-size: 11px;
+  line-height: 1;
+  text-align: right;
+}
+
+.chatTypingIndicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.chatTypingAvatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chatTypingDots {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background-color: #EAE6F5;
+}
+
+.chatTypingDots span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #61646B;
+  animation: chatTypingPulse 1.2s infinite ease-in-out;
+}
+
+.chatTypingDots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.chatTypingDots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes chatTypingPulse {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+.chatFullMessage.is-sent .chatMessageMeta {
+  color: #C5C0FF;
+  font-size: 11px;
+}
+
 .helpSupportQuickHelpTitle {
   color: #1B1A25;
   font-size: 16px;
@@ -597,6 +1474,259 @@ body {
 
   .passwordSecurityShell {
     flex-direction: column !important;
+  }
+
+  .chatScreen {
+    display: block;
+    min-height: 100vh;
+    padding-top: 0;
+    padding-bottom: 80px;
+  }
+
+  .chatTopNav {
+    display: none;
+  }
+
+  .chatSidebar {
+    display: block;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    padding: 24px 16px 96px;
+    border: none;
+  }
+
+  .chatScreen.is-conversation-open .chatSidebar {
+    display: none;
+  }
+
+  .chatConversationArea,
+  .chatScreen.is-conversation-open .chatConversationArea {
+    display: block;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    margin-right: 0;
+  }
+
+  .chatScreen:not(.is-conversation-open) .chatConversationArea {
+    display: none;
+  }
+
+  .chatScreen.is-payment-open .chatConversationArea {
+    display: block;
+    min-height: 100vh;
+  }
+
+  .chatScreen.is-payment-open .chatConversationHeader,
+  .chatScreen.is-payment-open .chatRequestedPartCard,
+  .chatScreen.is-payment-open .chatConversationMessages,
+  .chatScreen.is-payment-open .chatComposer {
+    display: none;
+  }
+
+  .chatConversationHeader {
+    min-height: 64px;
+    padding: 8px 12px;
+  }
+
+  .chatConversationAvatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .chatConversationName {
+    font-size: 14px;
+  }
+
+  .chatConversationStatus {
+    font-size: 11px;
+  }
+
+  .chatRequestedPartCard {
+    width: calc(100% - 32px);
+    height: 78px;
+    gap: 8px;
+    margin: 12px 16px 0;
+    padding: 8px 10px;
+  }
+
+  .chatRequestedPartImage {
+    width: 48px;
+    height: 48px;
+  }
+
+  .chatRequestedPartName {
+    font-size: 12px;
+  }
+
+  .chatRequestedPartMeta {
+    gap: 6px;
+    margin-top: 4px;
+    font-size: 9px;
+  }
+
+  .chatRequestedPartPrice {
+    font-size: 14px;
+  }
+
+  .chatConversationMessages {
+    padding: 16px 12px 390px;
+  }
+
+  .chatFullMessage {
+    max-width: calc(100vw - 76px);
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .chatComposer {
+    left: 16px;
+    right: 16px;
+    bottom: 244px;
+  }
+
+  .chatComposer input,
+  .chatSendButton {
+    height: 40px;
+  }
+
+  .chatSendButton {
+    width: 40px;
+  }
+
+  .chatScreen.is-payment-open .chatComposer {
+    display: none;
+  }
+
+  .chatPaymentPanel,
+  .chatScreen.is-payment-open .chatPaymentPanel {
+    right: 0;
+    bottom: 80px;
+    left: 0;
+    height: 148px;
+    padding: 14px 16px 10px;
+  }
+
+  .chatNegotiationPanel {
+    top: 0;
+    right: 0;
+    bottom: 80px;
+    width: 100%;
+    padding: 16px;
+    overflow-x: hidden;
+    border-left: none;
+  }
+
+  .chatNegotiationMobileHeader {
+    display: flex;
+    height: 48px;
+    align-items: center;
+    justify-content: space-between;
+    color: #1B1A25;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .chatNegotiationMobileHeader button {
+    display: flex;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #474556;
+  }
+
+  .chatNegotiationHeading {
+    display: none;
+  }
+
+  .chatOrderSummaryCard,
+  .chatSecureEscrowCard,
+  .chatNegotiationPayment {
+    width: 100%;
+  }
+
+  .chatOrderSummaryCard {
+    height: auto;
+    min-height: 275px;
+    margin-top: 18px;
+    padding: 18px 16px;
+  }
+
+  .chatOrderSummaryTitle {
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+
+  .chatOrderSummaryRow {
+    gap: 12px;
+    font-size: 14px;
+  }
+
+  .chatAgreedPriceBox {
+    margin: 14px 0;
+    padding: 10px 8px;
+  }
+
+  .chatAgreedSummaryLabel {
+    gap: 6px;
+    font-size: 12px;
+  }
+
+  .chatAgreedSummaryPrice {
+    font-size: 16px;
+  }
+
+  .chatSmallSummaryRow {
+    margin-top: 10px;
+    font-size: 12px;
+  }
+
+  .chatOrderSummaryDivider {
+    margin: 14px 0 12px;
+  }
+
+  .chatTotalRow {
+    font-size: 16px;
+  }
+
+  .chatTotalRow > span:last-child {
+    font-size: 28px;
+  }
+
+  .chatSecureEscrowCard {
+    min-height: 92px;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 16px;
+  }
+
+  .chatSecureEscrowTitle {
+    font-size: 14px;
+  }
+
+  .chatSecureEscrowCopy {
+    margin-top: 6px;
+    font-size: 11px;
+  }
+
+  .chatNegotiationPayment .chatEscrowButton {
+    height: 49px;
+    font-size: 14px;
+  }
+
+  .chatNegotiationPayment .chatPaymentNote {
+    font-size: 11px;
+  }
+
+  .chatNegotiationPayment {
+    margin-top: auto;
+  }
+
+  .chatMobileBottomNav {
+    display: flex !important;
   }
 
   .passwordSecuritySidebar {

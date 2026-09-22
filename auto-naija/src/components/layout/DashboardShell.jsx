@@ -39,7 +39,7 @@ const menuItems = [
   { label: 'Promotions', icon: GiMegaphone, href: '/', key: 'promotions' },
   { label: 'Catalog', icon: PiBookOpenText, href: '/', key: 'catalog' },
   { label: 'Returns', icon: MdOutlineAssignmentReturn, href: '/', key: 'returns' },
-  { label: 'Messages', icon: CiMail, href: '/', key: 'messages' },
+  { label: 'Messages', icon: CiMail, href: '/chat-screens', key: 'messages' },
   { label: 'Settings', icon: IoSettingsOutline, href: '/password-security', key: 'settings' },
   { label: 'Help', icon: LuCircleHelp, href: '/help-support', key: 'help' },
   { label: 'LogOut', icon: IoLogOutOutline, href: '/logout-confirmation', key: 'logout' },
