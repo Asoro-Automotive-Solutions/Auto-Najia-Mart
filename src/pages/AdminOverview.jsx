@@ -31,6 +31,15 @@ export default function AdminOverview() {
   ])
 
   const maxGmvValue = Math.max(...ELAPSED_GMV_MONTHS.map((m) => m.value))
+  const monthsCount = ELAPSED_GMV_MONTHS.length
+  const periodLabel =
+    monthsCount <= 3
+      ? 'Q1'
+      : monthsCount <= 6
+      ? 'H1 (Q1–Q2)'
+      : monthsCount <= 9
+      ? 'Q1–Q3'
+      : 'Full Year'
 
   const pendingCount = tasks.filter((t) => !t.done).length
 
@@ -161,7 +170,7 @@ export default function AdminOverview() {
                 GMV Trend (Monthly)
               </h2>
               <span className="text-xs text-slate-400 font-medium">
-                Q1 Elapsed Data (₦) &bull; {ELAPSED_GMV_MONTHS.length} Months Recorded
+                {periodLabel} Elapsed Data (₦) &bull; {monthsCount} {monthsCount === 1 ? 'Month' : 'Months'} Recorded
               </span>
             </div>
 
