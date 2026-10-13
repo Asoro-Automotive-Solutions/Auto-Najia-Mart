@@ -15,47 +15,16 @@ import {
   AlertCircle
 } from 'lucide-react'
 
-const GMV_DATA_OPTIONS = {
-  year: {
-    label: 'Full Year 2026 (₦)',
-    data: [
-      { month: 'Jan', amount: '₦22.1M', height: '38%', current: false },
-      { month: 'Feb', amount: '₦28.4M', height: '48%', current: false },
-      { month: 'Mar', amount: '₦33.8M', height: '58%', current: false },
-      { month: 'Apr', amount: '₦31.2M', height: '54%', current: false },
-      { month: 'May', amount: '₦37.5M', height: '64%', current: false },
-      { month: 'Jun', amount: '₦40.1M', height: '69%', current: false },
-      { month: 'Jul', amount: '₦38.9M', height: '67%', current: false },
-      { month: 'Aug', amount: '₦42.3M', height: '73%', current: false },
-      { month: 'Sep', amount: '₦41.0M', height: '70%', current: false },
-      { month: 'Oct', amount: '₦45.2M', height: '94%', current: true },
-      { month: 'Nov', amount: '₦43.8M', height: '75%', current: false },
-      { month: 'Dec', amount: '₦48.6M', height: '83%', current: false },
-    ],
-  },
-  sixMonths: {
-    label: 'Last 6 Months (₦)',
-    data: [
-      { month: 'May', amount: '₦37.5M', height: '60%', current: false },
-      { month: 'Jun', amount: '₦40.1M', height: '68%', current: false },
-      { month: 'Jul', amount: '₦38.9M', height: '64%', current: false },
-      { month: 'Aug', amount: '₦42.3M', height: '76%', current: false },
-      { month: 'Sep', amount: '₦41.0M', height: '72%', current: false },
-      { month: 'Oct', amount: '₦45.2M', height: '94%', current: true },
-    ],
-  },
-  q1: {
-    label: 'Q1 Overview (₦)',
-    data: [
-      { month: 'Jan', amount: '₦22.1M', height: '45%', current: false },
-      { month: 'Feb', amount: '₦33.8M', height: '72%', current: false },
-      { month: 'Mar', amount: '₦45.2M', height: '94%', current: true },
-    ],
-  },
-}
+// Approach A: Only verified, elapsed months are rendered.
+// As subsequent months close, their data is appended to this array,
+// and the chart automatically computes proportional bar heights and spacing.
+const ELAPSED_MONTHS_GMV = [
+  { month: 'Jan', value: 22.1, amount: '₦22.1M', growth: 'Baseline' },
+  { month: 'Feb', value: 33.8, amount: '₦33.8M', growth: '+52.9% vs Jan' },
+  { month: 'Mar', value: 45.2, amount: '₦45.2M', growth: '+33.7% vs Feb', isLatest: true },
+]
 
 export default function AdminOverview() {
-  const [chartRange, setChartRange] = useState('year')
   const [exportToast, setExportToast] = useState(false)
   const [tasks, setTasks] = useState([
     { id: 1, text: 'Verify 12 Seller KYC Documents', done: false },
@@ -63,7 +32,7 @@ export default function AdminOverview() {
     { id: 3, text: 'Approve Payout Batch #892', done: false },
   ])
 
-  const activeGmvData = GMV_DATA_OPTIONS[chartRange]
+  const maxGmv = Math.max(...ELAPSED_MONTHS_GMV.map((item) => item.value))
 
   const pendingCount = tasks.filter((t) => !t.done).length
 
@@ -186,70 +155,73 @@ export default function AdminOverview() {
 
       {/* Middle Row: GMV Trend Chart & System Health */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* GMV Trend (Monthly) */}
+        {/* GMV Trend (Monthly) - Approach A: Elapsed Months Only */}
         <div className="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.03)] flex flex-col justify-between">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
             <div>
-              <h2 className="text-sm font-bold text-slate-800">
-                GMV Trend (Monthly)
-              </h2>
-              <span className="text-xs text-slate-400 font-medium">{activeGmvData.label}</span>
+              <div className="flex items-center gap-2">
+                <h2 className="text-sm font-bold text-slate-800">
+                  GMV Trend (Monthly)
+                </h2>
+                <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200/80 px-2 py-0.5 rounded-full">
+                  Elapsed Months
+                </span>
+              </div>
+              <p className="text-xs text-slate-400 font-medium mt-0.5">
+                Q1 Verified Closed Periods (₦) &bull; Jan &ndash; Mar 2026
+              </p>
             </div>
 
-            {/* Time Filter Pills */}
-            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl self-start sm:self-auto">
-              {[
-                { id: 'year', label: '12 Months' },
-                { id: 'sixMonths', label: '6 Months' },
-                { id: 'q1', label: 'Q1' },
-              ].map((pill) => (
-                <button
-                  key={pill.id}
-                  onClick={() => setChartRange(pill.id)}
-                  className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
-                    chartRange === pill.id
-                      ? 'bg-white text-[#170a8f] shadow-xs'
-                      : 'text-slate-500 hover:text-slate-900'
-                  }`}
-                >
-                  {pill.label}
-                </button>
-              ))}
+            <div className="flex items-center gap-2 self-start sm:self-auto text-xs text-slate-500 bg-slate-50 border border-slate-200/60 px-3 py-1.5 rounded-xl font-medium">
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span>Latest: <strong>₦45.2M (Mar)</strong></span>
             </div>
           </div>
 
-          {/* Bar Chart Graphics */}
-          <div className="h-56 flex items-end justify-between gap-1.5 sm:gap-2.5 pt-6 pb-2 px-1 sm:px-3 border-b border-slate-100">
-            {activeGmvData.data.map((item) => (
-              <div
-                key={item.month}
-                className="group flex flex-col items-center flex-1 max-w-[56px] h-full justify-end relative cursor-pointer"
-              >
-                {/* Floating Tooltip */}
-                <span className="opacity-0 group-hover:opacity-100 transition-all duration-200 text-[10px] sm:text-[11px] font-bold text-slate-800 bg-white border border-slate-200 shadow-sm px-1.5 py-0.5 rounded-md mb-1.5 pointer-events-none whitespace-nowrap absolute -top-1 z-10">
-                  {item.amount}
-                </span>
+          {/* Bar Chart Graphics - Automatically adapts spacing as months are added */}
+          <div className="h-56 flex items-end justify-center gap-6 sm:gap-12 lg:gap-16 pt-6 pb-2 px-4 border-b border-slate-100">
+            {ELAPSED_MONTHS_GMV.map((item) => {
+              // Dynamic proportional height formula: scales realistically from 22% to 94%
+              const heightPercentage = Math.round((item.value / maxGmv) * 72) + 22
 
-                {/* Animated Column Bar */}
+              return (
                 <div
-                  style={{ height: item.height }}
-                  className={`w-full rounded-t-lg sm:rounded-t-xl transition-all duration-300 ${
-                    item.current
-                      ? 'bg-[#5227d8] group-hover:bg-[#431bb8] shadow-sm shadow-indigo-900/20 ring-2 ring-indigo-400/20'
-                      : 'bg-[#c8bdf3] group-hover:bg-[#a593ef]'
-                  }`}
-                ></div>
-
-                {/* Month Name */}
-                <span
-                  className={`text-[10px] sm:text-xs font-semibold mt-2.5 transition-colors ${
-                    item.current ? 'text-slate-900 font-bold' : 'text-slate-500 group-hover:text-slate-800'
-                  }`}
+                  key={item.month}
+                  className="group flex flex-col items-center flex-1 max-w-[84px] h-full justify-end relative cursor-pointer"
                 >
-                  {item.month}
-                </span>
-              </div>
-            ))}
+                  {/* Floating Hover Tooltip with value & growth */}
+                  <div className="opacity-0 group-hover:opacity-100 transition-all duration-200 text-center bg-slate-900 text-white shadow-lg px-2.5 py-1.5 rounded-lg mb-2 pointer-events-none whitespace-nowrap absolute -top-4 z-10 text-[10px]">
+                    <p className="font-bold">{item.amount}</p>
+                    <p className="text-emerald-400 font-medium">{item.growth}</p>
+                  </div>
+
+                  {/* Proportional Bar */}
+                  <div
+                    style={{ height: `${heightPercentage}%` }}
+                    className={`w-full rounded-t-xl transition-all duration-300 ${
+                      item.isLatest
+                        ? 'bg-[#5227d8] group-hover:bg-[#431bb8] shadow-md shadow-indigo-900/20'
+                        : 'bg-[#9c89e9] group-hover:bg-[#856fe4]'
+                    }`}
+                  ></div>
+
+                  {/* Month Label */}
+                  <span
+                    className={`text-xs font-semibold mt-3 transition-colors ${
+                      item.isLatest ? 'text-slate-900 font-bold' : 'text-slate-500 group-hover:text-slate-800'
+                    }`}
+                  >
+                    {item.month}
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Bottom Footnote */}
+          <div className="mt-4 pt-2 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Quarter Total: <strong className="text-slate-700 font-semibold">₦101.1M GMV</strong></span>
+            <span>Subsequent months populate automatically upon period close</span>
           </div>
         </div>
 
