@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-ro
 import AdminLogin from './pages/AdminLogin'
 import AdminVerify2FA from './pages/AdminVerify2FA'
 import AdminOverview from './pages/AdminOverview'
+import AdminActivity from './pages/AdminActivity'
 import AdminLayout from './layouts/AdminLayout'
 
 function App() {
@@ -29,6 +30,16 @@ function App() {
           element={
             <AdminLayout>
               <AdminOverview />
+            </AdminLayout>
+          }
+        />
+
+        {/* Recent Activity & Audit Logs */}
+        <Route
+          path="/admin/activity"
+          element={
+            <AdminLayout>
+              <AdminActivity />
             </AdminLayout>
           }
         />

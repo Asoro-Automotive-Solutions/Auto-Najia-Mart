@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Download,
   Wallet,
@@ -262,12 +263,12 @@ export default function AdminOverview() {
             <h2 className="text-sm font-bold text-slate-800">
               Recent Activity
             </h2>
-            <button
-              onClick={() => alert('Opening all recent system audit logs...')}
+            <Link
+              to="/admin/activity"
               className="text-xs font-semibold text-[#5227d8] hover:underline cursor-pointer"
             >
               View All
-            </button>
+            </Link>
           </div>
 
           <div className="space-y-4">
