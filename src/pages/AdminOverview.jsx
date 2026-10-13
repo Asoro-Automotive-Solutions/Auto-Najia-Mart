@@ -15,13 +15,55 @@ import {
   AlertCircle
 } from 'lucide-react'
 
+const GMV_DATA_OPTIONS = {
+  year: {
+    label: 'Full Year 2026 (₦)',
+    data: [
+      { month: 'Jan', amount: '₦22.1M', height: '38%', current: false },
+      { month: 'Feb', amount: '₦28.4M', height: '48%', current: false },
+      { month: 'Mar', amount: '₦33.8M', height: '58%', current: false },
+      { month: 'Apr', amount: '₦31.2M', height: '54%', current: false },
+      { month: 'May', amount: '₦37.5M', height: '64%', current: false },
+      { month: 'Jun', amount: '₦40.1M', height: '69%', current: false },
+      { month: 'Jul', amount: '₦38.9M', height: '67%', current: false },
+      { month: 'Aug', amount: '₦42.3M', height: '73%', current: false },
+      { month: 'Sep', amount: '₦41.0M', height: '70%', current: false },
+      { month: 'Oct', amount: '₦45.2M', height: '94%', current: true },
+      { month: 'Nov', amount: '₦43.8M', height: '75%', current: false },
+      { month: 'Dec', amount: '₦48.6M', height: '83%', current: false },
+    ],
+  },
+  sixMonths: {
+    label: 'Last 6 Months (₦)',
+    data: [
+      { month: 'May', amount: '₦37.5M', height: '60%', current: false },
+      { month: 'Jun', amount: '₦40.1M', height: '68%', current: false },
+      { month: 'Jul', amount: '₦38.9M', height: '64%', current: false },
+      { month: 'Aug', amount: '₦42.3M', height: '76%', current: false },
+      { month: 'Sep', amount: '₦41.0M', height: '72%', current: false },
+      { month: 'Oct', amount: '₦45.2M', height: '94%', current: true },
+    ],
+  },
+  q1: {
+    label: 'Q1 Overview (₦)',
+    data: [
+      { month: 'Jan', amount: '₦22.1M', height: '45%', current: false },
+      { month: 'Feb', amount: '₦33.8M', height: '72%', current: false },
+      { month: 'Mar', amount: '₦45.2M', height: '94%', current: true },
+    ],
+  },
+}
+
 export default function AdminOverview() {
+  const [chartRange, setChartRange] = useState('year')
   const [exportToast, setExportToast] = useState(false)
   const [tasks, setTasks] = useState([
     { id: 1, text: 'Verify 12 Seller KYC Documents', done: false },
     { id: 2, text: 'Review 3 Refund Requests (High Value)', done: false },
     { id: 3, text: 'Approve Payout Batch #892', done: false },
   ])
+
+  const activeGmvData = GMV_DATA_OPTIONS[chartRange]
 
   const pendingCount = tasks.filter((t) => !t.done).length
 
@@ -145,51 +187,69 @@ export default function AdminOverview() {
       {/* Middle Row: GMV Trend Chart & System Health */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* GMV Trend (Monthly) */}
-        <div className="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.03)]">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-sm font-bold text-slate-800">
-              GMV Trend (Monthly)
-            </h2>
-            <span className="text-xs text-slate-400 font-medium">Q1 Overview (₦)</span>
+        <div className="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.03)] flex flex-col justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+            <div>
+              <h2 className="text-sm font-bold text-slate-800">
+                GMV Trend (Monthly)
+              </h2>
+              <span className="text-xs text-slate-400 font-medium">{activeGmvData.label}</span>
+            </div>
+
+            {/* Time Filter Pills */}
+            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl self-start sm:self-auto">
+              {[
+                { id: 'year', label: '12 Months' },
+                { id: 'sixMonths', label: '6 Months' },
+                { id: 'q1', label: 'Q1' },
+              ].map((pill) => (
+                <button
+                  key={pill.id}
+                  onClick={() => setChartRange(pill.id)}
+                  className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                    chartRange === pill.id
+                      ? 'bg-white text-[#170a8f] shadow-xs'
+                      : 'text-slate-500 hover:text-slate-900'
+                  }`}
+                >
+                  {pill.label}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Bar Chart Graphics */}
-          <div className="h-56 flex items-end justify-around gap-6 pt-6 pb-2 px-4 border-b border-slate-100">
-            {/* January */}
-            <div className="group flex flex-col items-center flex-1 max-w-[90px] h-full justify-end">
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[11px] font-bold text-slate-600 mb-1">
-                ₦22.1M
-              </span>
+          <div className="h-56 flex items-end justify-between gap-1.5 sm:gap-2.5 pt-6 pb-2 px-1 sm:px-3 border-b border-slate-100">
+            {activeGmvData.data.map((item) => (
               <div
-                style={{ height: '45%' }}
-                className="w-full bg-[#c8bdf3] group-hover:bg-[#b2a4ee] rounded-t-xl transition-all duration-300"
-              ></div>
-              <span className="text-xs font-semibold text-slate-500 mt-3">Jan</span>
-            </div>
+                key={item.month}
+                className="group flex flex-col items-center flex-1 max-w-[56px] h-full justify-end relative cursor-pointer"
+              >
+                {/* Floating Tooltip */}
+                <span className="opacity-0 group-hover:opacity-100 transition-all duration-200 text-[10px] sm:text-[11px] font-bold text-slate-800 bg-white border border-slate-200 shadow-sm px-1.5 py-0.5 rounded-md mb-1.5 pointer-events-none whitespace-nowrap absolute -top-1 z-10">
+                  {item.amount}
+                </span>
 
-            {/* February */}
-            <div className="group flex flex-col items-center flex-1 max-w-[90px] h-full justify-end">
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[11px] font-bold text-slate-600 mb-1">
-                ₦33.8M
-              </span>
-              <div
-                style={{ height: '72%' }}
-                className="w-full bg-[#9c89e9] group-hover:bg-[#856fe4] rounded-t-xl transition-all duration-300"
-              ></div>
-              <span className="text-xs font-semibold text-slate-500 mt-3">Feb</span>
-            </div>
+                {/* Animated Column Bar */}
+                <div
+                  style={{ height: item.height }}
+                  className={`w-full rounded-t-lg sm:rounded-t-xl transition-all duration-300 ${
+                    item.current
+                      ? 'bg-[#5227d8] group-hover:bg-[#431bb8] shadow-sm shadow-indigo-900/20 ring-2 ring-indigo-400/20'
+                      : 'bg-[#c8bdf3] group-hover:bg-[#a593ef]'
+                  }`}
+                ></div>
 
-            {/* March */}
-            <div className="group flex flex-col items-center flex-1 max-w-[90px] h-full justify-end">
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[11px] font-bold text-slate-600 mb-1">
-                ₦45.2M
-              </span>
-              <div
-                style={{ height: '94%' }}
-                className="w-full bg-[#5227d8] group-hover:bg-[#431bb8] rounded-t-xl transition-all duration-300 shadow-sm shadow-indigo-900/20"
-              ></div>
-              <span className="text-xs font-semibold text-slate-800 mt-3">Mar</span>
-            </div>
+                {/* Month Name */}
+                <span
+                  className={`text-[10px] sm:text-xs font-semibold mt-2.5 transition-colors ${
+                    item.current ? 'text-slate-900 font-bold' : 'text-slate-500 group-hover:text-slate-800'
+                  }`}
+                >
+                  {item.month}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
 
