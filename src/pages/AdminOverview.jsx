@@ -15,13 +15,11 @@ import {
   AlertCircle
 } from 'lucide-react'
 
-// Approach A: Only verified, elapsed months are rendered.
-// As subsequent months close, their data is appended to this array,
-// and the chart automatically computes proportional bar heights and spacing.
-const ELAPSED_MONTHS_GMV = [
+// Approach A: Only elapsed, verified months with recorded data
+const ELAPSED_GMV_MONTHS = [
   { month: 'Jan', value: 22.1, amount: '₦22.1M', growth: 'Baseline' },
-  { month: 'Feb', value: 33.8, amount: '₦33.8M', growth: '+52.9% vs Jan' },
-  { month: 'Mar', value: 45.2, amount: '₦45.2M', growth: '+33.7% vs Feb', isLatest: true },
+  { month: 'Feb', value: 33.8, amount: '₦33.8M', growth: '+52.9%' },
+  { month: 'Mar', value: 45.2, amount: '₦45.2M', growth: '+33.7%', current: true },
 ]
 
 export default function AdminOverview() {
@@ -32,7 +30,7 @@ export default function AdminOverview() {
     { id: 3, text: 'Approve Payout Batch #892', done: false },
   ])
 
-  const maxGmv = Math.max(...ELAPSED_MONTHS_GMV.map((item) => item.value))
+  const maxGmvValue = Math.max(...ELAPSED_GMV_MONTHS.map((m) => m.value))
 
   const pendingCount = tasks.filter((t) => !t.done).length
 
@@ -155,60 +153,57 @@ export default function AdminOverview() {
 
       {/* Middle Row: GMV Trend Chart & System Health */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* GMV Trend (Monthly) - Approach A: Elapsed Months Only */}
+        {/* GMV Trend (Monthly) */}
         <div className="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.03)] flex flex-col justify-between">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+          <div className="flex items-center justify-between mb-6">
             <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-sm font-bold text-slate-800">
-                  GMV Trend (Monthly)
-                </h2>
-                <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200/80 px-2 py-0.5 rounded-full">
-                  Elapsed Months
-                </span>
-              </div>
-              <p className="text-xs text-slate-400 font-medium mt-0.5">
-                Q1 Verified Closed Periods (₦) &bull; Jan &ndash; Mar 2026
-              </p>
+              <h2 className="text-sm font-bold text-slate-800">
+                GMV Trend (Monthly)
+              </h2>
+              <span className="text-xs text-slate-400 font-medium">
+                Q1 Elapsed Data (₦) &bull; {ELAPSED_GMV_MONTHS.length} Months Recorded
+              </span>
             </div>
 
-            <div className="flex items-center gap-2 self-start sm:self-auto text-xs text-slate-500 bg-slate-50 border border-slate-200/60 px-3 py-1.5 rounded-xl font-medium">
-              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-              <span>Latest: <strong>₦45.2M (Mar)</strong></span>
-            </div>
+            <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2.5 py-1 rounded-full flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              Verified Financials
+            </span>
           </div>
 
-          {/* Bar Chart Graphics - Automatically adapts spacing as months are added */}
-          <div className="h-56 flex items-end justify-center gap-6 sm:gap-12 lg:gap-16 pt-6 pb-2 px-4 border-b border-slate-100">
-            {ELAPSED_MONTHS_GMV.map((item) => {
-              // Dynamic proportional height formula: scales realistically from 22% to 94%
-              const heightPercentage = Math.round((item.value / maxGmv) * 72) + 22
-
+          {/* Bar Chart Graphics - Automatically spaces and closes up as new elapsed months are appended */}
+          <div className="h-56 flex items-end justify-center gap-6 sm:gap-12 pt-6 pb-2 px-4 border-b border-slate-100">
+            {ELAPSED_GMV_MONTHS.map((item) => {
+              const heightPercent = `${Math.round((item.value / maxGmvValue) * 88) + 8}%`
               return (
                 <div
                   key={item.month}
                   className="group flex flex-col items-center flex-1 max-w-[84px] h-full justify-end relative cursor-pointer"
                 >
-                  {/* Floating Hover Tooltip with value & growth */}
-                  <div className="opacity-0 group-hover:opacity-100 transition-all duration-200 text-center bg-slate-900 text-white shadow-lg px-2.5 py-1.5 rounded-lg mb-2 pointer-events-none whitespace-nowrap absolute -top-4 z-10 text-[10px]">
-                    <p className="font-bold">{item.amount}</p>
-                    <p className="text-emerald-400 font-medium">{item.growth}</p>
+                  {/* Floating Tooltip */}
+                  <div className="opacity-0 group-hover:opacity-100 transition-all duration-200 flex flex-col items-center mb-1.5 pointer-events-none absolute -top-2 z-10">
+                    <span className="text-[11px] font-bold text-slate-800 bg-white border border-slate-200 shadow-sm px-2 py-0.5 rounded-md whitespace-nowrap">
+                      {item.amount}
+                    </span>
+                    <span className="text-[9px] font-semibold text-emerald-600 mt-0.5">
+                      {item.growth}
+                    </span>
                   </div>
 
-                  {/* Proportional Bar */}
+                  {/* Animated Column Bar */}
                   <div
-                    style={{ height: `${heightPercentage}%` }}
+                    style={{ height: heightPercent }}
                     className={`w-full rounded-t-xl transition-all duration-300 ${
-                      item.isLatest
-                        ? 'bg-[#5227d8] group-hover:bg-[#431bb8] shadow-md shadow-indigo-900/20'
-                        : 'bg-[#9c89e9] group-hover:bg-[#856fe4]'
+                      item.current
+                        ? 'bg-[#5227d8] group-hover:bg-[#431bb8] shadow-sm shadow-indigo-900/20 ring-2 ring-indigo-400/20'
+                        : 'bg-[#c8bdf3] group-hover:bg-[#a593ef]'
                     }`}
                   ></div>
 
                   {/* Month Label */}
                   <span
-                    className={`text-xs font-semibold mt-3 transition-colors ${
-                      item.isLatest ? 'text-slate-900 font-bold' : 'text-slate-500 group-hover:text-slate-800'
+                    className={`text-xs font-semibold mt-2.5 transition-colors ${
+                      item.current ? 'text-slate-900 font-bold' : 'text-slate-500 group-hover:text-slate-800'
                     }`}
                   >
                     {item.month}
@@ -216,12 +211,6 @@ export default function AdminOverview() {
                 </div>
               )
             })}
-          </div>
-
-          {/* Bottom Footnote */}
-          <div className="mt-4 pt-2 flex items-center justify-between text-[11px] text-slate-400">
-            <span>Quarter Total: <strong className="text-slate-700 font-semibold">₦101.1M GMV</strong></span>
-            <span>Subsequent months populate automatically upon period close</span>
           </div>
         </div>
 
