@@ -180,6 +180,46 @@ body {
   opacity: 1;
 }
 
+.sellerChatTitle {
+  margin: 24px 0 14px;
+  color: #2700A6;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.sellerChatFilters {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  margin: 14px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.sellerChatFilters::-webkit-scrollbar {
+  display: none;
+}
+
+.sellerChatFilter {
+  flex: 0 0 auto;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #61646B;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.sellerChatFilter.is-active {
+  background: #2700A6;
+  color: #FFFFFF;
+}
+
 .chatSectionTitle {
   margin: 28px 0 16px;
   color: #1B1A25;
@@ -2041,5 +2081,2591 @@ body {
 
   .passwordSecuritySidebar::-webkit-scrollbar {
     display: none;
+  }
+}
+
+.sellerChatPage,
+.sellerChatPage * {
+  box-sizing: border-box;
+}
+
+.sellerChatPage {
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  grid-template-columns: 256px minmax(320px, 341px) minmax(0, 1fr);
+  overflow: hidden;
+  background: #FCF8FF;
+  color: #1B1A25;
+  font-family: var(--font-work-sans), sans-serif;
+}
+
+.sellerChatNavigation {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
+  padding: 12px 13px 12px 12px;
+  overflow-y: auto;
+  background: #F6F1FF;
+  border-right: 1px solid #C8C4D9;
+}
+
+.sellerChatBrand {
+  display: flex;
+  height: 116px;
+  flex: 0 0 116px;
+  align-items: flex-start;
+  padding: 12px;
+  color: #2700A6;
+  text-decoration: none;
+}
+
+.sellerChatBrandWordmark {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 34px;
+}
+
+.sellerChatNavigationLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 124px;
+}
+
+.sellerChatNavigationLink {
+  display: flex;
+  min-width: 0;
+  height: 44px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  border-radius: 8px;
+  color: #474556;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.sellerChatNavigationLink img {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.sellerChatNavigationLink.is-active {
+  background: #2700A6;
+  color: #FFFFFF;
+}
+
+.sellerChatUser {
+  position: absolute;
+  right: 0;
+  bottom: 12px;
+  left: 0;
+  display: flex;
+  min-height: 68px;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-top: 1px solid #C8C4D9;
+}
+
+.sellerChatUserAvatar,
+.sellerChatCardAvatar,
+.sellerConversationAvatar {
+  display: block;
+  flex: 0 0 auto;
+  border: 1px solid #C8C4D9;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.sellerChatUserDetails {
+  min-width: 0;
+}
+
+.sellerChatUserName {
+  overflow: hidden;
+  color: #1B1A25;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sellerChatUserEmail {
+  overflow: hidden;
+  color: #61646B;
+  font-size: 11px;
+  line-height: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sellerChatList {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
+  background: #FFFFFF;
+  border-right: 1px solid #C8C4D9;
+}
+
+.sellerChatListHeader {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 16px 17px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #C8C4D9;
+}
+
+.sellerChatTitle {
+  margin: 0;
+  color: #2700A6;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 34px;
+}
+
+.sellerChatSearch {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  flex: 0 0 40px;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px 0 12px;
+  overflow: hidden;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  background: #F0ECFB;
+}
+
+.sellerChatSearch img {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.sellerChatSearch input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #1B1A25;
+  font: inherit;
+  font-size: 14px;
+}
+
+.sellerChatSearch input::placeholder {
+  color: #61646B;
+  opacity: 1;
+}
+
+.sellerChatFilters {
+  display: flex;
+  width: 100%;
+  height: 36px;
+  flex: 0 0 36px;
+  gap: 8px;
+  margin: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.sellerChatFilters::-webkit-scrollbar {
+  display: none;
+}
+
+.sellerChatFilter {
+  display: flex;
+  min-height: 36px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: #F0ECFB;
+  color: #474556;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.sellerChatFilter.is-active {
+  background: #2700A6;
+  color: #FFFFFF;
+}
+
+.sellerChatCards {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  overflow-y: auto;
+}
+
+.sellerChatCard {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 4px;
+  padding: 13px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: #FFFFFF;
+}
+
+.sellerChatCard.is-selected {
+  border-color: #C5C0FF;
+  background: #F0ECFB;
+}
+
+.sellerChatCard.is-selected::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+  border-radius: 8px 0 0 8px;
+  background: #2700A6;
+  content: '';
+}
+
+.sellerChatCardMain {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sellerChatCardAvatar {
+  width: 48px;
+  height: 48px;
+}
+
+.sellerChatCardInitial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: #DCD8E7;
+  color: #474556;
+  font-size: 20px;
+}
+
+.sellerChatCardText {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sellerChatCardHeading {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sellerChatCardName {
+  overflow: hidden;
+  color: #1B1A25;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sellerChatCard.is-selected .sellerChatCardName {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.sellerChatCardTime {
+  flex: 0 0 auto;
+  color: #61646B;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.sellerChatCard.is-selected .sellerChatCardTime {
+  color: #2700A6;
+  font-weight: 500;
+}
+
+.sellerChatCardPreview {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.sellerChatCard.is-selected .sellerChatCardPreview {
+  color: #1B1A25;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  -webkit-line-clamp: 2;
+}
+
+.sellerChatCardContext {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 4px;
+  color: #61646B;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.sellerChatCardContext img {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.sellerChatCardContext.is-inquiry {
+  color: #61646B;
+}
+
+.sellerChatCardActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-left: 60px;
+  padding-top: 4px;
+}
+
+.sellerChatCardActionsEnd {
+  padding-right: 0;
+}
+
+.sellerChatReplyButton,
+.sellerChatOrderButton,
+.sellerChatConfirmButton {
+  min-height: 32px;
+  padding: 6px 12px;
+  border: 1px solid #C8C4D9;
+  border-radius: 4px;
+  background: #FFFFFF;
+  color: #1B1A25;
+  font: inherit;
+  font-size: 12px;
+  line-height: 18px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.sellerChatReplyButton {
+  padding-right: 16px;
+  padding-left: 16px;
+  border-color: #2700A6;
+  background: #2700A6;
+  color: #FFFFFF;
+}
+
+.sellerChatConfirmButton {
+  border-color: #FE7A32;
+  background: #FE7A32;
+  color: #622400;
+}
+
+.sellerChatConfirmButton:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.sellerChatEmptyList {
+  margin: 18px 8px;
+  color: #61646B;
+  font-size: 13px;
+}
+
+.sellerConversation {
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  grid-template-rows: 72px auto minmax(0, 1fr) auto;
+  background: #FCF8FF;
+}
+
+.sellerConversationHeader {
+  z-index: 2;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 16px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #C8C4D9;
+}
+
+.sellerConversationIdentity {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 16px;
+}
+
+.sellerConversationBack {
+  display: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #2700A6;
+  font: inherit;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.sellerConversationAvatar {
+  width: 40px;
+  height: 40px;
+}
+
+.sellerConversationNameRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sellerConversationName {
+  margin: 0;
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.sellerConversationOnlineDot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #22C55E;
+}
+
+.sellerConversationPresence {
+  margin: 0;
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sellerConversationMenuWrap {
+  position: relative;
+}
+
+.sellerConversationMenuButton {
+  display: flex;
+  width: 36px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.sellerConversationMenuButton img {
+  display: block;
+}
+
+.sellerConversationMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 10;
+  display: flex;
+  min-width: 180px;
+  flex-direction: column;
+  padding: 4px;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  background: #FFFFFF;
+  box-shadow: 0 8px 24px rgb(27 26 37 / 12%);
+}
+
+.sellerConversationMenu button {
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #1B1A25;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sellerConversationMenu button:hover {
+  background: #F0ECFB;
+}
+
+.sellerProductContext {
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #C8C4D9;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+}
+
+.sellerProductImageFrame {
+  display: flex;
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  background: #FFFFFF;
+}
+
+.sellerProductImage {
+  display: block;
+  width: 56px;
+  height: auto;
+  object-fit: contain;
+}
+
+.sellerProductDetails {
+  min-width: 0;
+  flex: 1;
+}
+
+.sellerProductDetails h3 {
+  display: -webkit-box;
+  margin: 0 0 4px;
+  overflow: hidden;
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.sellerProductDetails p {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sellerProductDetails p strong {
+  color: #1B1A25;
+  font-weight: 400;
+}
+
+.sellerProductDetails p i {
+  width: 4px;
+  height: 4px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #787588;
+}
+
+.sellerProductDetails p b {
+  color: #2700A6;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.sellerProductDetailsButton {
+  min-height: 38px;
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #1B1A25;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sellerConversationMessages {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px;
+  overflow: auto;
+}
+
+.sellerConversationDate {
+  align-self: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #F0ECFB;
+  color: #61646B;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.sellerChatMessageRow {
+  display: flex;
+  width: 100%;
+}
+
+.sellerChatMessageRow.is-buyer {
+  justify-content: flex-start;
+}
+
+.sellerChatMessageRow.is-seller {
+  justify-content: flex-end;
+}
+
+.sellerChatMessage {
+  max-width: min(478px, 80%);
+  margin: 0;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+  font-size: 14px;
+  line-height: 22.75px;
+  overflow-wrap: anywhere;
+}
+
+.sellerChatMessageRow.is-buyer .sellerChatMessage {
+  border-top-left-radius: 2px;
+  background: #2700A6;
+  color: #FFFFFF;
+}
+
+.sellerChatMessageRow.is-seller .sellerChatMessage {
+  border: 1px solid #C8C4D9;
+  border-top-right-radius: 2px;
+  background: #F0ECFB;
+  color: #1B1A25;
+}
+
+.sellerOfferRow {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  padding: 8px 0 24px;
+}
+
+.sellerOfferCard {
+  display: flex;
+  width: 320px;
+  max-width: 100%;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #C5C0FF;
+  border-radius: 12px;
+  background: #FFFFFF;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+}
+
+.sellerOfferHeading,
+.sellerOfferLabel {
+  display: flex;
+  align-items: center;
+}
+
+.sellerOfferHeading {
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.sellerOfferLabel {
+  gap: 8px;
+  color: #2700A6;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.sellerOfferLabel img {
+  display: block;
+}
+
+.sellerOfferPrice,
+.sellerOfferPriceInput {
+  max-width: 120px;
+  color: #2700A6;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 30px;
+  text-align: right;
+}
+
+.sellerOfferPriceInput {
+  width: 105px;
+  padding: 2px 4px;
+  border: 1px solid #C8C4D9;
+  border-radius: 4px;
+  background: #FFFFFF;
+  font: inherit;
+}
+
+.sellerOfferProduct {
+  margin: 0;
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sellerOfferActions {
+  display: flex;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.sellerOfferActions button {
+  min-width: 0;
+  min-height: 36px;
+  flex: 1;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: #F0ECFB;
+  color: #1B1A25;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sellerOfferActions button.is-resend {
+  background: #FE7A32;
+  color: #622400;
+}
+
+.sellerChatComposerFooter {
+  z-index: 2;
+  padding: 16px;
+  background: #FFFFFF;
+  border-top: 1px solid #C8C4D9;
+}
+
+.sellerChatComposer {
+  display: flex;
+  width: 100%;
+  min-height: 62px;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 9px;
+  border: 1px solid #C8C4D9;
+  border-radius: 12px;
+  background: #FFFFFF;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+}
+
+.sellerChatHiddenFileInput {
+  display: none;
+}
+
+.sellerChatComposerTool {
+  display: flex;
+  width: 32px;
+  height: 36px;
+  flex: 0 0 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.sellerChatComposerTool img {
+  display: block;
+}
+
+.sellerChatAttachmentIcon {
+  display: block;
+  width: 12.5px;
+  height: 20px;
+  background: url('/seller-chat-assets/attachment.svg') center / contain no-repeat;
+}
+
+.sellerChatComposerTool.is-recording {
+  background: #F0ECFB;
+}
+
+.sellerChatComposer textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  max-height: 128px;
+  flex: 1;
+  padding: 10px 12px;
+  resize: vertical;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #1B1A25;
+  font: inherit;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.sellerChatComposer textarea::placeholder {
+  color: #61646B;
+  opacity: 1;
+}
+
+.sellerChatSendButton {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #2700A6;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+  cursor: pointer;
+}
+
+.sellerChatSendButton img {
+  display: block;
+}
+
+.sellerConversationEmpty {
+  display: grid;
+  place-items: center;
+  color: #61646B;
+  font-size: 14px;
+}
+
+.sellerOrderDialogBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgb(27 26 37 / 35%);
+}
+
+.sellerOrderDialog {
+  position: relative;
+  width: min(420px, 100%);
+  padding: 24px;
+  border: 1px solid #C8C4D9;
+  border-radius: 12px;
+  background: #FFFFFF;
+  box-shadow: 0 16px 48px rgb(27 26 37 / 18%);
+}
+
+.sellerOrderDialog h2 {
+  margin: 0 32px 16px 0;
+  color: #2700A6;
+  font-size: 20px;
+}
+
+.sellerOrderDialog p {
+  margin: 0 0 18px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.sellerOrderDialog > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-top: 1px solid #E4E1EB;
+  color: #61646B;
+  font-size: 13px;
+}
+
+.sellerOrderDialog > div strong {
+  color: #1B1A25;
+}
+
+.sellerOrderDialogClose {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: #F0ECFB;
+  color: #2700A6;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+@media (max-width: 1050px) {
+  .sellerChatPage {
+    grid-template-columns: 72px minmax(290px, 320px) minmax(0, 1fr);
+  }
+
+  .sellerChatBrandWordmark,
+  .sellerChatNavigationLink span,
+  .sellerChatUserDetails {
+    display: none;
+  }
+
+  .sellerChatBrand {
+    justify-content: center;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .sellerChatNavigationLink {
+    justify-content: center;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .sellerChatUser {
+    justify-content: center;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .sellerProductDetailsButton {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+
+@media (max-width: 760px) {
+  .sellerChatPage {
+    min-height: 0;
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+
+  .sellerChatNavigation {
+    grid-row: 1;
+    grid-column: 1;
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .sellerChatBrand {
+    height: 84px;
+    flex-basis: 84px;
+  }
+
+  .sellerChatNavigationLinks {
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .sellerChatList {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .sellerConversation {
+    display: none;
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .sellerChatPage.is-conversation-open .sellerChatList {
+    display: none;
+  }
+
+  .sellerChatPage.is-conversation-open .sellerConversation {
+    display: grid;
+  }
+
+  .sellerConversationBack {
+    display: block;
+  }
+
+  .sellerProductContext {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .sellerProductImageFrame {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
+  }
+
+  .sellerProductDetails h3 {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .sellerProductDetails p {
+    gap: 6px;
+    font-size: 10px;
+  }
+
+  .sellerProductDetails p b {
+    font-size: 12px;
+  }
+
+  .sellerProductDetailsButton {
+    display: none;
+  }
+
+  .sellerConversationHeader {
+    padding-right: 12px;
+    padding-left: 8px;
+  }
+
+  .sellerConversationIdentity {
+    gap: 8px;
+  }
+
+  .sellerConversationName {
+    font-size: 14px;
+  }
+
+  .sellerChatMessage {
+    max-width: 90%;
+    font-size: 13px;
+  }
+
+  .sellerChatComposerFooter {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 440px) {
+  .sellerChatPage {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+
+  .sellerChatNavigation {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  .sellerChatNavigationLink {
+    height: 40px;
+  }
+
+  .sellerChatListHeader {
+    gap: 12px;
+    padding: 14px 12px;
+  }
+
+  .sellerChatTitle {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .sellerChatFilter {
+    padding-right: 9px;
+    padding-left: 9px;
+    font-size: 12px;
+  }
+
+  .sellerChatCard {
+    padding: 10px;
+  }
+
+  .sellerChatCardAvatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .sellerChatCardActions {
+    margin-left: 48px;
+  }
+
+  .sellerChatComposer {
+    gap: 4px;
+    padding: 6px;
+  }
+
+  .sellerChatComposerTool {
+    width: 28px;
+    flex-basis: 28px;
+  }
+
+  .sellerChatComposer textarea {
+    padding-right: 4px;
+    padding-left: 4px;
+    font-size: 14px;
+  }
+}
+
+.sellerOrderPage,
+.sellerOrderPage * {
+  box-sizing: border-box;
+}
+
+.sellerOrderPage {
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  grid-template-columns: 256px minmax(0, 1fr);
+  overflow: hidden;
+  background: #FCF8FF;
+  color: #1B1A25;
+  font-family: var(--font-work-sans), sans-serif;
+}
+
+.sellerOrderMain {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.sellerOrderTopBar {
+  display: flex;
+  height: 64px;
+  flex: 0 0 64px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 16px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #C8C4D9;
+}
+
+.sellerOrderTopBarActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sellerOrderTopBarActions button {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  padding: 8px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.sellerOrderTopBarActions img {
+  display: block;
+}
+
+.sellerOrderScrollArea {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+}
+
+.sellerOrderContent {
+  display: flex;
+  width: 100%;
+  max-width: 768px;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0 auto;
+}
+
+.sellerOrderPageHeading {
+  display: grid;
+  min-height: 48px;
+  grid-template-columns: 40px minmax(0, 1fr) 40px;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #C8C4D9;
+}
+
+.sellerOrderBackButton {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.sellerOrderBackButton img {
+  display: block;
+}
+
+.sellerOrderPageHeading > div {
+  text-align: center;
+}
+
+.sellerOrderPageHeading h1 {
+  margin: 0;
+  color: #1B1A25;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 34px;
+}
+
+.sellerOrderPageHeading p {
+  margin: 0;
+  color: #61646B;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.sellerOrderCard {
+  padding: 16px 17px;
+  border: 1px solid #C8C4D9;
+  border-radius: 12px;
+  background: #FFFFFF;
+}
+
+.sellerOrderCard h2 {
+  margin: 0;
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.sellerAgreedTerms {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sellerAgreedItem {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.sellerAgreedItemImage {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  flex: 0 0 96px;
+  overflow: hidden;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  background: #FCF8FF;
+}
+
+.sellerAgreedItemImage img {
+  position: absolute;
+  top: 0;
+  left: -51.59%;
+  width: 203.17%;
+  height: 100%;
+  max-width: none;
+}
+
+.sellerAgreedItemDetails {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  padding-top: 4px;
+}
+
+.sellerAgreedItemDetails h3 {
+  margin: 0 0 2px;
+  color: #1B1A25;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.sellerAgreedItemDetails p {
+  margin: 0;
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sellerAgreedItemDetails p strong {
+  color: #1B1A25;
+  font-weight: 500;
+}
+
+.sellerAgreedItemPrice {
+  margin-top: 6px;
+  color: #2700A6;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 34px;
+}
+
+.sellerConfirmationChecklist {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sellerConfirmationChecklist h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sellerConfirmationChecklist h2 img {
+  display: block;
+}
+
+.sellerChecklistIntro {
+  margin: 0;
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sellerChecklistItems {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.sellerChecklistItem {
+  position: relative;
+  display: flex;
+  min-height: 58px;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 12px;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sellerChecklistItem input {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.sellerChecklistCheckbox {
+  display: grid;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  place-items: center;
+  margin-top: 1px;
+  border-radius: 3px;
+}
+
+.sellerChecklistCheckbox img {
+  display: block;
+}
+
+.sellerChecklistItem.is-checked .sellerChecklistCheckbox {
+  background: #2700A6;
+}
+
+.sellerChecklistItem.is-checked .sellerChecklistCheckbox::after {
+  width: 9px;
+  height: 5px;
+  border-bottom: 2px solid #FFFFFF;
+  border-left: 2px solid #FFFFFF;
+  content: '';
+  transform: translateY(-1px) rotate(-45deg);
+}
+
+.sellerChecklistItem:focus-within {
+  outline: 2px solid #2700A6;
+  outline-offset: 2px;
+}
+
+.sellerChecklistCopy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.sellerChecklistCopy strong {
+  color: #1B1A25;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.sellerChecklistCopy > span {
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sellerLogisticsCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sellerLogisticsDetails {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.sellerLogisticsDetails > div {
+  display: flex;
+  min-height: 34px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 7px 0 10px;
+  border-bottom: 1px solid #E5E0EF;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.sellerLogisticsDetails > div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.sellerLogisticsDetails dt {
+  flex: 0 0 auto;
+  color: #61646B;
+}
+
+.sellerLogisticsDetails dd {
+  min-width: 0;
+  margin: 0;
+  color: #1B1A25;
+  font-weight: 500;
+  text-align: right;
+}
+
+.sellerOrderSubmitArea {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 0 32px;
+}
+
+.sellerOrderSubmitButton {
+  display: flex;
+  width: 100%;
+  min-height: 56px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #2700A6;
+  color: #FFFFFF;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sellerOrderSubmitButton img {
+  display: block;
+}
+
+.sellerOrderCommitment,
+.sellerOrderFeedback {
+  margin: 0;
+  color: #61646B;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.sellerOrderFeedback {
+  font-size: 13px;
+}
+
+.sellerOrderFeedback.is-success {
+  color: #14733D;
+}
+
+@media (max-width: 1050px) {
+  .sellerOrderPage {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  .sellerOrderPage .sellerChatBrandWordmark,
+  .sellerOrderPage .sellerChatNavigationLink span,
+  .sellerOrderPage .sellerChatUserDetails {
+    display: none;
+  }
+
+  .sellerOrderPage .sellerChatBrand,
+  .sellerOrderPage .sellerChatUser {
+    justify-content: center;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .sellerOrderPage .sellerChatNavigationLink {
+    justify-content: center;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .sellerOrderPage {
+    min-height: 0;
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+
+  .sellerOrderPage .sellerChatNavigation {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .sellerOrderPage .sellerChatBrand {
+    height: 84px;
+    flex-basis: 84px;
+  }
+
+  .sellerOrderPage .sellerChatNavigationLinks {
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .sellerOrderScrollArea {
+    padding: 20px 16px;
+  }
+
+  .sellerOrderContent {
+    gap: 16px;
+  }
+
+  .sellerOrderPageHeading h1 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .sellerOrderCard {
+    padding: 14px;
+  }
+
+  .sellerAgreedItemImage {
+    width: 72px;
+    height: 72px;
+    flex-basis: 72px;
+  }
+
+  .sellerAgreedItemDetails h3 {
+    font-size: 13px;
+  }
+
+  .sellerAgreedItemPrice {
+    font-size: 24px;
+    line-height: 30px;
+  }
+}
+
+@media (max-width: 440px) {
+  .sellerOrderPage {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+
+  .sellerOrderPage .sellerChatNavigation {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  .sellerOrderPage .sellerChatNavigationLink {
+    height: 40px;
+  }
+
+  .sellerOrderScrollArea {
+    padding: 16px 12px;
+  }
+
+  .sellerLogisticsDetails > div {
+    gap: 10px;
+    font-size: 12px;
+  }
+
+  .sellerChecklistCopy strong {
+    font-size: 13px;
+  }
+
+  .sellerChecklistCopy > span {
+    font-size: 11px;
+  }
+
+  .sellerOrderSubmitButton {
+    font-size: 14px;
+  }
+}
+
+.sellerTrackingPage,
+.sellerTrackingPage * {
+  box-sizing: border-box;
+}
+
+.sellerTrackingPage {
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  grid-template-columns: 256px minmax(0, 1fr);
+  overflow: hidden;
+  background: #FCF8FF;
+  color: #1B1A25;
+  font-family: var(--font-work-sans), sans-serif;
+}
+
+.sellerTrackingMain {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.sellerTrackingTopBar {
+  display: flex;
+  height: 48px;
+  flex: 0 0 48px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 16px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #C8C4D9;
+}
+
+.sellerTrackingTopBarActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sellerTrackingTopBarActions button {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  padding: 8px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.sellerTrackingTopBarActions img {
+  display: block;
+}
+
+.sellerTrackingTopBarActions > span {
+  width: 1px;
+  height: 32px;
+  margin-left: 4px;
+  background: #C8C4D9;
+}
+
+.sellerTrackingScrollArea {
+  min-height: 0;
+  flex: 1;
+  overflow: auto;
+  padding: 32px;
+}
+
+.sellerTrackingContent {
+  display: grid;
+  width: 100%;
+  max-width: 1280px;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  align-items: start;
+  gap: 24px;
+  margin: 0 auto;
+}
+
+.sellerTrackingLeft {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sellerTrackingOrderHeader {
+  display: flex;
+  min-height: 43px;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+}
+
+.sellerTrackingOrderTitle {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+}
+
+.sellerTrackingBack,
+.sellerTrackingMoreButton {
+  display: grid;
+  width: 28px;
+  height: 36px;
+  flex: 0 0 28px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.sellerTrackingBack img,
+.sellerTrackingMoreButton img {
+  display: block;
+}
+
+.sellerTrackingOrderTitle h1 {
+  margin: 0;
+  color: #1B1A25;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 34px;
+}
+
+.sellerTrackingMoreWrap {
+  position: relative;
+}
+
+.sellerTrackingMoreMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 20;
+  display: flex;
+  min-width: 200px;
+  flex-direction: column;
+  padding: 4px;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  background: #FFFFFF;
+  box-shadow: 0 8px 24px rgb(27 26 37 / 12%);
+}
+
+.sellerTrackingMoreMenu button {
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #1B1A25;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sellerTrackingMoreMenu button:hover {
+  background: #F0ECFB;
+}
+
+.sellerTrackingSectionTitle {
+  margin: 0;
+  padding-bottom: 8px;
+  color: #1B1A25;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+.sellerTrackingPartCard,
+.sellerTrackingRouteCard,
+.sellerTrackingTimeline {
+  border: 1px solid #C8C4D9;
+  border-radius: 12px;
+  background: #FFFFFF;
+}
+
+.sellerTrackingPartCard {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+}
+
+.sellerTrackingPartImage {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  flex: 0 0 80px;
+  overflow: hidden;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  background: #F0ECFB;
+}
+
+.sellerTrackingPartImage img {
+  object-fit: contain;
+}
+
+.sellerTrackingPartCopy {
+  min-width: 0;
+}
+
+.sellerTrackingPartCopy h3 {
+  margin: 0 0 4px;
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.sellerTrackingPartCopy p {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  color: #474556;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.sellerTrackingPartCopy p strong {
+  color: #1B1A25;
+  font-weight: 700;
+}
+
+.sellerTrackingPartCopy p i {
+  width: 1px;
+  height: 12px;
+  background: #C8C4D9;
+}
+
+.sellerTrackingRouteCard {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+}
+
+.sellerTrackingRouteCard > div {
+  display: flex;
+  min-width: 0;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #C8C4D9;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.sellerTrackingRouteCard > div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.sellerTrackingRouteCard dt {
+  flex: 0 0 96px;
+  color: #61646B;
+}
+
+.sellerTrackingRouteCard dd {
+  min-width: 0;
+  margin: 0;
+  color: #1B1A25;
+  font-weight: 500;
+  text-align: right;
+}
+
+.sellerTrackingRouteCard dd.is-current {
+  color: #2700A6;
+}
+
+.sellerTrackingTimeline {
+  padding: 21px 25px 25px;
+}
+
+.sellerTrackingTimeline ol {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sellerTrackingTimeline li {
+  position: relative;
+  display: flex;
+  min-height: 68px;
+  gap: 16px;
+  padding: 0 0 28px 24px;
+}
+
+.sellerTrackingTimeline li::after {
+  position: absolute;
+  top: 12px;
+  bottom: -2px;
+  left: 6px;
+  width: 2px;
+  background: #C8C4D9;
+  content: '';
+}
+
+.sellerTrackingTimeline li:first-child::after {
+  background: #2700A6;
+}
+
+.sellerTrackingTimeline li:last-child {
+  min-height: 44px;
+  padding-bottom: 0;
+}
+
+.sellerTrackingTimeline li:last-child::after {
+  display: none;
+}
+
+.sellerTrackingTimelineDot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
+  background: #DCD8E7;
+  box-shadow: 0 0 0 2px #FFFFFF;
+}
+
+.sellerTrackingTimeline li.is-current .sellerTrackingTimelineDot {
+  width: 16px;
+  height: 16px;
+  left: -2px;
+  background: #2700A6;
+}
+
+.sellerTrackingTimeline li > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sellerTrackingTimeline li strong,
+.sellerTrackingTimeline li > div > span {
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.sellerTrackingTimeline li:not(.is-current) > div > span {
+  color: #61646B;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.sellerTrackingTimeline li small {
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sellerTrackingSummary {
+  display: flex;
+  min-width: 0;
+  min-height: 1288px;
+  flex-direction: column;
+  padding: 24px;
+  border: 1px solid #C8C4D9;
+  border-radius: 12px;
+  background: #FFFFFF;
+}
+
+.sellerTrackingSummaryHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sellerTrackingSummaryMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #61646B;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.sellerTrackingResolvedBadge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #EAE6F5;
+  color: #474556;
+  font-weight: 500;
+}
+
+.sellerTrackingSummaryHeader h2 {
+  margin: 0;
+  padding-top: 4px;
+  color: #1B1A25;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+.sellerTrackingSummaryHeader p {
+  margin: 0;
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sellerTrackingHero {
+  position: relative;
+  height: 192px;
+  flex: 0 0 192px;
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  background: #F0ECFB;
+  isolation: isolate;
+}
+
+.sellerTrackingHeroBackground {
+  z-index: 0;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.8;
+  mix-blend-mode: multiply;
+}
+
+.sellerTrackingHeroProduct {
+  z-index: 1;
+  object-fit: contain;
+  padding: 16px;
+}
+
+.sellerTrackingProductDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 2px;
+}
+
+.sellerTrackingProductDetails h3 {
+  margin: 0 0 2px;
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.sellerTrackingProductDetails p {
+  margin: 0;
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sellerTrackingProductDetails button,
+.sellerTrackingSummarySection > button {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: #2700A6;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.sellerTrackingProductDetails button img {
+  display: block;
+}
+
+.sellerTrackingSummarySection {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0 24px;
+  border-top: 1px solid #C8C4D9;
+}
+
+.sellerTrackingBuyerDetails {
+  margin-top: 16px;
+}
+
+.sellerTrackingSummarySection h3,
+.sellerTrackingFulfillmentHeading h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.sellerTrackingSummarySection h3 img,
+.sellerTrackingFulfillmentHeading h3 img {
+  display: block;
+}
+
+.sellerTrackingSummarySection > strong {
+  margin-top: 10px;
+  color: #1B1A25;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.sellerTrackingSummarySection > p {
+  margin: 0;
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sellerTrackingSummarySection > button {
+  margin-top: 4px;
+}
+
+.sellerTrackingFulfillment {
+  gap: 4px;
+  padding-bottom: 24px;
+}
+
+.sellerTrackingFulfillmentHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sellerTrackingFulfillmentHeading > button {
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  color: #1B1A25;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.sellerTrackingFulfillment > strong {
+  margin-top: 8px;
+}
+
+.sellerTrackingFulfillment select {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid #C8C4D9;
+  border-radius: 6px;
+  background: #FFFFFF;
+  color: #1B1A25;
+  font: inherit;
+  font-size: 13px;
+}
+
+.sellerTrackingIdRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sellerTrackingIdRow button {
+  display: grid;
+  width: 22px;
+  height: 24px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.sellerTrackingIdRow img {
+  display: block;
+}
+
+.sellerTrackingFinancials {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 0 24px;
+  border-top: 1px solid #C8C4D9;
+}
+
+.sellerTrackingFinancials h3 {
+  margin: 0;
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.sellerTrackingFinancials dl {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+}
+
+.sellerTrackingFinancials dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.sellerTrackingFinancials dt {
+  color: #61646B;
+}
+
+.sellerTrackingFinancials dd {
+  margin: 0;
+  color: #1B1A25;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.sellerTrackingFinancials dd.is-deduction {
+  color: #BA1A1A;
+}
+
+.sellerTrackingPayout {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  background: #F0ECFB;
+}
+
+.sellerTrackingPayout > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sellerTrackingPayout strong {
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.sellerTrackingPayout b {
+  color: #2700A6;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  white-space: nowrap;
+}
+
+.sellerTrackingPayout > span {
+  align-self: flex-end;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #E5E0EF;
+  color: #474556;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.sellerTrackingActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.sellerTrackingInvoiceButton,
+.sellerTrackingSupportButton {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #2700A6;
+  color: #FFFFFF;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sellerTrackingInvoiceButton img,
+.sellerTrackingSupportButton img {
+  display: block;
+}
+
+.sellerTrackingSupportButton {
+  border: 1px solid #787588;
+  background: #FFFFFF;
+  color: #1B1A25;
+}
+
+.sellerTrackingDialogBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgb(27 26 37 / 35%);
+}
+
+.sellerTrackingDialog {
+  position: relative;
+  width: min(420px, 100%);
+  padding: 24px;
+  border: 1px solid #C8C4D9;
+  border-radius: 12px;
+  background: #FFFFFF;
+  box-shadow: 0 16px 48px rgb(27 26 37 / 18%);
+}
+
+.sellerTrackingDialog h2 {
+  margin: 0 32px 12px 0;
+  color: #2700A6;
+  font-size: 20px;
+}
+
+.sellerTrackingDialog p {
+  margin: 0;
+  color: #474556;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.sellerTrackingDialog > button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: #F0ECFB;
+  color: #2700A6;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+@media (max-width: 1050px) {
+  .sellerTrackingPage {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  .sellerTrackingPage .sellerChatBrandWordmark,
+  .sellerTrackingPage .sellerChatNavigationLink span,
+  .sellerTrackingPage .sellerChatUserDetails {
+    display: none;
+  }
+
+  .sellerTrackingPage .sellerChatBrand,
+  .sellerTrackingPage .sellerChatUser,
+  .sellerTrackingPage .sellerChatNavigationLink {
+    justify-content: center;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .sellerTrackingContent {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 16px;
+  }
+
+  .sellerTrackingScrollArea {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 760px) {
+  .sellerTrackingPage {
+    min-height: 0;
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+
+  .sellerTrackingPage .sellerChatNavigation {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .sellerTrackingPage .sellerChatBrand {
+    height: 84px;
+    flex-basis: 84px;
+  }
+
+  .sellerTrackingPage .sellerChatNavigationLinks {
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .sellerTrackingScrollArea {
+    padding: 20px 16px;
+  }
+
+  .sellerTrackingContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .sellerTrackingLeft,
+  .sellerTrackingSummary {
+    width: 100%;
+  }
+
+  .sellerTrackingSummary {
+    min-height: auto;
+  }
+
+  .sellerTrackingActions {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 440px) {
+  .sellerTrackingPage {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+
+  .sellerTrackingPage .sellerChatNavigation {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  .sellerTrackingPage .sellerChatNavigationLink {
+    height: 40px;
+  }
+
+  .sellerTrackingScrollArea {
+    padding: 16px 12px;
+  }
+
+  .sellerTrackingPartCard {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .sellerTrackingPartImage {
+    width: 64px;
+    height: 64px;
+    flex-basis: 64px;
+  }
+
+  .sellerTrackingPartCopy h3 {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .sellerTrackingRouteCard > div {
+    gap: 10px;
+    font-size: 12px;
+  }
+
+  .sellerTrackingRouteCard dt {
+    flex-basis: 78px;
+  }
+
+  .sellerTrackingSummary {
+    padding: 18px;
+  }
+
+  .sellerTrackingPayout b {
+    font-size: 20px;
+  }
+}
+
+@media print {
+  .sellerTrackingPage {
+    display: block;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    background: #FFFFFF;
+  }
+
+  .sellerTrackingPage .sellerChatNavigation,
+  .sellerTrackingTopBar,
+  .sellerTrackingMoreWrap,
+  .sellerTrackingActions,
+  .sellerTrackingFulfillmentHeading > button {
+    display: none !important;
+  }
+
+  .sellerTrackingMain,
+  .sellerTrackingScrollArea {
+    display: block;
+    height: auto;
+    overflow: visible;
+    padding: 0;
+  }
+
+  .sellerTrackingContent {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 24px;
+  }
+
+  .sellerTrackingSummary {
+    min-height: 0;
   }
 }

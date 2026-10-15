@@ -149,7 +149,7 @@ export default function DashboardShell({
         >
           <span>Home</span>
           <span>Search</span>
-          <span>Chat</span>
+          <Link href="/seller-chat-screens" style={{ color: 'inherit', textDecoration: 'none' }}>Chat</Link>
           <span>Order</span>
           <span>Profile</span>
         </div>

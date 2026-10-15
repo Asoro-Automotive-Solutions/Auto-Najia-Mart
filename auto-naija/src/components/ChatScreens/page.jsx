@@ -100,7 +100,7 @@ const ChatScreens = () => {
         <nav className="chatTopNavLinks" aria-label="Main navigation">
           <Link href="/">Home</Link>
           <Link href="/">Search</Link>
-          <Link href="/chat-screens">Chat</Link>
+          <Link href="/seller-chat-screens">Chat</Link>
           <Link href="/">Order</Link>
           <Link href="/password-security">Profile</Link>
         </nav>
