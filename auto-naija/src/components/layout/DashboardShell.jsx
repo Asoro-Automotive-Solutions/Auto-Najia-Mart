@@ -30,7 +30,7 @@ import { CgProfile } from 'react-icons/cg'
 const menuItems = [
   { label: 'Dashboard', icon: LuLayoutDashboard, href: '/', key: 'dashboard' },
   { label: 'Inventory', icon: MdOutlineInventory2, href: '/', key: 'inventory' },
-  { label: 'Orders', icon: MdOutlineShoppingCart, href: '/', key: 'orders' },
+  { label: 'Orders', icon: MdOutlineShoppingCart, href: '/order-confirmation', key: 'orders' },
   { label: 'Analytics', icon: IoAnalyticsOutline, href: '/', key: 'analytics' },
   { label: 'Customers', icon: MdPeopleAlt, href: '/', key: 'customers' },
   { label: 'Suppliers', icon: BsGrid3X3Gap, href: '/', key: 'suppliers' },

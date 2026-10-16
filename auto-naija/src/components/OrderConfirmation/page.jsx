@@ -43,6 +43,13 @@ export default function OrderConfirmation() {
 	return (
 		<main className="sellerOrderPage">
 			<SellerSidebar activeItem="Orders" userAvatar={asset('admin-user-avatar.jpeg')} />
+			<header className="sellerOrderMobileHeader">
+				<Link className="sellerOrderMobileBack" href="/seller-chat-screens" aria-label="Back to chat">
+					<Image src={asset('back.svg')} alt="" width={16} height={16} />
+				</Link>
+				<h1>Confirm Order</h1>
+				<span aria-hidden="true" />
+			</header>
 			<section className="sellerOrderMain">
 				<header className="sellerOrderTopBar" aria-label="Account tools">
 					<div className="sellerOrderTopBarActions">
@@ -66,7 +73,8 @@ export default function OrderConfirmation() {
 							<h2 id="sellerAgreedTermsHeading">Agreed Terms</h2>
 							<div className="sellerAgreedItem">
 								<div className="sellerAgreedItemImage">
-									<Image src={asset('alternator-product.jpeg')} alt="Toyota Camry 2018 Alternator" width={96} height={96} />
+									<Image className="sellerAgreedDesktopImage" src={asset('alternator-product.jpeg')} alt="Toyota Camry 2018 Alternator" width={96} height={96} />
+									<Image className="sellerAgreedMobileImage" src="/mobile-order-assets/alternator-product.png" alt="" fill sizes="80px" />
 								</div>
 								<div className="sellerAgreedItemDetails">
 									<h3>Toyota Camry 2018 Alternator (OEM Grade)</h3>

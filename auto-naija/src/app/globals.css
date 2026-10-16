@@ -3384,13 +3384,17 @@ body {
   background: #FCF8FF;
 }
 
-.sellerAgreedItemImage img {
+.sellerAgreedItemImage .sellerAgreedDesktopImage {
   position: absolute;
   top: 0;
   left: -51.59%;
   width: 203.17%;
   height: 100%;
   max-width: none;
+}
+
+.sellerAgreedItemImage .sellerAgreedMobileImage {
+  display: none;
 }
 
 .sellerAgreedItemDetails {
@@ -3885,7 +3889,8 @@ body {
   box-shadow: 0 8px 24px rgb(27 26 37 / 12%);
 }
 
-.sellerTrackingMoreMenu button {
+.sellerTrackingMoreMenu button,
+.sellerTrackingMoreMenu a {
   padding: 10px 12px;
   border: 0;
   border-radius: 4px;
@@ -3897,7 +3902,8 @@ body {
   cursor: pointer;
 }
 
-.sellerTrackingMoreMenu button:hover {
+.sellerTrackingMoreMenu button:hover,
+.sellerTrackingMoreMenu a:hover {
   background: #F0ECFB;
 }
 
@@ -4667,5 +4673,1940 @@ body {
 
   .sellerTrackingSummary {
     min-height: 0;
+  }
+}
+
+.sellerChatMobileHeader,
+.sellerChatMobileNav,
+.sellerChatMobileAvatar,
+.sellerChatMobileName,
+.sellerChatMobileContextIcon,
+.sellerConversationMobileAvatar,
+.sellerConversationMobileBack,
+.sellerConversationMobileMore,
+.sellerProductMobileImage,
+.sellerOfferMobileIcon,
+.sellerOfferMobileSend,
+.sellerComposerMobileImage,
+.sellerComposerMobileMic,
+.sellerComposerMobileSend {
+  display: none;
+}
+
+.sellerChatSearchFilters {
+  display: contents;
+}
+
+@media (max-width: 760px) {
+  .sellerChatPage {
+    height: 100dvh;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 64px minmax(0, 1fr) 81px;
+  }
+
+  .sellerChatPage .sellerChatNavigation {
+    display: none;
+  }
+
+  .sellerChatMobileHeader {
+    display: flex;
+    min-width: 0;
+    grid-row: 1;
+    grid-column: 1;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: #FCF8FF;
+    border-bottom: 1px solid #C8C4D9;
+  }
+
+  .sellerChatMobileProfile {
+    flex: 0 0 40px;
+    border: 1px solid #C8C4D9;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .sellerChatMobileHeader > strong {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    color: #2700A6;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 34px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sellerChatMobileHeader > button {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+  }
+
+  .sellerChatMobileHeader > button img {
+    display: block;
+  }
+
+  .sellerChatList {
+    display: flex !important;
+    min-height: 0;
+    grid-row: 2;
+    grid-column: 1;
+    overflow: hidden;
+    border: 0;
+  }
+
+  .sellerChatPage.is-conversation-open:not(.is-mobile-conversation-open) .sellerChatList {
+    display: flex !important;
+  }
+
+  .sellerChatPage.is-mobile-conversation-open .sellerChatList {
+    display: none !important;
+  }
+
+  .sellerChatListHeader {
+    gap: 0;
+    padding: 0 5px 12px;
+    border: 0;
+  }
+
+  .sellerChatTitle {
+    margin: 0 0 12px;
+    color: #2700A6;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+  }
+
+  .sellerChatSearchFilters {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px;
+    border: 1px solid #C8C4D9;
+    border-radius: 8px;
+    background: #FFFFFF;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+  }
+
+  .sellerChatSearch {
+    height: 46px;
+    flex-basis: 46px;
+    gap: 10px;
+    padding: 0 12px;
+    background: #F6F1FF;
+  }
+
+  .sellerChatSearch input {
+    font-size: 14px;
+  }
+
+  .sellerChatFilters {
+    height: 42px;
+    flex-basis: 42px;
+    gap: 0;
+    padding: 4px 0;
+    overflow-x: auto;
+  }
+
+  .sellerChatFilter {
+    min-height: 34px;
+    padding: 6px 16px;
+    border: 1px solid #C8C4D9;
+    border-radius: 4px;
+    background: #EAE6F5;
+    color: #474556;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .sellerChatFilter.is-active {
+    border-color: #2700A6;
+    background: #3A00E5;
+    color: #B5AFFF;
+  }
+
+  .sellerChatCards {
+    gap: 0;
+    padding: 0 5px 8px;
+  }
+
+  .sellerChatCard {
+    gap: 0;
+    padding: 16px;
+    border-color: #C8C4D9;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+  }
+
+  .sellerChatCard.is-selected {
+    border-color: #2700A6;
+    background: #FFFFFF;
+  }
+
+  .sellerChatCard.is-selected::before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    width: 8px;
+    border-radius: 0 8px 8px 0;
+    background: #FE7A32;
+  }
+
+  .sellerChatCardMain {
+    gap: 0;
+  }
+
+  .sellerChatCardAvatar {
+    width: 48px;
+    height: 48px;
+    margin-right: 0;
+  }
+
+  .sellerChatMobileAvatar,
+  .sellerChatMobileName,
+  .sellerChatMobileContextIcon {
+    display: block;
+  }
+
+  .sellerChatOrderContextIcon {
+    width: 12px;
+    height: 13.333px;
+    flex: 0 0 12px;
+    background: url('/mobile-seller-assets/order.svg') center / contain no-repeat;
+  }
+
+  .sellerChatDesktopAvatar,
+  .sellerChatDesktopName,
+  .sellerChatDesktopContextIcon {
+    display: none;
+  }
+
+  .sellerChatCardText {
+    padding-left: 0;
+  }
+
+  .sellerChatCardHeading {
+    gap: 4px;
+  }
+
+  .sellerChatCardName {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+  }
+
+  .sellerChatCardTime {
+    font-size: 11px;
+  }
+
+  .sellerChatCard.is-selected .sellerChatCardTime {
+    color: #FE7A32;
+  }
+
+  .sellerChatCardPreview {
+    color: #474556;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    -webkit-line-clamp: 2;
+  }
+
+  .sellerChatCard.is-selected .sellerChatCardPreview {
+    color: #474556;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+  }
+
+  .sellerChatCardContext {
+    gap: 2px;
+    width: 100%;
+    padding-top: 4px;
+    border-top: 1px solid #C8C4D9;
+    font-size: 11px;
+  }
+
+  .sellerChatCardActions {
+    gap: 0;
+    margin: 8px 0 0;
+    padding-top: 8px;
+    border-top: 1px solid #C8C4D9;
+  }
+
+  .sellerChatCardActions > button + button {
+    margin-left: 0;
+  }
+
+  .sellerChatReplyButton,
+  .sellerChatOrderButton,
+  .sellerChatConfirmButton {
+    min-height: 36px;
+    padding: 7px 16px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .sellerChatCardActions .sellerChatReplyButton {
+    background: #2700A6;
+    color: #FFFFFF;
+  }
+
+  .sellerChatCardActions .sellerChatConfirmButton {
+    margin-left: 0;
+    border-color: #FE7A32;
+    background: #FE7A32;
+    color: #FFFFFF;
+  }
+
+  .sellerChatCard:nth-child(3) {
+    opacity: 0.7;
+  }
+
+  .sellerChatMobileNav {
+    display: flex;
+    min-width: 0;
+    height: 81px;
+    grid-row: 3;
+    grid-column: 1;
+    align-items: center;
+    justify-content: space-around;
+    gap: 2px;
+    padding: 1px 10px 8px;
+    background: #FCF8FF;
+    border-top: 1px solid #C8C4D9;
+    box-shadow: 0 -2px 6px rgb(0 0 0 / 5%);
+  }
+
+  .sellerChatMobileNav a {
+    display: flex;
+    min-width: 0;
+    height: 50px;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2px;
+    border-radius: 12px;
+    color: #474556;
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration: none;
+  }
+
+  .sellerChatMobileNav a img {
+    display: block;
+    flex: 0 0 auto;
+  }
+
+  .sellerChatMobileNav a.is-active {
+    background: #3A00E5;
+    color: #B5AFFF;
+  }
+
+  .sellerConversation {
+    display: none !important;
+    min-height: 0;
+    grid-row: 1;
+    grid-column: 1;
+    grid-template-rows: 62px auto minmax(0, 1fr) auto;
+  }
+
+  .sellerChatPage.is-mobile-conversation-open {
+    grid-template-rows: minmax(0, 1fr) 81px;
+  }
+
+  .sellerChatPage.is-mobile-conversation-open .sellerChatMobileHeader {
+    display: none;
+  }
+
+  .sellerChatPage.is-mobile-conversation-open .sellerConversation {
+    display: grid !important;
+  }
+
+  .sellerChatMobileNav {
+    grid-row: 3;
+  }
+
+  .sellerChatPage.is-mobile-conversation-open .sellerChatMobileNav {
+    grid-row: 2;
+  }
+
+  .sellerConversationHeader {
+    height: 62px;
+    min-height: 62px;
+    padding: 0 12px;
+  }
+
+  .sellerConversationIdentity {
+    gap: 8px;
+  }
+
+  .sellerConversationBack {
+    display: grid;
+    width: 28px;
+    height: 40px;
+    place-items: center;
+  }
+
+  .sellerConversationDesktopBack,
+  .sellerConversationDesktopMore,
+  .sellerConversationDesktopAvatar {
+    display: none !important;
+  }
+
+  .sellerConversationMobileBack,
+  .sellerConversationMobileMore,
+  .sellerConversationMobileAvatar {
+    display: block;
+  }
+
+  .sellerConversationName {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .sellerConversationPresence {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .sellerConversationMenuButton {
+    width: 28px;
+    height: 40px;
+  }
+
+  .sellerProductContext {
+    min-height: 96px;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .sellerProductImageFrame {
+    position: relative;
+    display: block;
+    width: 80px;
+    height: 80px;
+    flex: 0 0 80px;
+    border-radius: 6px;
+    padding: 0;
+  }
+
+  .sellerProductDesktopImage {
+    display: none !important;
+  }
+
+  .sellerProductMobileImage {
+    display: block;
+    object-fit: cover;
+  }
+
+  .sellerProductDetails h3 {
+    margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+  }
+
+  .sellerProductDetails p {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .sellerProductDetails p i {
+    display: none;
+  }
+
+  .sellerProductDetails p b {
+    font-size: 14px;
+  }
+
+  .sellerProductDetailsButton {
+    display: none;
+  }
+
+  .sellerConversationMessages {
+    gap: 24px;
+    padding: 16px 20px;
+  }
+
+  .sellerConversationDate {
+    align-self: center;
+    padding: 4px 12px;
+    background: #E5E0EF;
+    color: #474556;
+  }
+
+  .sellerChatMessageRow.is-buyer {
+    justify-content: flex-end;
+  }
+
+  .sellerChatMessageRow.is-seller {
+    justify-content: flex-start;
+  }
+
+  .sellerChatMessage {
+    max-width: 304px;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .sellerChatMessageRow.is-buyer .sellerChatMessage {
+    border-radius: 12px 12px 2px 12px;
+  }
+
+  .sellerChatMessageRow.is-seller .sellerChatMessage {
+    border-radius: 12px 12px 12px 2px;
+    background: #EAE6F5;
+  }
+
+  .sellerOfferRow {
+    justify-content: flex-start;
+    padding: 0 0 8px;
+  }
+
+  .sellerOfferCard {
+    width: 100%;
+    max-width: 322px;
+    padding: 16px;
+    border: 2px solid #C5C0FF;
+    border-radius: 8px;
+  }
+
+  .sellerOfferLabel {
+    color: #474556;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .sellerOfferDesktopIcon,
+  .sellerOfferDesktopSend {
+    display: none !important;
+  }
+
+  .sellerOfferMobileIcon,
+  .sellerOfferMobileSend {
+    display: inline;
+  }
+
+  .sellerOfferPrice {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .sellerOfferActions {
+    gap: 8px;
+  }
+
+  .sellerOfferActions button {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+
+  .sellerOfferActions button.is-resend {
+    background: #FE7A32;
+    color: #FFFFFF;
+  }
+
+  .sellerChatComposerFooter {
+    padding: 16px;
+    border-top: 1px solid #C8C4D9;
+  }
+
+  .sellerChatComposer {
+    min-height: 48px;
+    gap: 8px;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .sellerChatComposerTool {
+    width: 24px;
+    height: 40px;
+    flex-basis: 24px;
+  }
+
+  .sellerChatAttachButton {
+    display: none;
+  }
+
+  .sellerComposerDesktopImage,
+  .sellerComposerDesktopMic,
+  .sellerComposerDesktopSend {
+    display: none !important;
+  }
+
+  .sellerComposerMobileImage,
+  .sellerComposerMobileMic,
+  .sellerComposerMobileSend {
+    display: block;
+  }
+
+  .sellerChatComposer textarea {
+    min-height: 46px;
+    max-height: 100px;
+    padding: 12px 16px;
+    border: 1px solid #C8C4D9;
+    border-radius: 999px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .sellerChatSendButton {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+}
+
+@media (max-width: 440px) {
+  .sellerChatMobileHeader > strong {
+    font-size: 24px;
+  }
+
+  .sellerChatCard {
+    padding: 14px 16px;
+  }
+
+  .sellerChatCardActions .sellerChatConfirmButton {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .sellerConversationName {
+    font-size: 22px;
+  }
+
+  .sellerProductContext {
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .sellerProductImageFrame {
+    width: 80px;
+    height: 80px;
+    flex-basis: 80px;
+  }
+
+  .sellerConversationMessages {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+
+.sellerOrderMobileHeader {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .sellerOrderPage {
+    display: block;
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+    background: #FCF8FF;
+  }
+
+  .sellerOrderPage .sellerChatNavigation {
+    display: none !important;
+  }
+
+  .sellerOrderMain {
+    width: 100%;
+    height: 100%;
+  }
+
+  .sellerOrderMobileHeader {
+    display: grid;
+    width: 100%;
+    height: 64px;
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
+    align-items: center;
+    padding: 0;
+    background: #FCF8FF;
+    border-bottom: 1px solid #C8C4D9;
+  }
+
+  .sellerOrderMobileBack {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    text-decoration: none;
+  }
+
+  .sellerOrderMobileBack img {
+    display: block;
+  }
+
+  .sellerOrderMobileHeader h1 {
+    margin: 0;
+    color: #1B1A25;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  .sellerOrderTopBar,
+  .sellerOrderPageHeading {
+    display: none !important;
+  }
+
+  .sellerOrderScrollArea {
+    width: 100%;
+    height: calc(100dvh - 64px);
+    flex: none;
+    padding: 24px 20px 160px;
+    overflow-y: auto;
+  }
+
+  .sellerOrderContent {
+    gap: 12px;
+  }
+
+  .sellerOrderCard {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .sellerAgreedTerms {
+    gap: 12px;
+  }
+
+  .sellerAgreedItem {
+    gap: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #C8C4D9;
+  }
+
+  .sellerAgreedItemImage {
+    width: 80px;
+    height: 80px;
+    flex-basis: 80px;
+  }
+
+  .sellerAgreedItemImage img {
+    left: 0;
+    width: 100%;
+  }
+
+  .sellerAgreedItemImage .sellerAgreedDesktopImage {
+    display: none;
+  }
+
+  .sellerAgreedItemImage .sellerAgreedMobileImage {
+    display: block;
+    object-fit: cover;
+  }
+
+  .sellerAgreedItemDetails h3 {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .sellerAgreedItemPrice {
+    margin-top: 8px;
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .sellerConfirmationChecklist {
+    gap: 12px;
+  }
+
+  .sellerChecklistIntro {
+    padding-bottom: 8px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .sellerChecklistItems {
+    gap: 12px;
+    padding-top: 0;
+  }
+
+  .sellerChecklistItem {
+    min-height: 62px;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .sellerChecklistCopy strong {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .sellerChecklistCopy > span {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .sellerLogisticsCard {
+    gap: 12px;
+  }
+
+  .sellerOrderSubmitArea {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    gap: 8px;
+    padding: 16px 20px 32px;
+    border-top: 1px solid #C8C4D9;
+    background: #FFFFFF;
+    box-shadow: 0 -4px 10px rgb(0 0 0 / 5%);
+  }
+
+  .sellerOrderSubmitButton {
+    min-height: 44px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  .sellerOrderCommitment {
+    padding: 0 8px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
+
+.mobileOrderDetailsPage,
+.mobileOrderDetailsPage * {
+  box-sizing: border-box;
+}
+
+.mobileOrderDetailsPage {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 390px;
+  height: 100dvh;
+  min-height: 700px;
+  flex-direction: column;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #FCF8FF;
+  color: #1B1A25;
+  font-family: var(--font-work-sans), sans-serif;
+}
+
+.mobileOrderDetailsHeader {
+  z-index: 2;
+  display: grid;
+  width: 100%;
+  height: 48px;
+  flex: 0 0 48px;
+  grid-template-columns: 40px minmax(0, 1fr) 40px;
+  align-items: center;
+  padding: 0 16px;
+  background: #FCF8FF;
+  border-bottom: 1px solid #C8C4D9;
+}
+
+.mobileOrderDetailsBack,
+.mobileOrderDetailsMore {
+  display: grid;
+  width: 32px;
+  height: 36px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.mobileOrderDetailsHeader h1 {
+  margin: 0;
+  color: #2700A6;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+}
+
+.mobileOrderDetailsBack img,
+.mobileOrderDetailsMore img {
+  display: block;
+}
+
+.mobileOrderDetailsMenuWrap {
+  position: relative;
+  justify-self: end;
+}
+
+.mobileOrderDetailsMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 5;
+  display: flex;
+  min-width: 180px;
+  flex-direction: column;
+  padding: 4px;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  background: #FFFFFF;
+  box-shadow: 0 8px 24px rgb(27 26 37 / 12%);
+}
+
+.mobileOrderDetailsMenu button,
+.mobileOrderDetailsMenu a {
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #1B1A25;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.mobileOrderDetailsMenu button:hover,
+.mobileOrderDetailsMenu a:hover {
+  background: #F0ECFB;
+}
+
+.mobileOrderDetailsScroll {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px 112px;
+}
+
+.mobileSellerOrderDetailsCard,
+.mobileSellerEscrowCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #C8C4D9;
+  border-radius: 12px;
+  background: #FFFFFF;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+}
+
+.mobileSellerOrderBuyer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #C8C4D9;
+}
+
+.mobileSellerOrderBuyer img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border: 1px solid #C8C4D9;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.mobileSellerOrderBuyer > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileSellerOrderBuyer strong {
+  color: #1B1A25;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.mobileSellerOrderBuyer span {
+  color: #61646B;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.mobileSellerOrderProduct {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.mobileSellerOrderProductImage {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  overflow: hidden;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  background: #E5E0EF;
+}
+
+.mobileSellerOrderProductImage img {
+  object-fit: cover;
+}
+
+.mobileSellerOrderProductCopy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobileSellerOrderProductCopy h2 {
+  margin: 0;
+  color: #1B1A25;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.mobileSellerOrderProductCopy > div {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.mobileSellerOrderProductCopy > div strong {
+  color: #1B1A25;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.mobileSellerOrderProductCopy > div span {
+  color: #61646B;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.mobileSellerOrderProductCopy > div b {
+  color: #1B1A25;
+  font-weight: 700;
+}
+
+.mobileSellerOrderProductTotal {
+  flex: 0 0 auto;
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.mobileSellerOrderLogistics {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding-top: 8px;
+  border-top: 1px solid #C8C4D9;
+}
+
+.mobileSellerOrderLogistics > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.mobileSellerOrderLogistics dt {
+  flex: 0 0 auto;
+  color: #61646B;
+}
+
+.mobileSellerOrderLogistics dd {
+  max-width: 68%;
+  margin: 0;
+  color: #1B1A25;
+  font-size: 12px;
+  text-align: right;
+}
+
+.mobileSellerEscrowCard {
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.mobileSellerEscrowHeader {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #C8C4D9;
+}
+
+.mobileSellerEscrowBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #E4DFFF;
+  color: #2700A6;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.mobileSellerEscrowBadge img {
+  display: block;
+}
+
+.mobileSellerEscrowIcon {
+  display: block;
+  width: 10.667px;
+  height: 14px;
+  flex: 0 0 10.667px;
+  background: url('/mobile-order-assets/order-details-escrow.svg') center / contain no-repeat;
+}
+
+.mobileSellerEscrowAmount {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mobileSellerEscrowAmount > strong {
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.mobileSellerEscrowAmount > span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #61646B;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.mobileSellerEscrowAmount img {
+  display: block;
+}
+
+.mobileSellerOrderStatus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 8px;
+}
+
+.mobileSellerOrderStatus > span {
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.mobileSellerOrderStatus > strong {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #2700A6;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.mobileSellerOrderStatus > strong.is-shipped {
+  background: #14733D;
+}
+
+.mobileOrderDetailsFooter {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: #FFFFFF;
+  border-top: 1px solid #C8C4D9;
+}
+
+.mobileOrderDetailsFooter p {
+  margin: 0;
+  color: #14733D;
+  font-size: 12px;
+  text-align: center;
+}
+
+.mobileOrderDetailsFooter button {
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #FE7A32;
+  color: #622400;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+  cursor: pointer;
+}
+
+.mobileOrderDetailsFooter button:disabled {
+  background: #E5E0EF;
+  color: #474556;
+  cursor: default;
+}
+
+@media (min-width: 600px) {
+  .mobileOrderDetailsPage {
+    min-height: 875px;
+    box-shadow: 0 0 24px rgb(27 26 37 / 10%);
+  }
+}
+
+.mobileTrackingView {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .sellerTrackingPage {
+    display: block;
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+    background: #FCF8FF;
+  }
+
+  .sellerTrackingPage .sellerChatNavigation,
+  .sellerTrackingMain {
+    display: none !important;
+  }
+
+  .mobileTrackingView {
+    display: flex;
+    width: 100%;
+    max-width: 390px;
+    height: 100%;
+    flex-direction: column;
+    margin: 0 auto;
+    background: #FCF8FF;
+  }
+
+  .mobileTrackingHeader {
+    display: grid;
+    width: 100%;
+    height: 56px;
+    flex: 0 0 56px;
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
+    align-items: center;
+    padding: 0 16px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #C8C4D9;
+  }
+
+  .mobileTrackingHeader > a,
+  .mobileTrackingMenuWrap > button {
+    display: grid;
+    width: 32px;
+    height: 36px;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+  }
+
+  .mobileTrackingHeader img {
+    display: block;
+  }
+
+  .mobileTrackingHeader h1 {
+    margin: 0;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  .mobileTrackingMenuWrap {
+    position: relative;
+    justify-self: end;
+  }
+
+  .mobileTrackingMenu {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    z-index: 8;
+    display: flex;
+    min-width: 180px;
+    flex-direction: column;
+    padding: 4px;
+    border: 1px solid #C8C4D9;
+    border-radius: 8px;
+    background: #FFFFFF;
+    box-shadow: 0 8px 24px rgb(27 26 37 / 12%);
+  }
+
+  .mobileTrackingMenu a {
+    padding: 10px 12px;
+    border-radius: 4px;
+    color: #1B1A25;
+    font-size: 13px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .mobileTrackingMenu a:hover {
+    background: #F0ECFB;
+  }
+
+  .mobileTrackingScroll {
+    min-height: 0;
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 16px 24px;
+  }
+
+  .mobileTrackingScroll > h2 {
+    margin: 0 0 20px;
+    color: #000000;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 34px;
+  }
+
+  .mobileTrackingDetailsCard,
+  .mobileTrackingTimeline {
+    padding: 16px;
+    border: 1px solid #C8C4D9;
+    border-radius: 12px;
+    background: #FFFFFF;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+  }
+
+  .mobileTrackingProductRow {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #E5E0EF;
+  }
+
+  .mobileTrackingProductImage {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    flex: 0 0 64px;
+    overflow: hidden;
+    border: 1px solid #C8C4D9;
+    border-radius: 8px;
+  }
+
+  .mobileTrackingProductImage img {
+    object-fit: cover;
+  }
+
+  .mobileTrackingProductCopy {
+    min-width: 0;
+  }
+
+  .mobileTrackingProductCopy h3 {
+    margin: 0 0 4px;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  .mobileTrackingProductCopy > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mobileTrackingProductCopy > div strong {
+    color: #1B1A25;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    white-space: nowrap;
+  }
+
+  .mobileTrackingProductCopy > div > span {
+    color: #787588;
+    font-size: 16px;
+  }
+
+  .mobileTrackingProductCopy small {
+    color: #61646B;
+    font-size: 12px;
+    line-height: 16px;
+    white-space: nowrap;
+  }
+
+  .mobileTrackingRouteDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding-top: 8px;
+  }
+
+  .mobileTrackingRouteDetails > div {
+    display: flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid #E5E0EF;
+  }
+
+  .mobileTrackingRouteDetails > div:last-child {
+    border-bottom: 0;
+  }
+
+  .mobileTrackingRouteDetails dt {
+    color: #61646B;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .mobileTrackingRouteDetails dd {
+    max-width: 65%;
+    margin: 0;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: right;
+  }
+
+  .mobileTrackingTimeline {
+    margin-top: 20px;
+    padding: 16px;
+  }
+
+  .mobileTrackingTimeline ol {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mobileTrackingTimeline li {
+    position: relative;
+    display: flex;
+    min-height: 68px;
+    gap: 16px;
+  }
+
+  .mobileTrackingTimeline li::after {
+    position: absolute;
+    top: 17px;
+    bottom: -23px;
+    left: 7px;
+    width: 1px;
+    background: #E5E0EF;
+    content: '';
+  }
+
+  .mobileTrackingTimeline li:last-child::after {
+    display: none;
+  }
+
+  .mobileTrackingTimeline li > span {
+    position: relative;
+    z-index: 1;
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+    border-radius: 50%;
+    background: #D5D0E1;
+  }
+
+  .mobileTrackingTimeline li.is-current > span {
+    width: 16px;
+    height: 16px;
+    flex-basis: 16px;
+    background: #2700A6;
+  }
+
+  .mobileTrackingTimeline li > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mobileTrackingTimeline li strong {
+    color: #000000;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  .mobileTrackingTimeline li small {
+    color: #61646B;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .mobileTrackingTimeline li:not(.is-current) strong,
+  .mobileTrackingTimeline li:not(.is-current) small {
+    color: #AFB1B6;
+  }
+}
+
+.mobileTransactionSummaryPage,
+.mobileTransactionSummaryPage * {
+  box-sizing: border-box;
+}
+
+.mobileTransactionSummaryPage {
+  display: flex;
+  width: 100%;
+  max-width: 360px;
+  height: 100dvh;
+  min-height: 700px;
+  flex-direction: column;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #FCF8FF;
+  color: #1B1A25;
+  font-family: var(--font-work-sans), sans-serif;
+}
+
+.mobileTransactionHeader {
+  z-index: 2;
+  display: flex;
+  height: 64px;
+  flex: 0 0 64px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: #FCF8FF;
+  border-bottom: 1px solid #C8C4D9;
+}
+
+.mobileTransactionHeader > a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #2700A6;
+  text-decoration: none;
+}
+
+.mobileTransactionHeader > a img {
+  display: block;
+}
+
+.mobileTransactionHeader > a strong {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.mobileTransactionHeader > button {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.mobileTransactionHeader > button img {
+  display: block;
+}
+
+.mobileTransactionScroll {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  padding: 3px 16px 16px;
+}
+
+.mobileTransactionHeading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.mobileTransactionHeading > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobileTransactionHeading > div > span {
+  padding: 4px 8px;
+  border-radius: 2px;
+  background: #F0ECFB;
+  color: #2700A6;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.mobileTransactionHeading > div > small {
+  color: #61646B;
+  font-size: 9px;
+  line-height: 14px;
+}
+
+.mobileTransactionHeading h1 {
+  margin: 0;
+  color: #1B1A25;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+.mobileTransactionHeading p {
+  margin: 0;
+  color: #61646B;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.mobileTransactionProductCard,
+.mobileTransactionInfoCard,
+.mobileTransactionFinancialCard {
+  padding: 16px;
+  border: 1px solid #C8C4D9;
+  border-radius: 8px;
+  background: #FFFFFF;
+}
+
+.mobileTransactionProductCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.mobileTransactionProductImage {
+  position: relative;
+  width: 100%;
+  height: 112px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #F6F1FF;
+}
+
+.mobileTransactionProductImage img {
+  object-fit: cover;
+}
+
+.mobileTransactionProductCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mobileTransactionProductCopy h2 {
+  margin: 0 0 2px;
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.mobileTransactionProductCopy p {
+  margin: 0;
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.mobileTransactionProductCopy > a {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 4px;
+  padding-top: 8px;
+  color: #2700A6;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.mobileTransactionInfoCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 0;
+}
+
+.mobileTransactionInfoCard + .mobileTransactionInfoCard {
+  margin-top: 0;
+}
+
+.mobileTransactionInfoCard h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 2px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #EAE6F5;
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.mobileTransactionInfoCard h2 img {
+  display: block;
+}
+
+.mobileTransactionInfoCard > strong {
+  color: #1B1A25;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.mobileTransactionInfoCard p {
+  margin: 0;
+  color: #61646B;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.mobileTransactionFulfillmentId {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mobileTransactionFulfillmentId button {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.mobileTransactionFulfillmentId button span {
+  display: block;
+  width: 9.917px;
+  height: 11.667px;
+  background: url('/order-tracking-assets/copy.svg') center / contain no-repeat;
+}
+
+.mobileTransactionInfoCard > a {
+  width: fit-content;
+  padding-top: 2px;
+  color: #2700A6;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.mobileTransactionFinancialCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobileTransactionFinancialCard h2 {
+  margin: 0;
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.mobileTransactionFinancialCard dl {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+}
+
+.mobileTransactionFinancialCard dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.mobileTransactionFinancialCard dt {
+  color: #61646B;
+}
+
+.mobileTransactionFinancialCard dd {
+  margin: 0;
+  color: #1B1A25;
+  white-space: nowrap;
+}
+
+.mobileTransactionFinancialCard dd.is-negative {
+  color: #BA1A1A;
+}
+
+.mobileTransactionPayout {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid #C8C4D9;
+}
+
+.mobileTransactionPayout > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.mobileTransactionPayout strong {
+  color: #1B1A25;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.mobileTransactionPayout b {
+  color: #2700A6;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  white-space: nowrap;
+}
+
+.mobileTransactionPayout > span {
+  align-self: flex-end;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #E5E0EF;
+  color: #474556;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.mobileTransactionActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.mobileTransactionActions button,
+.mobileTransactionActions a {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #2700A6;
+  color: #FFFFFF;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.mobileTransactionActions img {
+  display: block;
+}
+
+.mobileTransactionActions a {
+  border: 1px solid #C8C4D9;
+  background: #FFFFFF;
+  color: #1B1A25;
+}
+
+.mobileTransactionBottomNav {
+  z-index: 3;
+  display: flex;
+  height: 64px;
+  flex: 0 0 64px;
+  align-items: center;
+  justify-content: space-around;
+  gap: 4px;
+  padding: 4px 8px;
+  background: #FCF8FF;
+  border-top: 1px solid #C8C4D9;
+}
+
+.mobileTransactionBottomNav a {
+  display: flex;
+  min-width: 0;
+  height: 44px;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2px;
+  border-radius: 12px;
+  color: #474556;
+  font-size: 10px;
+  line-height: 12px;
+  text-decoration: none;
+}
+
+.mobileTransactionBottomNav img {
+  display: block;
+}
+
+.mobileTransactionBottomNav a.is-active {
+  background: #3A00E5;
+  color: #B5AFFF;
+  font-weight: 700;
+}
+
+@media (min-width: 600px) {
+  .mobileTransactionSummaryPage {
+    box-shadow: 0 0 24px rgb(27 26 37 / 10%);
   }
 }

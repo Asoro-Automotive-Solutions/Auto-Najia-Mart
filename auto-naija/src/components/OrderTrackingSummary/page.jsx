@@ -15,6 +15,7 @@ export default function OrderTrackingSummary() {
 	const [fulfillmentEditing, setFulfillmentEditing] = useState(false)
 	const [carrier, setCarrier] = useState('GIG Logistics')
 	const [detailsDialog, setDetailsDialog] = useState(null)
+	const [mobileTrackingMenuOpen, setMobileTrackingMenuOpen] = useState(false)
 
 	const copyTrackingId = async () => {
 		try {
@@ -37,6 +38,41 @@ export default function OrderTrackingSummary() {
 
 	return (
 		<main className="sellerTrackingPage">
+			<section className="mobileTrackingView" aria-label="Tracking details">
+				<header className="mobileTrackingHeader">
+					<Link href="/order-details" aria-label="Back to order details"><Image src="/mobile-seller-assets/chat-back.svg" alt="" width={16} height={16} /></Link>
+					<h1>#ANM-8821</h1>
+					<div className="mobileTrackingMenuWrap">
+						<button type="button" aria-label="More order screens" aria-expanded={mobileTrackingMenuOpen} onClick={() => setMobileTrackingMenuOpen((open) => !open)}><Image src="/mobile-seller-assets/chat-more.svg" alt="" width={4} height={16} /></button>
+						{mobileTrackingMenuOpen ? <div className="mobileTrackingMenu"><Link href="/transaction-summary" onClick={() => setMobileTrackingMenuOpen(false)}>Transaction Summary</Link><Link href="/order-details" onClick={() => setMobileTrackingMenuOpen(false)}>Order Details</Link></div> : null}
+					</div>
+				</header>
+				<div className="mobileTrackingScroll">
+					<h2>Tracking Details</h2>
+					<section className="mobileTrackingDetailsCard" aria-label="Shipment route and status">
+						<div className="mobileTrackingProductRow">
+							<div className="mobileTrackingProductImage"><Image src="/mobile-order-assets/tracking-suspension.png" alt="Toyota Corolla 2016 suspension" fill sizes="64px" /></div>
+							<div className="mobileTrackingProductCopy">
+								<h3>Toyota Corolla 2016 Suspension</h3>
+								<div><strong>₦70,000.00</strong><span aria-hidden="true">|</span><small>Quantity: 1</small></div>
+							</div>
+						</div>
+						<dl className="mobileTrackingRouteDetails">
+							<div><dt>From</dt><dd>John’s Auto Parts, Lagos</dd></div>
+							<div><dt>Destination</dt><dd>John Doe, Benin</dd></div>
+							<div><dt>Customer</dt><dd>John Doe</dd></div>
+							<div><dt>In Status</dt><dd>In Transit</dd></div>
+						</dl>
+					</section>
+					<section className="mobileTrackingTimeline" aria-label="Delivery timeline">
+						<ol>
+							<li className="is-current"><span /><div><strong>Out for delivery</strong><small>Feb 20th</small></div></li>
+							<li><span /><div><strong>Moving from</strong><small>Feb 20th</small></div></li>
+							<li><span /><div><strong>Delivered</strong><small>Feb 20th</small></div></li>
+						</ol>
+					</section>
+				</div>
+			</section>
 			<SellerSidebar activeItem="Orders" userAvatar={sellerAvatar} />
 			<section className="sellerTrackingMain">
 				<header className="sellerTrackingTopBar" aria-label="Account tools">
@@ -60,7 +96,7 @@ export default function OrderTrackingSummary() {
 									<button className="sellerTrackingMoreButton" type="button" aria-label="More order actions" aria-expanded={moreMenuOpen} onClick={() => setMoreMenuOpen((open) => !open)}>
 										<Image src={asset('more.svg')} alt="" width={3.333} height={13.333} />
 									</button>
-									{moreMenuOpen ? <div className="sellerTrackingMoreMenu"><button type="button" onClick={copyTrackingId}>{trackingCopied ? 'Tracking ID copied' : 'Copy tracking number'}</button><button type="button" onClick={() => { setDetailsDialog('tracking'); setMoreMenuOpen(false) }}>View tracking details</button><button type="button" onClick={() => { window.print(); setMoreMenuOpen(false) }}>Print order summary</button></div> : null}
+										{moreMenuOpen ? <div className="sellerTrackingMoreMenu"><Link href="/order-details" onClick={() => setMoreMenuOpen(false)}>Order Details</Link><button type="button" onClick={copyTrackingId}>{trackingCopied ? 'Tracking ID copied' : 'Copy tracking number'}</button><button type="button" onClick={() => { setDetailsDialog('tracking'); setMoreMenuOpen(false) }}>View tracking details</button><button type="button" onClick={() => { window.print(); setMoreMenuOpen(false) }}>Print order summary</button></div> : null}
 								</div>
 							</header>
 
