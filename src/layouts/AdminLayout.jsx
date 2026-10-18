@@ -34,7 +34,7 @@ const navItems = [
   { name: 'Support', path: '/admin/support', icon: Headphones },
   { name: 'Content Moderation', path: '/admin/moderation', icon: Search },
   { name: 'Analytics', path: '/admin/analytics', icon: BarChart3 },
-  { name: 'Notification', path: '/admin/notifications', icon: Bell },
+  { name: 'Notification', path: '/admin/notifications', icon: Bell, badge: 3 },
   { name: 'Permissions', path: '/admin/permissions', icon: KeyRound },
 ]
 
@@ -110,18 +110,25 @@ export default function AdminLayout({ children }) {
                   key={item.name}
                   to={item.path}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg font-medium transition-all ${
+                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg font-medium transition-all ${
                     isActive
                       ? 'bg-[#ece8fb] text-[#4d22d2] font-semibold border-r-4 border-[#5227d8]'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
-                  <Icon
-                    className={`w-4 h-4 ${
-                      isActive ? 'text-[#4d22d2] stroke-[2.3]' : 'text-slate-500 stroke-[1.8]'
-                    }`}
-                  />
-                  <span>{item.name}</span>
+                  <div className="flex items-center gap-3 min-w-0">
+                    <Icon
+                      className={`w-4 h-4 shrink-0 ${
+                        isActive ? 'text-[#4d22d2] stroke-[2.3]' : 'text-slate-500 stroke-[1.8]'
+                      }`}
+                    />
+                    <span className="truncate">{item.name}</span>
+                  </div>
+                  {item.badge && (
+                    <span className="w-4 h-4 rounded-full bg-red-600 text-white text-[10px] font-bold flex items-center justify-center shrink-0">
+                      {item.badge}
+                    </span>
+                  )}
                 </Link>
               )
             })}

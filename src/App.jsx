@@ -3,6 +3,10 @@ import AdminLogin from './pages/AdminLogin'
 import AdminVerify2FA from './pages/AdminVerify2FA'
 import AdminOverview from './pages/AdminOverview'
 import AdminActivity from './pages/AdminActivity'
+import AdminFinancial from './pages/AdminFinancial'
+import AdminSellerApproval from './pages/AdminSellerApproval'
+import AdminSellersManagement from './pages/AdminSellersManagement'
+import AdminStoreProfile from './pages/AdminStoreProfile'
 import AdminLayout from './layouts/AdminLayout'
 
 function App() {
@@ -30,6 +34,54 @@ function App() {
           element={
             <AdminLayout>
               <AdminOverview />
+            </AdminLayout>
+          }
+        />
+
+        {/* Screen 4: Financial Overview Dashboard */}
+        <Route
+          path="/admin/financial"
+          element={
+            <AdminLayout>
+              <AdminFinancial />
+            </AdminLayout>
+          }
+        />
+
+        {/* Screen 5: Seller Approval / Document Verification */}
+        <Route
+          path="/admin/seller-approval"
+          element={
+            <AdminLayout>
+              <AdminSellerApproval />
+            </AdminLayout>
+          }
+        />
+
+        {/* Screen 6: Sellers Management Directory */}
+        <Route
+          path="/admin/sellers-management"
+          element={
+            <AdminLayout>
+              <AdminSellersManagement />
+            </AdminLayout>
+          }
+        />
+
+        {/* Screen 7: Seller / Store Profile */}
+        <Route
+          path="/admin/sellers-management/:id"
+          element={
+            <AdminLayout>
+              <AdminStoreProfile />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="/admin/store-profile"
+          element={
+            <AdminLayout>
+              <AdminStoreProfile />
             </AdminLayout>
           }
         />
