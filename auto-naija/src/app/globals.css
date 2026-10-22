@@ -4690,7 +4690,15 @@ body {
 .sellerComposerMobileImage,
 .sellerComposerMobileMic,
 .sellerComposerMobileSend {
-  display: none;
+  display: none !important;
+}
+
+.sellerComposerDesktopImage,
+.sellerComposerDesktopMic,
+.sellerComposerDesktopSend,
+.sellerOfferDesktopIcon,
+.sellerOfferDesktopSend {
+  display: block !important;
 }
 
 .sellerChatSearchFilters {
@@ -5256,7 +5264,7 @@ body {
   .sellerComposerMobileImage,
   .sellerComposerMobileMic,
   .sellerComposerMobileSend {
-    display: block;
+    display: block !important;
   }
 
   .sellerChatComposer textarea {
