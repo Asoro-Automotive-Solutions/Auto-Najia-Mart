@@ -18,8 +18,10 @@ import {
   LogOut,
   User,
   Menu,
-  X
+  X,
+  CheckCircle2
 } from 'lucide-react'
+import EditProfileModal from '../components/EditProfileModal'
 
 const navItems = [
   { name: 'Overview', path: '/admin', icon: LayoutDashboard },
@@ -42,11 +44,22 @@ export default function AdminLayout({ children }) {
   const location = useLocation()
   const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false)
+  const [profileToast, setProfileToast] = useState(false)
+  const [profileName, setProfileName] = useState('Admin User')
 
   const handleLogout = () => {
     if (window.confirm('Are you sure you want to log out of the Admin Portal?')) {
       navigate('/admin/login')
     }
+  }
+
+  const handleSaveProfile = (data) => {
+    if (data.firstName && data.lastName) {
+      setProfileName(`${data.firstName} ${data.lastName}`)
+    }
+    setProfileToast(true)
+    setTimeout(() => setProfileToast(false), 3500)
   }
 
   return (
@@ -137,12 +150,18 @@ export default function AdminLayout({ children }) {
 
         {/* Admin User Profile & Logout Footer */}
         <div className="p-3.5 border-t border-slate-200/90 bg-slate-50/50 flex items-center justify-between">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center shrink-0">
+          <div
+            onClick={() => setIsEditProfileOpen(true)}
+            title="Click to edit profile"
+            className="flex items-center gap-2.5 min-w-0 cursor-pointer hover:opacity-80 transition-opacity group"
+          >
+            <div className="w-8 h-8 rounded-full bg-[#ece8fb] text-[#5227d8] group-hover:bg-[#5227d8] group-hover:text-white transition-colors flex items-center justify-center shrink-0">
               <User className="w-4 h-4" />
             </div>
             <div className="truncate">
-              <p className="text-xs font-semibold text-slate-800 truncate">Admin User</p>
+              <p className="text-xs font-semibold text-slate-800 truncate group-hover:text-[#5227d8] transition-colors">
+                {profileName}
+              </p>
               <p className="text-[10px] text-slate-500 font-medium">Super Admin</p>
             </div>
           </div>
@@ -159,8 +178,32 @@ export default function AdminLayout({ children }) {
 
       {/* Main Content Area */}
       <div className="flex-1 min-w-0 overflow-y-auto">
+        {/* Profile Updated Toast */}
+        {profileToast && (
+          <div className="fixed top-6 right-6 z-50 flex items-center gap-2.5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl text-xs sm:text-sm border border-slate-700 animate-fade-in">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>Profile changes saved successfully!</span>
+          </div>
+        )}
         {children}
       </div>
+
+      {/* Edit Profile Modal */}
+      <EditProfileModal
+        isOpen={isEditProfileOpen}
+        onClose={() => setIsEditProfileOpen(false)}
+        onSave={handleSaveProfile}
+        initialData={{
+          firstName: profileName.split(' ')[0] || 'Admin',
+          lastName: profileName.split(' ')[1] || 'User',
+          email: 'admin@autonaija.market',
+          phoneNumber: '+234 800 123 4567',
+          address: '15 Silicon Valley Close',
+          city: 'Lagos',
+          country: 'Nigeria',
+          state: 'Lagos State'
+        }}
+      />
     </div>
   )
 }

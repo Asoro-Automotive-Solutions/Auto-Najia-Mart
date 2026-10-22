@@ -27,8 +27,10 @@ import {
   Camera,
   Upload,
   Trash2,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Edit3
 } from 'lucide-react'
+import EditProfileModal from '../components/EditProfileModal'
 
 const INVENTORY_ITEMS = [
   {
@@ -79,14 +81,30 @@ export default function AdminStoreProfile() {
   const [isDocViewerOpen, setIsDocViewerOpen] = useState(false)
   const [selectedDoc, setSelectedDoc] = useState(null)
   const [isSuspended, setIsSuspended] = useState(false)
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false)
   const [messageText, setMessageText] = useState('')
   const [toastMessage, setToastMessage] = useState(null)
   const [storeImage, setStoreImage] = useState(null)
+  const [storeDetails, setStoreDetails] = useState({
+    firstName: 'Asoro Stores',
+    lastName: 'Asoro Stores',
+    email: 'Asoro Stores',
+    phoneNumber: 'Asoro Stores',
+    address: 'Asoro Stores',
+    city: 'Asoro Stores',
+    country: 'Asoro Stores',
+    state: 'Asoro Stores'
+  })
   const fileInputRef = useRef(null)
 
   const triggerToast = (msg) => {
     setToastMessage(msg)
     setTimeout(() => setToastMessage(null), 3500)
+  }
+
+  const handleSaveStoreProfile = (updatedData) => {
+    setStoreDetails(updatedData)
+    triggerToast('Store profile updated successfully!')
   }
 
   const handleImageUpload = (e) => {
@@ -204,11 +222,20 @@ export default function AdminStoreProfile() {
         <div className="lg:col-span-8 space-y-6">
           {/* Card 1: Store Details */}
           <div className="bg-white rounded-2xl border border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.03)] p-5 sm:p-6">
-            <div className="flex items-center gap-2 mb-5 pb-3 border-b border-slate-100">
-              <Store className="w-4 h-4 text-[#5227d8]" />
-              <h2 className="text-sm sm:text-base font-bold text-slate-900">
-                Store Details
-              </h2>
+            <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <Store className="w-4 h-4 text-[#5227d8]" />
+                <h2 className="text-sm sm:text-base font-bold text-slate-900">
+                  Store Details
+                </h2>
+              </div>
+              <button
+                onClick={() => setIsEditProfileOpen(true)}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#5227d8] bg-[#ece8fb] hover:bg-[#ded6f8] rounded-lg transition-colors cursor-pointer"
+              >
+                <Edit3 className="w-3.5 h-3.5" />
+                <span>Edit Profile</span>
+              </button>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-6">
@@ -807,6 +834,14 @@ export default function AdminStoreProfile() {
           </div>
         </div>
       )}
+
+      {/* Edit Profile Modal */}
+      <EditProfileModal
+        isOpen={isEditProfileOpen}
+        onClose={() => setIsEditProfileOpen(false)}
+        onSave={handleSaveStoreProfile}
+        initialData={storeDetails}
+      />
     </div>
   )
 }
