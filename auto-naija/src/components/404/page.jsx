@@ -85,7 +85,7 @@ const page = props => {
         >
           <span>It looks like we couldn&apos;t find the page or</span>
           <span>component you were looking for. It might</span>
-          <span>have been removed, renamed, or is</span>
+          <span>have been removed, renamed or is</span>
           <span>temporarily out of stock in our digital garage.</span>
         </div>
         <Link
