@@ -1,6 +1,5 @@
-import Favorite from "../containers/Favorite/page";
+import Soon from "../components/ComingSoon/page";
+
 export default function Home() {
-  return (
-    <Favorite/>
-  );
+  return <Soon />;
 }
