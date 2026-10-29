@@ -1,7 +1,12 @@
+'use client'
+
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { IoCarOutline } from 'react-icons/io5'
+import { IoMdArrowBack, IoMdSearch, IoMdShare } from 'react-icons/io'
+import { FaHeart } from 'react-icons/fa'
 import { IoIosArrowForward } from 'react-icons/io'
 import { VscVerifiedFilled } from 'react-icons/vsc'
 import { CiLocationOn } from 'react-icons/ci'
@@ -15,17 +20,23 @@ import { MdEngineering } from 'react-icons/md'
 import { HiOutlineBolt } from 'react-icons/hi2'
 import { RiShieldKeyholeLine } from 'react-icons/ri'
 import { FaArrowRight } from 'react-icons/fa6'
+import { MdHomeFilled, MdOutlineShoppingCart } from 'react-icons/md'
+import { CgProfile } from 'react-icons/cg'
 import sellerBg from '../../assets/images/seller bg.png'
 
 const Page = () => {
+  const router = useRouter()
+
   return (
     <div
+      className="sellerDetailsPage"
       style={{
         minHeight: '100vh',
         backgroundColor: '#F5FAFF',
       }}
     >
       <header
+        className="sellerDetailsHeader"
         style={{
           position: 'fixed',
           top: 0,
@@ -42,7 +53,25 @@ const Page = () => {
           zIndex: 50,
         }}
       >
+        <button
+          type="button"
+          className="sellerDetailsMobileBack"
+          onClick={() => router.back()}
+          aria-label="Go back"
+        >
+          <IoMdArrowBack size={20} />
+        </button>
+        <div className="sellerDetailsMobileTitle">Autoparts Lagos</div>
+        <div className="sellerDetailsMobileActions">
+          <button type="button" aria-label="Add seller to favourites">
+            <FaHeart size={18} />
+          </button>
+          <button type="button" aria-label="Share seller">
+            <IoMdShare size={20} />
+          </button>
+        </div>
         <div
+          className="sellerDetailsDesktopBrand"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -63,6 +92,7 @@ const Page = () => {
         </div>
 
         <nav
+          className="sellerDetailsNav"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -83,6 +113,7 @@ const Page = () => {
       </header>
 
       <main
+        className="sellerDetailsMain"
         style={{
           minHeight: '100vh',
           paddingLeft: '24px',
@@ -92,6 +123,7 @@ const Page = () => {
         }}
       >
         <div
+          className="sellerDetailsBreadcrumb"
           style={{
             display: 'flex',
             justifyContent: 'flex-start',
@@ -113,6 +145,7 @@ const Page = () => {
         </div>
 
         <div
+          className="sellerDetailsHeroWrap"
           style={{
             maxWidth: '1168px',
             margin: '20px auto 0',
@@ -120,6 +153,7 @@ const Page = () => {
           }}
         >
           <div
+            className="sellerDetailsHeroImage"
             style={{
               width: '100%',
               height: '192px',
@@ -138,6 +172,7 @@ const Page = () => {
           </div>
 
           <div
+            className="sellerDetailsHeroBottom"
             style={{
               width: '100%',
               height: '104px',
@@ -151,6 +186,7 @@ const Page = () => {
           />
 
           <div
+            className="sellerDetailsAvatar"
             style={{
               position: 'absolute',
               left: '32px',
@@ -175,6 +211,7 @@ const Page = () => {
           </div>
 
           <div
+            className="sellerDetailsNameRow"
             style={{
               position: 'absolute',
               left: '184px',
@@ -226,6 +263,7 @@ const Page = () => {
           </div>
 
           <div
+            className="sellerDetailsMetaRow"
             style={{
               position: 'absolute',
               left: '184px',
@@ -256,6 +294,7 @@ const Page = () => {
           </div>
 
           <div
+            className="sellerDetailsActions"
             style={{
               position: 'absolute',
               right: '24px',
@@ -313,6 +352,7 @@ const Page = () => {
         </div>
 
         <div
+          className="sellerDetailsTabBar"
           style={{
             maxWidth: '1168px',
             margin: '24px auto 0',
@@ -348,6 +388,7 @@ const Page = () => {
         </div>
 
         <div
+          className="sellerDetailsAboutPerf"
           style={{
             maxWidth: '1168px',
             margin: '24px auto 0',
@@ -358,6 +399,7 @@ const Page = () => {
           }}
         >
           <div
+            className="sellerDetailsAboutCard"
             style={{
               width: '770px',
               maxWidth: '100%',
@@ -381,6 +423,11 @@ const Page = () => {
               About This Seller
             </div>
 
+            <div className="sellerDetailsMobileLocation">
+              <CiLocationOn size={16} />
+              <span>Ladipo Market, Lagos</span>
+            </div>
+
             <div
               style={{
                 color: '#474556',
@@ -401,6 +448,7 @@ available to help you find the exact fit for your vehicle.`}
           </div>
 
           <div
+            className="sellerDetailsPerformanceCard"
             style={{
               width: '373px',
               maxWidth: '100%',
@@ -579,6 +627,7 @@ available to help you find the exact fit for your vehicle.`}
         </div>
 
         <div
+          className="sellerDetailsSpecialtiesSection"
           style={{
             maxWidth: '1168px',
             margin: '24px auto 0',
@@ -589,6 +638,7 @@ available to help you find the exact fit for your vehicle.`}
           }}
         >
           <div
+            className="sellerDetailsSpecialtiesCard"
             style={{
               width: '770px',
               maxWidth: '100%',
@@ -702,6 +752,7 @@ available to help you find the exact fit for your vehicle.`}
           </div>
 
           <div
+            className="sellerDetailsPolicyCard"
             style={{
               width: '373px',
               maxWidth: '100%',
@@ -768,9 +819,33 @@ available to help you find the exact fit for your vehicle.`}
               <span>Read full policy</span>
               <FaArrowRight size={14} />
             </div>
+
           </div>
+
+          <button
+            type="button"
+            className="sellerDetailsMobileChatButton"
+          >
+            <MdOutlineMessage size={18} />
+            <span>Chat with Autopart Lagos</span>
+          </button>
         </div>
       </main>
+
+      <nav className="mobileBottomNav sellerDetailsMobileBottomNav" aria-label="Mobile navigation">
+        {[
+          { label: 'Home', icon: MdHomeFilled, href: '/' },
+          { label: 'Search', icon: IoMdSearch, href: '/' },
+          { label: 'Chat', icon: MdOutlineMessage, href: '/' },
+          { label: 'Order', icon: MdOutlineShoppingCart, href: '/' },
+          { label: 'Profile', icon: CgProfile, href: '/password-security' },
+        ].map(({ label, icon: Icon, href }) => (
+          <Link key={label} href={href} className="mobileBottomNavItem">
+            <Icon size={16} />
+            <span>{label}</span>
+          </Link>
+        ))}
+      </nav>
     </div>
   )
 }

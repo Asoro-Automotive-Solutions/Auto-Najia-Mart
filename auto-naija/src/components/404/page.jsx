@@ -83,16 +83,13 @@ const page = props => {
             whiteSpace: 'pre-line',
           }}
         >
-          It looks like we couldn&apost find the page or
-          {'\n'}
-          component you were looking for. It might
-          {'\n'}
-          have been removed, renamed, or is
-          {'\n'}
-          temporarily out of stock in our digital garage.
+          <span>It looks like we couldn&apos;t find the page or</span>
+          <span>component you were looking for. It might</span>
+          <span>have been removed, renamed or is</span>
+          <span>temporarily out of stock in our digital garage.</span>
         </div>
         <Link
-          href="/"
+          href="/password-security"
           className="homeButton404"
           style={{
             marginTop: '12px',
