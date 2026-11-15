@@ -206,7 +206,7 @@ export default function Dashboard() {
       </main>
 
       {/* 3. RIGHT DETAILS SIDEBAR - Shifts below main contents on tablet/mobile screens */}
-  <section className= "hidden sm:block w-full lg:w-96 bg-white border border-[#E6E4EE] lg:border-none lg:bg-transparent rounded-xl p-5 flex flex-col justify-start h-auto flex-shrink-0 shadow-sm lg:shadow-none">
+  <section className="w-full lg:w-96 bg-white border border-[#E6E4EE] lg:border-none lg:bg-transparent rounded-xl p-5 flex flex-col justify-start h-auto flex-shrink-0 shadow-sm lg:shadow-none">
         <div className="space-y-4 pr-1">
           
           {/* Active Target Banner */}
