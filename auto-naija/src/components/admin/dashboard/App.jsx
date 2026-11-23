@@ -1,3 +1,5 @@
+'use client'
+
 import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom'
 import AdminLogin from './pages/AdminLogin'
 import AdminVerify2FA from './pages/AdminVerify2FA'
@@ -120,7 +122,7 @@ function App() {
         />
 
         {/* Unknown routes redirect to login */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/admin" replace />} />
       </Routes>
     </Router>
   )

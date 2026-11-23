@@ -1,5 +1,8 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import "../components/admin/dashboard/App.css";
+import "../components/admin/items-store/App.css";
+import "../components/admin/items-store/Escrow.css";
 
 const workSans = localFont({
   src: [

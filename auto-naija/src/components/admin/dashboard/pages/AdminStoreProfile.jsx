@@ -30,7 +30,7 @@ import {
   Image as ImageIcon,
   Edit3
 } from 'lucide-react'
-import EditProfileModal from '../components/EditProfileModal'
+import EditProfileModal from '../EditProfileModal'
 
 const INVENTORY_ITEMS = [
   {

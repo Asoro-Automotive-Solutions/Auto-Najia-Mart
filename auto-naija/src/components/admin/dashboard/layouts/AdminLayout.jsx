@@ -21,7 +21,7 @@ import {
   X,
   CheckCircle2
 } from 'lucide-react'
-import EditProfileModal from '../components/EditProfileModal'
+import EditProfileModal from '../EditProfileModal'
 
 const navItems = [
   { name: 'Overview', path: '/admin', icon: LayoutDashboard },

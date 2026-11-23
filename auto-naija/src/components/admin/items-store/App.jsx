@@ -305,12 +305,12 @@ function ItemDetails({ setSidebarOpen }) {
     estimatedShipping: "$24.50",
     sellerNet: "$133.40",
     shippingMethods: ["FedEx Ground", "UPS Standard"],
-    mainImage: "/items/suspension-main.png",
+    mainImage: "/admin/items-store/items/suspension-main.png",
     thumbnails: [
-      "/items/suspension-1.png",
-      "/items/suspension-2.png",
-      "/items/suspension-3.png",
-      "/items/suspension-4.png",
+      "/admin/items-store/items/suspension-1.png",
+      "/admin/items-store/items/suspension-2.png",
+      "/admin/items-store/items/suspension-3.png",
+      "/admin/items-store/items/suspension-4.png",
     ],
   };
 
@@ -469,7 +469,7 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/admin/items-store">
       <div className="app-shell">
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 

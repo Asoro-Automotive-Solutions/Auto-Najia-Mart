@@ -9,8 +9,8 @@ const stats = [
 ];
 
 const items = [
-  { id: "#9842-TX", name: "Suspension Light - Toyota", image: "/items/suspension-3.png", status: "Pending" },
-  { id: "#8831-AB", name: "Bosch S4 Battery 12V", image: "/items/bosch-battery.png", status: "Flagged" },
+  { id: "#9842-TX", name: "Suspension Light - Toyota", image: "/admin/items-store/items/suspension-3.png", status: "Pending" },
+  { id: "#8831-AB", name: "Bosch S4 Battery 12V", image: "/admin/items-store/items/bosch-battery.png", status: "Flagged" },
   { id: "#7720-CD", name: "Honda Civic Brake Pads (Set)", image: null, status: "New" },
 ];
 const tabs = ["All (560)", "Pending (342)", "Flagged (10)", "New (40)"];

@@ -54,7 +54,7 @@ function EscrowDetails({ setSidebarOpen }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {/* Buyer */}
                 <div className="flex items-start gap-3">
-                  <img className="party-avatar" src="/items/buyer-avatar.png" alt="Alex Mercer" />
+                  <img className="party-avatar" src="/admin/items-store/items/buyer-avatar.png" alt="Alex Mercer" />
                   <div>
                     <p className="text-xs text-gray-500 mb-0.5">Buyer</p>
                     <p className="font-medium text-gray-900">Alex Mercer</p>
@@ -70,7 +70,7 @@ function EscrowDetails({ setSidebarOpen }) {
 
                 {/* Seller */}
                 <div className="flex items-start gap-3">
-                  <img className="party-avatar" src="/items/seller-avatar.png" alt="Tech Haven Ltd." />
+                  <img className="party-avatar" src="/admin/items-store/items/seller-avatar.png" alt="Tech Haven Ltd." />
                   <div>
                     <p className="text-xs text-gray-500 mb-0.5">Seller</p>
                     <p className="font-medium text-gray-900">Tech Haven Ltd.</p>

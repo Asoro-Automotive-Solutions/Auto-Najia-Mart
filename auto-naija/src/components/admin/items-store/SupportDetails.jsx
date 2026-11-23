@@ -88,7 +88,7 @@ function SupportDetails({ setSidebarOpen }) {
             <div className="support-conversation bg-white rounded-xl border border-gray-100 p-5 shadow-sm space-y-6">
               {/* User Message */}
               <div className="flex gap-3">
-                <img className="support-avatar" src="/items/david-profile.png" alt="David Ojo" />
+                <img className="support-avatar" src="/admin/items-store/items/david-profile.png" alt="David Ojo" />
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="font-medium text-gray-900">David Ojo</span>
@@ -121,9 +121,9 @@ function SupportDetails({ setSidebarOpen }) {
                     Hi David, I apologize for the inconvenience. I'm looking into the logs right now. It appears there might be a sync issue with our payment processor for your specific transaction block. Let me manually verify the payment status on our backend.
                   </div>
                 </div>
-                <img className="support-avatar" src="/items/sarah-admin.png" alt="Sarah, administrator" />
+                <img className="support-avatar" src="/admin/items-store/items/sarah-admin.png" alt="Sarah, administrator" />
               </div>
-              {replies.map((reply, index) => <div key={index} className={`support-new-reply ${reply.internal ? "support-note" : ""}`}><img className="support-avatar" src="/items/sarah-admin.png" alt="Sarah, administrator" /><div><div className="support-reply-heading">Sarah (Admin) <span>Just now{reply.internal ? " · Internal note" : ""}</span></div><div className="support-admin-message">{reply.text}{reply.attachment && <p className="support-attachment">Attached: {reply.attachment}</p>}</div></div></div>)}
+              {replies.map((reply, index) => <div key={index} className={`support-new-reply ${reply.internal ? "support-note" : ""}`}><img className="support-avatar" src="/admin/items-store/items/sarah-admin.png" alt="Sarah, administrator" /><div><div className="support-reply-heading">Sarah (Admin) <span>Just now{reply.internal ? " · Internal note" : ""}</span></div><div className="support-admin-message">{reply.text}{reply.attachment && <p className="support-attachment">Attached: {reply.attachment}</p>}</div></div></div>)}
             </div>
 
             {/* Reply Box */}
@@ -215,7 +215,7 @@ function SupportDetails({ setSidebarOpen }) {
               <h2 className="font-semibold text-gray-900 mb-4">User Profile</h2>
 
               <div className="flex items-center gap-3 mb-4">
-                <img className="support-profile-avatar" src="/items/david-profile.png" alt="David Ojo" />
+                <img className="support-profile-avatar" src="/admin/items-store/items/david-profile.png" alt="David Ojo" />
                 <div>
                   <p className="font-medium text-gray-900">David Ojo</p>
                   <p className="text-sm text-gray-500">david.ojo@example.com</p>

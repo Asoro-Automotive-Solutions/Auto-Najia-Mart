@@ -22,7 +22,7 @@ function ModerationDetails({ setSidebarOpen }) {
   }), [search, activeTab]);
   const report = reports[selectedReport];
   const showAction = (text) => { setAction(text); setDialog(""); };
-  const gallery = ["/items/suspension-main.png", "/items/suspension-4.png", "", ""];
+  const gallery = ["/admin/items-store/items/suspension-main.png", "/admin/items-store/items/suspension-4.png", "", ""];
 
   return (
     <div className="moderation-page flex-1 flex flex-col min-w-0">
