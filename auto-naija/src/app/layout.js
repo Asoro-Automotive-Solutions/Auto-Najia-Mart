@@ -3,6 +3,9 @@ import "./globals.css";
 import "../components/admin/dashboard/App.css";
 import "../components/admin/items-store/App.css";
 import "../components/admin/items-store/Escrow.css";
+import "../components/victor/MarketHome/App.css";
+import "../components/victor/MarketOrder/App.css";
+import "../components/victor/MarketSearch/App.css";
 
 const workSans = localFont({
   src: [
