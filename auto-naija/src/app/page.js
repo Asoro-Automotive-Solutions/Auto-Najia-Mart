@@ -1,6 +1,5 @@
-import SellerDetails from "../containers/SellerDetails/page";
+import Soon from "../components/ComingSoon/page";
+
 export default function Home() {
-  return (
-    <SellerDetails/>
-  );
+  return <Soon />;
 }

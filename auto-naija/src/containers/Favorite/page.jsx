@@ -1,7 +1,13 @@
+'use client'
+
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { IoCarOutline } from 'react-icons/io5'
+import { IoMdArrowBack, IoMdSearch, IoMdShare } from 'react-icons/io'
+import { MdHomeFilled, MdOutlineShoppingCart } from 'react-icons/md'
+import { CgProfile } from 'react-icons/cg'
 import { FaHeart } from 'react-icons/fa'
 import { BsShop } from 'react-icons/bs'
 import { MdOutlineMessage } from 'react-icons/md'
@@ -50,14 +56,18 @@ const items = [
 ]
 
 const Page = () => {
+  const router = useRouter()
+
   return (
     <div
+      className="favoritesPage"
       style={{
         minHeight: '100vh',
         backgroundColor: '#F5FAFF',
       }}
     >
       <header
+        className="favoritesHeader"
         style={{
           position: 'fixed',
           top: 0,
@@ -74,7 +84,24 @@ const Page = () => {
           zIndex: 50,
         }}
       >
+        <button
+          type="button"
+          className="favoritesMobileBack"
+          onClick={() => router.back()}
+          aria-label="Go back"
+        >
+          <IoMdArrowBack size={20} />
+        </button>
+        <div className="favoritesMobileTitle">Favourites</div>
+        <button
+          type="button"
+          className="favoritesMobileShare"
+          aria-label="Share favourites"
+        >
+          <IoMdShare size={20} />
+        </button>
         <div
+          className="favoritesDesktopBrand"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -95,6 +122,7 @@ const Page = () => {
         </div>
 
         <nav
+          className="favoritesNav"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -115,6 +143,7 @@ const Page = () => {
       </header>
 
       <main
+        className="favoritesMain"
         style={{
           paddingTop: '64px',
           minHeight: '100vh',
@@ -125,6 +154,7 @@ const Page = () => {
         }}
       >
         <div
+          className="favoritesContainer"
           style={{
             maxWidth: '1176px',
             margin: '0 auto',
@@ -132,6 +162,7 @@ const Page = () => {
           }}
         >
           <div
+            className="favoritesHeadingRow"
             style={{
               display: 'flex',
               alignItems: 'flex-end',
@@ -163,6 +194,7 @@ const Page = () => {
           </div>
 
           <div
+            className="favoritesGrid"
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
@@ -171,6 +203,7 @@ const Page = () => {
           >
             {items.map((item) => (
               <article
+                className="favoritesCard"
                 key={item.title}
                 style={{
                   width: '274px',
@@ -186,6 +219,7 @@ const Page = () => {
                 }}
               >
                 <div
+                  className="favoritesImageWrap"
                   style={{
                     width: '100%',
                     height: '192px',
@@ -196,6 +230,7 @@ const Page = () => {
                   }}
                 >
                   <div
+                    className="favoritesCardBody"
                     style={{
                       position: 'absolute',
                       top: '50%',
@@ -213,6 +248,7 @@ const Page = () => {
                     />
                   </div>
                   <div
+                    className="favoritesFitBox"
                     style={{
                       position: 'absolute',
                       top: '8px',
@@ -229,20 +265,23 @@ const Page = () => {
                   >
                     NEW
                   </div>
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: '10px',
-                      right: '10px',
-                      color: '#BA1A1A',
-                      zIndex: 1,
-                    }}
-                  >
-                    <FaHeart size={18} />
-                  </div>
                 </div>
 
                 <div
+                  className="favoritesHeart"
+                  style={{
+                    position: 'absolute',
+                    top: '10px',
+                    right: '10px',
+                    color: '#BA1A1A',
+                    zIndex: 2,
+                  }}
+                >
+                  <FaHeart size={18} />
+                </div>
+
+                <div
+                  className="favoritesDetails"
                   style={{
                     padding: '16px',
                     boxSizing: 'border-box',
@@ -252,6 +291,7 @@ const Page = () => {
                   }}
                 >
                   <div
+                    className="favoritesItemTitle"
                     style={{
                       width: '100%',
                       color: '#1B1A25',
@@ -265,6 +305,7 @@ const Page = () => {
                   </div>
 
                   <div
+                    className="favoritesItemSubtitle"
                     style={{
                       width: '100%',
                       marginTop: '6px',
@@ -279,6 +320,7 @@ const Page = () => {
                   </div>
 
                   <div
+                    className="favoritesSeller"
                     style={{
                       width: '100%',
                       marginTop: '10px',
@@ -297,6 +339,7 @@ const Page = () => {
                   </div>
 
                   <div
+                    className="favoritesFitDetails"
                     style={{
                       width: '100%',
                       marginTop: '12px',
@@ -337,6 +380,7 @@ const Page = () => {
                   </div>
 
                   <div
+                    className="favoritesPrice"
                     style={{
                       width: '100%',
                       marginTop: '12px',
@@ -350,8 +394,9 @@ const Page = () => {
                     {item.price}
                   </div>
 
-                  <button
-                    type="button"
+                  <Link
+                    className="favoritesSellerButton"
+                    href="/seller-details"
                     style={{
                       width: '100%',
                       height: '48px',
@@ -367,17 +412,37 @@ const Page = () => {
                       justifyContent: 'center',
                       gap: '8px',
                       cursor: 'pointer',
+                      textDecoration: 'none',
                     }}
                   >
                     <MdOutlineMessage size={18} />
                     <span>Chat With Seller</span>
-                  </button>
+                  </Link>
                 </div>
               </article>
             ))}
           </div>
         </div>
       </main>
+
+      <nav className="mobileBottomNav favoritesMobileBottomNav" aria-label="Mobile navigation">
+        {[
+          { label: 'Home', icon: MdHomeFilled, href: '/', key: 'home' },
+          { label: 'Search', icon: IoMdSearch, href: '/', key: 'search' },
+          { label: 'Chat', icon: MdOutlineMessage, href: '/', key: 'chat' },
+          { label: 'Order', icon: MdOutlineShoppingCart, href: '/', key: 'order' },
+          { label: 'Profile', icon: CgProfile, href: '/password-security', key: 'profile' },
+        ].map(({ label, icon: Icon, href, key }) => (
+          <Link
+            key={label}
+            href={href}
+            className={`mobileBottomNavItem${key === 'profile' ? ' is-active' : ''}`}
+          >
+            <Icon size={16} />
+            <span>{label}</span>
+          </Link>
+        ))}
+      </nav>
     </div>
   )
 }
