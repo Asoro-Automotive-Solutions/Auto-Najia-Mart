@@ -1,0 +1,5 @@
+@import "tailwindcss";
+@theme {
+  /* This creates the utility class: text-yellow */
+  --color-yellow: #facc15; 
+}
